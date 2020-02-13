@@ -1,4 +1,9 @@
 # simulationAPI
+Rodrigo Araujo (rea20)
+Kyle Brisky (kb325)
+Muthu Arivoli (ma381)
+Thomas Quintanilla (tq11)
+Jackson McNabb (jdm109)
 ## External
 Our external API would be able to start and return information about requested simulations.
 For example, someone using the external API would be able to call predprey simulation and be able to edit the starting configurations of that simulation. Some example of methods that we would include are:
