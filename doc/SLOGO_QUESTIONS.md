@@ -1,5 +1,9 @@
 # SLOGO_QUESTIONS
-
+Rodrigo Araujo (rea20)
+Kyle Brisky (kb325)
+Muthu Arivoli (ma381)
+Thomas Quintanilla (tq11)
+Jackson McNabb (jdm109)
 ### When does parsing need to take place and what does it need to start properly?
 Parsing happens after the written code is complied and it needs all the written code to be error free.
 
