@@ -18,9 +18,11 @@ public class GroupEx extends Executable {
 
 
     @Override
-    public void runCommands(Turtle t) {
+    public int runCommands(Turtle t) {
+        int ret=0;
         for(Executable e:eList){
-            e.runCommands(t);
+            ret = e.runCommands(t);
         }
+        return ret;
     }
 }
