@@ -3,11 +3,11 @@ package slogo.commands;
 import slogo.Turtle;
 import slogo.Variables.Data;
 
-public class IfElse extends Executable {
+public class IfElseEx extends Executable {
     private Data d;
     private Executable trueCommands;
     private Executable falseCommands;
-    public IfElse(Data d, Executable trueCommands, Executable falseCommands){
+    public IfElseEx(Data d, Executable trueCommands, Executable falseCommands){
         this.d=d;
         this.trueCommands=trueCommands;
         this.falseCommands=falseCommands;

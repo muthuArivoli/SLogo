@@ -74,11 +74,11 @@ public class Turtle {
         }
         return setHeading(newHeading);
     }
-    public double setXY(int x, int y){
+    public int setXY(int x, int y){
         double dist = pythagorean(x-xCor,y-yCor);
         xCor=x;
         yCor=y;
-        return dist;
+        return (int) dist;
     }
 
     public int penDown(){
@@ -97,7 +97,7 @@ public class Turtle {
         showing=false;
         return 0;
     }
-    public double home(){
+    public int home(){
         return setXY(0,0);
     }
 

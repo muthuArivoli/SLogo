@@ -3,10 +3,10 @@ package slogo.commands;
 import slogo.Turtle;
 import slogo.Variables.Data;
 
-public class If extends Executable {
+public class IfEx extends Executable {
     private Data d;
     private Executable e;
-    public If(Data d, Executable e){
+    public IfEx(Data d, Executable e){
         this.d=d;
         this.e=e;
     }
