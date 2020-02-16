@@ -2,15 +2,14 @@ package slogo.commands;
 
 import slogo.Turtle;
 import slogo.Variables.CVariable;
-import slogo.Variables.Data;
 
 public class ForEx extends Executable {
     private CVariable v;
-    private Data start;
-    private Data end;
-    private Data increment;
+    private Executable start;
+    private Executable end;
+    private Executable increment;
     private Executable e;
-    public ForEx(CVariable v, Data start, Data end, Data increment, Executable e){
+    public ForEx(CVariable v, Executable start, Executable end, Executable increment, Executable e){
         this.v=v;
         this.start=start;
         this.end = end;
@@ -20,7 +19,7 @@ public class ForEx extends Executable {
     @Override
     public int runCommands(Turtle t) {
         int ret=0;
-        for(int i = start.getData(); i<end.getData();i+=increment.getData()){
+        for(int i = start.runCommands(t); i<end.runCommands(t); i+=increment.runCommands(t)){
             v.setData(i);
             ret=e.runCommands(t);
         }

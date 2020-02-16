@@ -2,9 +2,11 @@ package slogo.Operations.Two;
 
 import slogo.Operations.Single.SOperation;
 
+import java.util.ArrayList;
+
 public class Less extends TOperation {
     @Override
-    public int getResult(int v1, int v2) {
-        return v1<v2? 1:0;
+    public int getResult(ArrayList<Integer> inputs) {
+        return inputs.get(0)<inputs.get(1)? 1:0;
     }
 }

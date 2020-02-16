@@ -1,8 +1,10 @@
 package slogo.Operations.Two;
 
+import java.util.ArrayList;
+
 public class And extends TOperation {
     @Override
-    public int getResult(int v1, int v2) {
-        return (v1!=0)&&(v2!=0)? 1:0;
+    public int getResult(ArrayList<Integer> inputs) {
+        return (inputs.get(0)!=0)&&(inputs.get(1)!=0)? 1:0;
     }
 }

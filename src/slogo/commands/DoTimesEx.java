@@ -2,15 +2,14 @@ package slogo.commands;
 
 import slogo.Turtle;
 import slogo.Variables.CVariable;
-import slogo.Variables.Data;
 
 public class DoTimesEx extends Executable {
     private CVariable v;
-    private Data limit;
+    private Executable limit;
     private Executable e;
 
 
-    public DoTimesEx(CVariable var, Data limit, Executable e){
+    public DoTimesEx(CVariable var, Executable limit, Executable e){
         this.v=var;
         this.limit=limit;
         this.e=e;
@@ -18,7 +17,7 @@ public class DoTimesEx extends Executable {
     @Override
     public int runCommands(Turtle t) {
         int ret=0;
-        for(int i=0;i<limit.getData();i++){
+        for(int i = 0; i<limit.runCommands(t); i++){
             v.setData(i);
             ret=e.runCommands(t);
         }

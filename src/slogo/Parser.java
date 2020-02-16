@@ -1,15 +1,21 @@
 package slogo;
 
+import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 
 import java.util.Scanner;
 
 public class Parser {
 
-    public Executable mainParser(String input){
-        Scanner sc =new Scanner(input);
-        while (sc.hasNextLine()) {
-            Scanner s = new Scanner(sc.nextLine());
+    private VariableHolder myVariables;
+
+    public Parser(){
+        myVariables=new VariableHolder();
+    }
+
+    public Executable mainParser(Scanner input){
+        while (input.hasNextLine()) {
+            Scanner s = new Scanner(input.nextLine());
             while (s.hasNext()) {
                 String word = s.next();
 

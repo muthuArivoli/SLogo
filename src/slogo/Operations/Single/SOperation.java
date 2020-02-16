@@ -1,5 +1,10 @@
 package slogo.Operations.Single;
 
-public abstract class SOperation {
-    public abstract int getResult(int v1);
+import slogo.Operations.Operation;
+
+public abstract class SOperation extends Operation {
+    @Override
+    public int getNumInputs(){
+        return 1;
+    }
 }
