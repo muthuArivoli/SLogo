@@ -11,7 +11,6 @@ public class RightEx extends Executable {
     }
     @Override
     public int runCommands(Turtle t) {
-        System.out.println("right: "+d.runCommands(t));
         return t.left(d.runCommands(t));
     }
     @Override
