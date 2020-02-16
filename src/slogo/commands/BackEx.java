@@ -2,10 +2,12 @@ package slogo.commands;
 
 import slogo.Turtle;
 
+import java.util.ArrayList;
+
 public class BackEx extends Executable {
     private Executable d;
-    public BackEx(Executable d){
-        this.d=d;
+    public BackEx(){
+        setParametersAmounts(1);
     }
     @Override
     public int runCommands(Turtle t) {
@@ -13,7 +15,7 @@ public class BackEx extends Executable {
     }
 
     @Override
-    public int getParamAmount() {
-        return 1;
+    public void setMyParameters(ArrayList<Executable> parameters) {
+        d=parameters.get(0);
     }
 }

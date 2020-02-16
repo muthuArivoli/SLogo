@@ -2,13 +2,14 @@ package slogo.commands;
 
 import slogo.Turtle;
 
+import java.util.ArrayList;
+
 public class RepeatEx extends Executable {
     private Executable e;
     private Executable amount;
 
-    public RepeatEx(Executable e, Executable amount){
-        this.e=e;
-        this.amount=amount;
+    public RepeatEx(){
+        setParametersAmounts(2);
     }
 
 
@@ -19,5 +20,10 @@ public class RepeatEx extends Executable {
             ret=e.runCommands(t);
         }
         return ret;
+    }
+    @Override
+    public void setMyParameters(ArrayList<Executable> parameters) {
+        e=parameters.get(0);
+        amount=parameters.get(1);
     }
 }
