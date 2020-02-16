@@ -1,15 +1,14 @@
 package slogo.commands;
 
 import slogo.Turtle;
-import slogo.Variables.Data;
 
 public class LeftEx extends Executable {
-    private Data d;
-    public LeftEx(Data d){
+    private Executable d;
+    public LeftEx(Executable d){
         this.d=d;
     }
     @Override
     public int runCommands(Turtle t) {
-        return t.left(d.getData());
+        return t.left(d.runCommands(t));
     }
 }

@@ -1,6 +1,9 @@
 package slogo.Variables;
 
-public class CVariable extends Data {
+import slogo.Turtle;
+import slogo.commands.Executable;
+
+public class CVariable extends Executable {
     private String name;
     private int data;
 
@@ -13,14 +16,14 @@ public class CVariable extends Data {
         this.name=name;
         this.data=data;
     }
-    public int getData(){
-        return data;
-    }
+
     public int setData(int data){
         this.data=data;
         return data;
     }
-    public String getName(){
-        return name;
+
+    @Override
+    public int runCommands(Turtle t) {
+        return data;
     }
 }

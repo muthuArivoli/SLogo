@@ -1,9 +1,10 @@
 package slogo.Operations.Single;
 
-public class Log extends SOperation {
+import java.util.ArrayList;
 
+public class Log extends SOperation {
     @Override
-    public int getResult(int v1) {
-        return (int) Math.log(v1);
+    public int getResult(ArrayList<Integer> inputs) {
+        return (int) Math.log(inputs.get(0));
     }
 }

@@ -1,8 +1,10 @@
 package slogo.Operations.Single;
 
+import java.util.ArrayList;
+
 public class Sin extends SOperation {
     @Override
-    public int getResult(int v1) {
-        return (int) Math.sin(Math.toRadians(v1));
+    public int getResult(ArrayList<Integer> inputs) {
+        return (int) Math.sin(Math.toRadians(inputs.get(0)));
     }
 }
