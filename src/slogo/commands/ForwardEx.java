@@ -11,6 +11,7 @@ public class ForwardEx extends Executable {
     }
     @Override
     public int runCommands(Turtle t) {
+        System.out.println("forward: "+d.runCommands(t));
         return t.forward(d.runCommands(t));
     }
 

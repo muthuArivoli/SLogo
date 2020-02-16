@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 public class RightEx extends Executable {
     private Executable d;
-    public RightEx(Executable d){
+    public RightEx(){
         setParametersAmounts(1);
     }
     @Override
     public int runCommands(Turtle t) {
+        System.out.println("right: "+d.runCommands(t));
         return t.left(d.runCommands(t));
     }
     @Override

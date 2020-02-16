@@ -18,32 +18,74 @@ public class Parser {
         myVariables=new VariableHolder();
         eg=new ExecutablesGetter();
     }
+
+
     public Executable parse(Scanner input){
         GroupEx runnableCode =new GroupEx();
         while (input.hasNextLine()) {
             Scanner line = new Scanner(input.nextLine());
             while (line.hasNext()) {
-                String word = line.next();
-                Executable next=getFinishedExecutable(word,input,line);
-
-                runnableCode.addExecutable(next);
+                runnableCode.addExecutable(nextInLine(input,line));
             }
         }
         return runnableCode;
     }
+
+
+
+
     private ArrayList<Executable> getParameters(int amount, Scanner input, Scanner line){
         ArrayList<Executable> ret = new ArrayList<>();
         for(int i = 0; i<amount;i++){
-            mainParser(input,line);
+            System.out.println("param: "+(i+1));
+            //Executable toAdd = mainParser(input,line);
+            //if(toAdd==null)line=new Scanner(input.nextLine());
+            ret.add(mainParser(input,line));
         }
+        System.out.println("Finished finding "+ret.size()+" parameters");
         return ret;
     }
 
     private Executable getFinishedExecutable(String word, Scanner input, Scanner line){
+        System.out.println(word);
+        if(word.equals("[")){
+            Executable group =  groupParser(input,line);
+            System.out.println("groupFinished");
+            return group;
+        }
+        if(word.equals("]")){
+            return null;
+        }
         Executable next=reader(word);
-        next.setParameters(getParameters(next.getParametersAmounts(),input,line));
+        if(next.needsVariable()){
+            next.setVariable(nextVariableInLine(line));
+        }
+        ArrayList<Executable> myParameters=getParameters(next.getParametersAmounts(),input,line);
+        next.setParameters(myParameters);
         return next;
     }
+
+    public Executable groupParser(Scanner input, Scanner line){
+        System.out.println("groupStart");
+        GroupEx group =new GroupEx();
+        while (line.hasNext()) {
+            Executable next=nextInLine(input, line);
+            if(next==null)return group;
+            group.addExecutable(next);
+        }
+        while (input.hasNextLine()) {
+            line = new Scanner(input.nextLine());
+            while (line.hasNext()) {
+                Executable next=nextInLine(input, line);
+                if(next==null)return group;
+                group.addExecutable(next);
+            }
+        }
+        return null;
+    }
+
+
+
 
     public Executable mainParser(Scanner input, Scanner line){
         while (line.hasNext()) {
@@ -55,18 +97,23 @@ public class Parser {
                 return nextInLine(input, line);
             }
         }
+
         return null;
     }
+    public CVariable nextVariableInLine(Scanner line){
+        String word = line.next();
+        return variableReader(word);
+    }
     private Executable nextInLine(Scanner input, Scanner line){
-        if(line.hasNextInt()){
-            int data = line.nextInt();
+        String word = line.next();
+        try {
+            int data = Integer.parseInt(word);
+            System.out.println(data);
             return new CVariable("constant",data);
         }
-        else {
-            String word = line.next();
+        catch (NumberFormatException nfe) {
             return getFinishedExecutable(word,input,line);
         }
-
     }
 
 
@@ -80,6 +127,7 @@ public class Parser {
             return myVariables.getVariable(word.substring(1));
         }
         if(eg.containsKey(word)){
+            System.out.println(word+ " -> Getter");
             return eg.getExecutable(word);
         }
         return null;

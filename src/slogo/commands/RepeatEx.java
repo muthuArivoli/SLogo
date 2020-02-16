@@ -5,8 +5,9 @@ import slogo.Turtle;
 import java.util.ArrayList;
 
 public class RepeatEx extends Executable {
-    private Executable e;
     private Executable amount;
+    private Executable e;
+
 
     public RepeatEx(){
         setParametersAmounts(2);
@@ -23,7 +24,7 @@ public class RepeatEx extends Executable {
     }
     @Override
     public void setMyParameters(ArrayList<Executable> parameters) {
-        e=parameters.get(0);
-        amount=parameters.get(1);
+        amount=parameters.get(0);
+        e=parameters.get(1);
     }
 }

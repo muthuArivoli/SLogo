@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class LeftEx extends Executable {
     private Executable d;
-    public LeftEx(Executable d){
+    public LeftEx(){
         setParametersAmounts(1);
     }
     @Override

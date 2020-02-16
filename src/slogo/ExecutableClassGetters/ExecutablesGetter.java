@@ -15,6 +15,8 @@ public class ExecutablesGetter {
     private HashMap<String,Class> classMap;
 
     public ExecutablesGetter() {
+        OpMap=new HashMap<>();
+        classMap=new HashMap<>();
         setClassMap();
         setOpMap();
     }

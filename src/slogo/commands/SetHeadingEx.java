@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class SetHeadingEx extends Executable {
     private Executable d;
-    public SetHeadingEx(Executable d){
+    public SetHeadingEx(){
         setParametersAmounts(1);
     }
     @Override
