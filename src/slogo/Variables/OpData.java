@@ -11,9 +11,9 @@ public class OpData extends Executable {
     private Operation o;
     private ArrayList<Executable> eList;
 
-    public OpData(Operation o, ArrayList<Executable> eList){
+    public OpData(Operation o){
         this.o=o;
-        this.eList=eList;
+        setParametersAmounts(o.getNumInputs());
     }
     @Override
     public int runCommands(Turtle t) {
@@ -22,5 +22,9 @@ public class OpData extends Executable {
             inputs.add(e.runCommands(t));
         }
         return o.getResult(inputs);
+    }
+    @Override
+    public void setMyParameters(ArrayList<Executable> parameters) {
+        eList=parameters;
     }
 }
