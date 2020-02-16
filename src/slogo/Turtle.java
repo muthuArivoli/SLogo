@@ -34,6 +34,7 @@ public class Turtle {
     public int forward(int pixels){
         xCor+=Math.sin(Math.toRadians(heading))*pixels;
         yCor+=Math.cos(Math.toRadians(heading))*pixels;
+        System.out.println("Forward: "+pixels);
         return pixels;
     }
     public int back(int pixels){
@@ -41,16 +42,19 @@ public class Turtle {
         return pixels;
     }
     public int right(int degrees){
-        heading+=degrees;
+        heading=correctDegrees(heading+degrees);
+        System.out.println("Right: "+degrees);
         return degrees;
     }
     public int left(int degrees){
         heading=correctDegrees(heading-degrees);
+        System.out.println("Left: "+degrees);
         return degrees;
     }
     public int setHeading(int degrees){
         int change = Math.abs(heading-correctDegrees(degrees));
         heading=degrees;
+        System.out.println("Set Heading: "+degrees);
         return change;
     }
     public int towards(int x, int y){
@@ -78,23 +82,28 @@ public class Turtle {
         double dist = pythagorean(x-xCor,y-yCor);
         xCor=x;
         yCor=y;
+        System.out.println("Set X: "+x+", Y: "+y);
         return (int) dist;
     }
 
     public int penDown(){
         penDown=true;
+        System.out.println("Pen Down");
         return 1;
     }
     public int penUp(){
         penDown=false;
+        System.out.println("Pen Up");
         return 0;
     }
     public int showTurtle(){
         showing=true;
+        System.out.println("Show Turtle");
         return 1;
     }
     public int hideTurtle(){
         showing=false;
+        System.out.println("Hide Turtle");
         return 0;
     }
     public int home(){
@@ -112,6 +121,10 @@ public class Turtle {
         while(degrees<0){
             degrees+=360;
         }
+        while(degrees>360){
+            degrees-=360;
+        }
+
         return degrees;
     }
 
