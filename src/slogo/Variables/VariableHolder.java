@@ -22,6 +22,4 @@ public class VariableHolder {
         }
         return myVariables.get(name);
     }
-
-
 }

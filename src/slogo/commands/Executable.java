@@ -27,6 +27,14 @@ public abstract class Executable {
         return false;
     }
 
+    public boolean needsGroupedInputs(){
+        return false;
+    }
+
+    public boolean isFunction(){
+        return false;
+    }
+
     protected void setParametersAmounts(int amount){
         parametersAmounts=amount;
     }

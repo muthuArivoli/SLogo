@@ -21,6 +21,9 @@ public class CVariable extends Executable {
         this.data=data;
         return data;
     }
+    public int getData(){
+        return data;
+    }
 
     @Override
     public int runCommands(Turtle t) {

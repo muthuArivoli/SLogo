@@ -5,7 +5,7 @@ import slogo.Variables.CVariable;
 
 import java.util.ArrayList;
 
-public class ForEx extends VExecutable {
+public class ForEx extends GExecutable {
     private Executable start;
     private Executable end;
     private Executable increment;

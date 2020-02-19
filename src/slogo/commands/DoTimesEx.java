@@ -5,7 +5,7 @@ import slogo.Variables.CVariable;
 
 import java.util.ArrayList;
 
-public class DoTimesEx extends VExecutable {
+public class DoTimesEx extends GExecutable {
     private Executable limit;
     private Executable e;
 
