@@ -1,10 +1,11 @@
-package slogo.ExecutableClassGetters;
+package slogo;
 
 import slogo.Operations.Operation;
 import slogo.Operations.Single.*;
 import slogo.Operations.Two.*;
 import slogo.Variables.OpData;
 import slogo.commands.*;
+import slogo.commands.Queries.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -87,14 +88,29 @@ public class ExecutablesGetter {
         classMap.put("repeat", RepeatEx.class);
         classMap.put("if", IfEx.class);
         classMap.put("ifelse", IfElseEx.class);
+        classMap.put("xcor", XCorQ.class);
+        classMap.put("ycor", YCorQ.class);
+        classMap.put("heading", HeadingQ.class);
+        classMap.put("pendown?", PenDownQ.class);
+        classMap.put("pendownp", PenDownQ.class);
+        classMap.put("showing?", ShowingQ.class);
+        classMap.put("showingp", ShowingQ.class);
+        classMap.put("to", ToEx.class);
+        classMap.put("cs", HomeEx.class); //TO BE CHANGED LATER
     }
     private void setOpMap(){
         OpMap.put("sum",new Sum());
+        OpMap.put("+",new Sum());
         OpMap.put("difference",new Difference());
+        OpMap.put("-",new Difference());
         OpMap.put("product",new Product());
+        OpMap.put("*",new Product());
         OpMap.put("quotient",new Quotient());
+        OpMap.put("/",new Quotient());
         OpMap.put("remainder",new Remainder());
+        OpMap.put("%",new Remainder());
         OpMap.put("minus",new Minus());
+        OpMap.put("~",new Minus());
         OpMap.put("random",new RandOp());
         OpMap.put("sin",new Sin());
         OpMap.put("cos",new Cos());

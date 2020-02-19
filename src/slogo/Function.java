@@ -6,29 +6,31 @@ import slogo.commands.Executable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Function {
+public class Function extends Executable{
     private VariableHolder funcVars;
     private Executable e;
     private ArrayList<String> inputVariableNames;
+    private ArrayList<Executable> myInputs;
     public Function(VariableHolder funcVars, ArrayList<String> inputVariableNames, Executable e){
         this.funcVars=funcVars;
         this.inputVariableNames=inputVariableNames;
         this.e=e;
+        setParametersAmounts(inputVariableNames.size());
     }
 
-    public int runCommand(List<Integer> inputs, Turtle t){
-        int ret=0;
-        if(inputs.size()!=inputVariableNames.size()){
-            System.out.println("Error: incorrect amount of inputs");
-            return ret;
-        }
+    @Override
+    public int runCommands(Turtle t){
         int i=0;
         for(String variableName: inputVariableNames){
-            funcVars.getVariable(variableName).setData(inputs.get(i));
+            funcVars.getVariable(variableName).setData(myInputs.get(i).runCommands(t));
             i++;
         }
-        ret=e.runCommands(t);
-        return ret;
+        return e.runCommands(t);
+    }
+
+    @Override
+    public void setMyParameters(ArrayList<Executable> parameters) {
+        myInputs=parameters;
     }
 
 }

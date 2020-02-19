@@ -4,17 +4,23 @@ import slogo.Turtle;
 
 import java.util.ArrayList;
 
-public class RightEx extends Executable {
+public class ToEx extends Executable {
     private Executable d;
-    public RightEx(){
+    public ToEx(){
         setParametersAmounts(1);
     }
     @Override
     public int runCommands(Turtle t) {
-        return t.right(d.runCommands(t));
+        return d.runCommands(t);
     }
+
     @Override
     public void setMyParameters(ArrayList<Executable> parameters) {
         d=parameters.get(0);
+    }
+
+    @Override
+    public boolean isFunction(){
+        return true;
     }
 }
