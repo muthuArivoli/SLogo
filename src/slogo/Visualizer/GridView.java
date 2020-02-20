@@ -1,5 +1,11 @@
 package slogo.Visualizer;
 
-public class GridView {
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
+public class GridView extends Pane {
+
+    public GridView(double size, Stage primaryStage) {
+
+    }
 }
