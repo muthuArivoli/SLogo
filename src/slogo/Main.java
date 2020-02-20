@@ -1,5 +1,7 @@
 package slogo;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 import slogo.Variables.CVariable;
 import slogo.commands.Executable;
 import slogo.commands.ForEx;
@@ -16,7 +18,7 @@ import java.util.Scanner;
 /**
  * Feel free to completely change this code or delete it entirely. 
  */
-public class Main {
+public class Main extends Application {
     /**
      * Start of the program.
      */
@@ -70,5 +72,10 @@ public class Main {
 
         circle.runCommands(t);
 
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        
     }
 }
