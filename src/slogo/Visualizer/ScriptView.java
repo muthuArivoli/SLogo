@@ -10,13 +10,17 @@ public class ScriptView extends Pane {
 
     private static final double VIEWWIDTH = 10;
     private static final double VIEWHEIGHT = 10;
+    private TextArea textArea;
     private VBox scriptPane;
 
     public ScriptView() {
-        TextArea textArea = new TextArea();
+        textArea = new TextArea();
         textArea.setPrefSize(200, 600);
         scriptPane = new VBox(textArea);
     }
 
     public VBox getPane() {return scriptPane;}
+    public String getScript() {
+        return textArea.getText();
+    }
 }
