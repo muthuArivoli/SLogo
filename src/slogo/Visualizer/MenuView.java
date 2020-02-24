@@ -2,6 +2,9 @@ package slogo.Visualizer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -32,6 +35,8 @@ public class MenuView extends Pane {
     private static final String LANGUAGES = "Languages";
     private static final String STYLE_CSS = "button";
     private HBox menuPane;
+    private ColorPicker picker;
+    private Button run;
 
     public MenuView() {
         menuPane = new HBox();
@@ -50,13 +55,16 @@ public class MenuView extends Pane {
                 );
         ComboBox left = new ComboBox(options);
         Pane spacer = new Pane();
-        Button right = new Button(RUN);
-        ColorPicker picker = new ColorPicker();
+        run = new Button(RUN);
 
+        picker = new ColorPicker();
+//        picker.setOnAction(event -> {
+//            .updateBackgroundColor(picker.getValue());
+//        });
         left.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(left, spacer, picker, right);
+        menuPane.getChildren().addAll(left, spacer, picker, run);
     }
 
 

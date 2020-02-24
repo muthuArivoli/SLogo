@@ -14,12 +14,12 @@ public class Visualizer {
 
     public Visualizer() {
         GridView myGrid = new GridView();
-        ScriptView myScript = new ScriptView();
+        DashboardView myDashboard = new DashboardView();
         MenuView myMenu = new MenuView();
 
         rootPane = new BorderPane();
         myScene = new Scene(rootPane, 800, 600);
-        rootPane.setRight(myScript.getPane());
+        rootPane.setRight(myDashboard.getDashboardPane());
         rootPane.setCenter(myGrid.getPane());
         rootPane.setTop(myMenu.getPane());
     }

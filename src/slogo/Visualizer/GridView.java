@@ -4,6 +4,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GridView extends Pane {
@@ -20,4 +21,8 @@ public class GridView extends Pane {
     }
 
     public GridPane getPane() {return gridPane;}
+
+    public void updateBackgroundColor(Color c) {
+        gridPane.setStyle("-fx-background-color: #" + c.toString());
+    }
 }
