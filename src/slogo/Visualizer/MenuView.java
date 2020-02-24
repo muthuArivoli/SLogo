@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
@@ -13,7 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuView extends Pane {
-
+    public enum ButtonProperty {
+        RUN,
+    }
     private static final double VIEWWIDTH = 10;
     private static final double VIEWHEIGHT = 10;
     private static final String CHINESE = "Chinese";
@@ -27,6 +30,7 @@ public class MenuView extends Pane {
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
     private static final String LANGUAGES = "Languages";
+    private static final String STYLE_CSS = "button";
     private HBox menuPane;
 
     public MenuView() {
@@ -35,25 +39,24 @@ public class MenuView extends Pane {
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                     CHINESE,
-                        ENGLISH,
-                        FRENCH,
-                        GERMAN,
-                        ITALIAN,
-                        PORTUGUESE,
-                        RUSSIAN,
-                        SPANISH,
-                        URDU
+                    ENGLISH,
+                    FRENCH,
+                    GERMAN,
+                    ITALIAN,
+                    PORTUGUESE,
+                    RUSSIAN,
+                    SPANISH,
+                    URDU
                 );
-
         ComboBox left = new ComboBox(options);
         Pane spacer = new Pane();
         Button right = new Button(RUN);
-//        right.setOnMouseClicked();
+        ColorPicker picker = new ColorPicker();
 
         left.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(left, spacer, right);
+        menuPane.getChildren().addAll(left, spacer, picker, right);
     }
 
 

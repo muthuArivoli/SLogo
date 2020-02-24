@@ -1,9 +1,11 @@
 package slogo.Visualizer;
 
+import javafx.beans.property.Property;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import slogo.Visualizer.MenuView.ButtonProperty;
 
 public class Visualizer {
 
@@ -22,5 +24,10 @@ public class Visualizer {
         rootPane.setTop(myMenu.getPane());
     }
 
+//    public Property getProperty(ButtonProperty type) {
+//        return switch (type) {
+//            case RUN -> myRunProperty;
+//        }
+//    }
     public Scene getScene() {return myScene;}
 }
