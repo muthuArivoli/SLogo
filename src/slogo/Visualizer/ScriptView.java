@@ -15,7 +15,7 @@ public class ScriptView extends Pane {
 
     public ScriptView() {
         textArea = new TextArea();
-        textArea.setPrefSize(200, 600);
+        textArea.setPrefSize(228, 600);
         scriptPane = new VBox(textArea);
     }
 
