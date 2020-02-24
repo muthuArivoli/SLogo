@@ -14,25 +14,15 @@ public class GridView extends Pane {
     private GridPane gridPane;
     private Image turtleSource;
     private ImageView turtle;
+    private final static int numCols = 540 ;
+    private final static int numRows = 540 ;
 
     public GridView() {
         gridPane = new GridPane();
         gridPane.setPadding(new Insets(30, 30, 30, 30));
         turtleSource = new Image("turtle.png");
         turtle = resizeImage(turtleSource);
-
-        gridPane.setGridLinesVisible(false);
-        final int numCols = 540 ;
-        final int numRows = 540 ;
-        for (int i = 0; i < numCols; i++) {
-            ColumnConstraints colConst = new ColumnConstraints(1);
-            gridPane.getColumnConstraints().add(colConst);
-        }
-        for (int i = 0; i < numRows; i++) {
-            RowConstraints rowConst = new RowConstraints(1);
-            gridPane.getRowConstraints().add(rowConst);
-        }
-
+        gridSizer(numCols, numRows);
         gridPane.add(turtle, 539, 539);
     }
 
@@ -46,5 +36,16 @@ public class GridView extends Pane {
         result.setSmooth(true);
         result.setCache(true);
         return result;
+    }
+
+    private void gridSizer(int cols, int rows) {
+        for (int i = 0; i < cols; i++) {
+            ColumnConstraints colConst = new ColumnConstraints(1);
+            gridPane.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < rows; i++) {
+            RowConstraints rowConst = new RowConstraints(1);
+            gridPane.getRowConstraints().add(rowConst);
+        }
     }
 }
