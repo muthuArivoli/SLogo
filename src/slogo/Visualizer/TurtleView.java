@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,20 +13,22 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-public class GridView extends Pane {
+public class TurtleView extends Pane {
 
     private Group myGroup;
     private Pane myPane;
 
 
-    public GridView(ImageView turtleImage) {
+    public TurtleView() {
         //will convert to group for liens etc
         myGroup = new Group();
-        myGroup.getChildren().addAll(turtleImage);
         myPane = new Pane();
         myPane.getChildren().addAll(myGroup);
-        myPane.setPrefSize(200, 200);
-
+        myPane.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    }
+    public void addGroup(Group g){
+        myGroup.getChildren().addAll(g);
     }
 
     public Pane getPane() {return myPane;}

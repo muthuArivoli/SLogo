@@ -1,8 +1,12 @@
 package slogo;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
@@ -11,6 +15,9 @@ import slogo.commands.ForEx;
 import slogo.commands.ForwardEx;
 import slogo.commands.HideTurtleEx;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
@@ -24,7 +31,11 @@ import java.util.Scanner;
 public class Main extends Application {
     /**
      * Start of the program.
+     *
+
      */
+
+
     public static void main (String[] args) {
         launch(args);
 
@@ -82,23 +93,29 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ImageView tuti = resizeImage(new Image("turtle.png"));
-
-        Turtle t = new Turtle(tuti);
-
-        Visualizer vis = new Visualizer(tuti);
+        Visualizer vis = new Visualizer();
         primaryStage.setScene(vis.getScene());
         primaryStage.show();
-        t.forward(300);
+
+        Turtle t =vis.addTurtle();
+        BackEndAPI bAPI=new BackEndAPI();
+        vis.getRunButton().setOnAction(event -> {bAPI.buildAndRun(vis.getScript(), t);});
+        vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                bAPI.setLanguage(t1);
+            }
+        });
+
+        //CHOOSE FILE NOT WORKING RN
+        vis.getFileButton().setOnAction(event -> {
+            JFileChooser chooser=new JFileChooser();
+            chooser.setCurrentDirectory(new java.io.File("."));
+            chooser.setDialogTitle("choose file");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("LOGO Files", "logo");
+            chooser.setFileFilter(filter);
+            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        });
     }
-    private ImageView resizeImage(Image input) {
-        ImageView result = new ImageView();
-        result.setImage(input);
-        result.setFitWidth(30);
-        result.setPreserveRatio(true);
-        result.setSmooth(true);
-        result.setCache(true);
-        return result;
-    }
+
 
 }

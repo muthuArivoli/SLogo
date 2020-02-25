@@ -1,5 +1,6 @@
 package slogo.Visualizer;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -22,6 +23,7 @@ public class ScriptView extends Pane {
         scriptPane = new VBox(textArea);
 //        scriptRoot = new HBox(scriptPane);
         VBox.setVgrow(textArea, Priority.ALWAYS);
+        scriptPane.setPadding(new Insets(10,10,10,10));
 //        HBox.setHgrow(scriptPane, Priority.ALWAYS);
     }
 
