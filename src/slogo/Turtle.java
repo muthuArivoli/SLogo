@@ -147,8 +147,9 @@ public class Turtle implements TurtleInterface {
     }
 
     public int clearScreen() {
-        myLines.getChildren().removeAll();
-        return home();
+        int ret = home();
+        myLines.getChildren().clear();
+        return ret;
     }
     public void setPenColor(Paint color){
         currentColor=color;
