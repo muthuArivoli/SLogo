@@ -25,7 +25,7 @@ public class GridView extends Pane {
         turtleSource = new Image("turtle.png");
         turtle = resizeImage(turtleSource);
         gridSizer(numCols, numRows);
-        gridPane.add(turtle, 571, 571);
+        gridPane.add(turtle, 271, 271);
         GridPane.setHalignment(turtle, HPos.CENTER);
         GridPane.setValignment(turtle, VPos.CENTER);
 
