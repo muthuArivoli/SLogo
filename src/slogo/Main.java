@@ -7,6 +7,7 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
@@ -96,6 +97,7 @@ public class Main extends Application {
         Visualizer vis = new Visualizer();
         primaryStage.setScene(vis.getScene());
         primaryStage.show();
+        final FileChooser fileChooser = new FileChooser();
 
         Turtle t =vis.addTurtle();
         BackEndAPI bAPI=new BackEndAPI();
@@ -108,12 +110,10 @@ public class Main extends Application {
 
         //CHOOSE FILE NOT WORKING RN
         vis.getFileButton().setOnAction(event -> {
-            JFileChooser chooser=new JFileChooser();
-            chooser.setCurrentDirectory(new java.io.File("."));
-            chooser.setDialogTitle("choose file");
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("LOGO Files", "logo");
-            chooser.setFileFilter(filter);
-            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            File file = fileChooser.showOpenDialog(primaryStage);
+            if (file != null) {
+                bAPI.runFile(file, t);
+            }
         });
     }
 

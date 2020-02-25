@@ -2,6 +2,8 @@ package slogo;
 
 import slogo.commands.Executable;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,5 +28,16 @@ public class BackEndAPI {
         lp.addPatterns(language);
         lp.addPatterns("Syntax");
         myParser.setLanguage(lp);
+    }
+    public void runFile(File f, Turtle t){
+        Scanner sc = null;
+
+        try {
+            sc = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            System.out.println("the file was not found");
+        }
+        Executable e = myParser.parse(sc);
+        e.runCommands(t);
     }
 }

@@ -81,7 +81,7 @@ public class ExecutablesGetter {
         classMap.put("IsPenDown", PenDownQ.class);
         classMap.put("IsShowing", ShowingQ.class);
         classMap.put("MakeUserInstruction", ToEx.class);
-        classMap.put("ClearScreen", ClearScreenEx.class); //TO BE CHANGED LATER
+        classMap.put("ClearScreen", ClearScreenEx.class);
     }
     private void setOpMap(){
         OpMap.put("Sum",new Sum());
