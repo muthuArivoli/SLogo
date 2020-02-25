@@ -1,6 +1,8 @@
 package slogo;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
@@ -25,6 +27,8 @@ public class Main extends Application {
      */
     public static void main (String[] args) {
         launch(args);
+
+
 //
 //        Parser p=new Parser();
 //        Turtle t=new Turtle();
@@ -78,8 +82,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Visualizer vis = new Visualizer();
+        ImageView tuti = resizeImage(new Image("turtle.png"));
+
+        Turtle t = new Turtle(tuti);
+
+        Visualizer vis = new Visualizer(tuti);
         primaryStage.setScene(vis.getScene());
         primaryStage.show();
+        t.forward(300);
     }
+    private ImageView resizeImage(Image input) {
+        ImageView result = new ImageView();
+        result.setImage(input);
+        result.setFitWidth(30);
+        result.setPreserveRatio(true);
+        result.setSmooth(true);
+        result.setCache(true);
+        return result;
+    }
+
 }

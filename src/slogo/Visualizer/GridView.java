@@ -3,6 +3,7 @@ package slogo.Visualizer;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.image.Image;
@@ -13,47 +14,20 @@ import java.awt.*;
 
 public class GridView extends Pane {
 
-    private GridPane gridPane;
-    private Image turtleSource;
-    private ImageView turtle;
-    private final static int numCols = 572 ;
-    private final static int numRows = 572 ;
+    private Group myGroup;
+    private Pane myPane;
 
-    public GridView() {
-        gridPane = new GridPane();
-        gridPane.setPadding(new Insets(0, 0, 0, 0));
-        turtleSource = new Image("turtle.png");
-        turtle = resizeImage(turtleSource);
-        gridSizer(numCols, numRows);
-        gridPane.add(turtle, 571, 571);
-        GridPane.setHalignment(turtle, HPos.CENTER);
-        GridPane.setValignment(turtle, VPos.CENTER);
+
+    public GridView(ImageView turtleImage) {
+        //will convert to group for liens etc
+        myGroup = new Group();
+        myGroup.getChildren().addAll(turtleImage);
+        myPane = new Pane();
+        myPane.getChildren().addAll(myGroup);
+        myPane.setPrefSize(200, 200);
 
     }
 
-    public GridPane getPane() {return gridPane;}
+    public Pane getPane() {return myPane;}
 
-    private ImageView resizeImage(Image input) {
-        ImageView result = new ImageView();
-        result.setImage(input);
-        result.setFitWidth(30);
-        result.setPreserveRatio(true);
-        result.setSmooth(true);
-        result.setCache(true);
-        return result;
-    }
-
-    private void gridSizer(int cols, int rows) {
-        for (int i = 0; i < cols; i++) {
-            ColumnConstraints colConst = new ColumnConstraints(1);
-            gridPane.getColumnConstraints().add(colConst);
-            colConst.setHgrow(Priority.NEVER);
-
-        }
-        for (int i = 0; i < rows; i++) {
-            RowConstraints rowConst = new RowConstraints(1);
-            gridPane.getRowConstraints().add(rowConst);
-            rowConst.setVgrow(Priority.NEVER);
-        }
-    }
 }

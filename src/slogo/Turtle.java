@@ -1,6 +1,10 @@
 package slogo;
 
-public class Turtle {
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import slogo.configuration.TurtleInterface;
+
+public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     private int xCor;
@@ -8,13 +12,14 @@ public class Turtle {
     private int heading;
     private boolean penDown;
     private boolean showing;
-
-    public Turtle(){
+    private ImageView turtleImage;
+    public Turtle(ImageView turtleImage){
         this.xCor=0;
         this.yCor=0;
         this.heading=0;
         this.penDown=true;
         this.showing=true;
+        this.turtleImage = turtleImage;
     }
     public int getXCor(){
         return xCor;
@@ -35,8 +40,12 @@ public class Turtle {
         xCor+=Math.sin(Math.toRadians(heading))*pixels;
         yCor+=Math.cos(Math.toRadians(heading))*pixels;
         System.out.println("Forward: "+pixels);
+        moveTurtleImage();
         return pixels;
     }
+
+
+
     public int back(int pixels){
         forward(-pixels);
         return pixels;
@@ -110,7 +119,9 @@ public class Turtle {
         return setXY(0,0);
     }
 
-
+    public int clearScreen() {
+        return 0;
+    }
 
     private double pythagorean(double a, double b){
         double cSquared= (a*a)+(b*b);
@@ -126,6 +137,13 @@ public class Turtle {
         }
 
         return degrees;
+    }
+
+    // Image methods below --- :)
+    private void moveTurtleImage() {
+        turtleImage.setX(xCor);
+        turtleImage.setY(yCor);
+        System.out.println(yCor);
     }
 
 

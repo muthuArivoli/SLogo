@@ -48,7 +48,7 @@ public class MenuView extends Pane {
         ComboBox left = new ComboBox(options);
         Pane spacer = new Pane();
         Button right = new Button(RUN);
-//        right.setOnMouseClicked();
+        //right.setOnMouseClicked();
 
         left.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
