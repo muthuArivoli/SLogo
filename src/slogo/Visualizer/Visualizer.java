@@ -43,15 +43,13 @@ public class Visualizer {
         myTurtleView.addGroup(t.getTurtleGroup());
         return t;
     }
-    public Button getRunButton(){
-        return myMenu.getRunButton();
-    }
+    public Button getRunButton(){ return myMenu.getRunButton(); }
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
+    public Button getFileButton(){return myMenu.getFileButton();}
+    public Button getHelpButton(){return myMenu.getHelpButton();}
     public String getScript(){
         return myScript.getScript();
     }
-    public Button getFileButton(){return myMenu.getFileButton();}
-
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");

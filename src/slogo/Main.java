@@ -102,6 +102,7 @@ public class Main extends Application {
         Turtle t =vis.addTurtle();
         BackEndAPI bAPI=new BackEndAPI();
         vis.getRunButton().setOnAction(event -> {bAPI.buildAndRun(vis.getScript(), t);});
+//        vis.getHelpButton().setOnAction(event -> {);
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);

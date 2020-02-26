@@ -55,7 +55,7 @@ public class MenuView extends Pane {
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
-        HBox right =new HBox(helpButton, fileButton, runButton);
+        HBox right = new HBox(helpButton, fileButton, runButton);
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
@@ -66,4 +66,5 @@ public class MenuView extends Pane {
     public Button getRunButton(){return runButton;}
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
+    public Button getHelpButton(){return helpButton;}
 }
