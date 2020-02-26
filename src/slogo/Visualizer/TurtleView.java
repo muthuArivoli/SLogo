@@ -31,6 +31,11 @@ public class TurtleView extends Pane {
         myGroup.getChildren().addAll(g);
     }
 
+    public void updateBackgroundColor(Color c) {
+        String hex = c.toString().substring(2,10);
+        myPane.setStyle("-fx-background-color: #" + hex);
+    }
+
     public Pane getPane() {return myPane;}
 
 }

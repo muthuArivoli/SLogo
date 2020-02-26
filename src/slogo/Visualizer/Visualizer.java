@@ -19,23 +19,28 @@ public class Visualizer {
     private Scene myScene;
     private TurtleView myTurtleView;
     private MenuView myMenu;
-    private ScriptView myScript;
+    private DashboardView myDashboard;
 
 
     public Visualizer() {
 
         myTurtleView = new TurtleView();
-        myScript = new ScriptView();
-        myMenu = new MenuView();
+        myDashboard = new DashboardView();
+        myMenu = new MenuView(myTurtleView);
 
         rootPane = new BorderPane();
-        myScene = new Scene(rootPane, 1000, 800);
-        rootPane.setRight(myScript.getPane());
+        myScene = new Scene(rootPane, 1200, 800);
+        rootPane.setRight(myDashboard.getDashboardPane());
         rootPane.setCenter(myTurtleView.getPane());
         rootPane.setPadding(new Insets(10,10,10,10));
         rootPane.setTop(myMenu.getPane());
     }
 
+//    public Property getProperty(ButtonProperty type) {
+//        return switch (type) {
+//            case RUN -> myRunProperty;
+//        }
+//    }
     public Scene getScene() {return myScene;}
 
     public Turtle addTurtle(){
@@ -43,13 +48,16 @@ public class Visualizer {
         myTurtleView.addGroup(t.getTurtleGroup());
         return t;
     }
-    public Button getRunButton(){ return myMenu.getRunButton(); }
+    public void updateHistory(String script) {
+        myDashboard.getPastScript().addScript(script);
+    }
+
+    public Button getRunButton(){return myMenu.getRunButton();}
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
-    public String getScript(){
-        return myScript.getScript();
-    }
+    public String getScript(){return myDashboard.getScript();}
+
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
@@ -57,5 +65,4 @@ public class Visualizer {
         alert.setContentText(message2);
         alert.showAndWait();
     }
-
 }
