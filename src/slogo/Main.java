@@ -96,6 +96,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Visualizer vis = new Visualizer();
         primaryStage.setScene(vis.getScene());
+        primaryStage.setResizable(false);
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
