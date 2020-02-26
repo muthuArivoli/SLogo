@@ -15,7 +15,7 @@ public class Visualizer {
     public Visualizer() {
         GridView myGrid = new GridView();
         DashboardView myDashboard = new DashboardView();
-        MenuView myMenu = new MenuView();
+        MenuView myMenu = new MenuView(myGrid);
 
         rootPane = new BorderPane();
         myScene = new Scene(rootPane, 800, 600);

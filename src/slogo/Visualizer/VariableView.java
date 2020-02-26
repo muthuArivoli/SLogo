@@ -9,7 +9,8 @@ public class VariableView extends TextArea {
   private TextArea  variableText;
   public VariableView(String promptText) {
     variableText = new TextArea(promptText);
-    variableText.setMaxSize(200,300);
+    variableText.setMinSize(100,100);
+    variableText.setMaxSize(200,200);
   }
 
   private void displayVariables(List<String> variableList) {

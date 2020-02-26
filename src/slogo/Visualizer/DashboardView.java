@@ -11,8 +11,8 @@ public class DashboardView extends Pane {
   public DashboardView() {
     dashboardPane = new VBox();
     ScriptView script = new ScriptView();
-    VariableView variables = new VariableView();
-    dashboardPane.getChildren().addAll(script,variables);
+//    VariableView variables = new VariableView();
+    dashboardPane.getChildren().addAll(script);
 
     dashboardPane.setMaxWidth(Double.MAX_VALUE);
     dashboardPane.setAlignment(Pos.CENTER_RIGHT);
