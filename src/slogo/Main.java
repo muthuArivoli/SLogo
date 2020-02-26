@@ -106,19 +106,31 @@ public class Main extends Application {
         Turtle t =vis.addTurtle();
         BackEndAPI bAPI=new BackEndAPI();
         vis.getRunButton().setOnAction(event -> {bAPI.buildAndRun(vis.getScript(), t);});
-        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Help Dialogue");
-                alert.setHeaderText("Commands List");
-                alert.setContentText("[insert all commands here]");
-                alert.showAndWait();
-            }
-        });
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
+            }
+        });
+        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Help Dialogue");
+                alert.setHeaderText("Commands List");
+                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
+                                     "BACK/BK                           [pixels]\n\n" +
+                                     "LEFT/LT                             [degrees]\n\n" +
+                                     "RIGHT/RT                          [degrees]\n\n" +
+                                     "SETHEADING/SETH     [degrees]\n\n" +
+                                     "TOWARDS                        [x y]\n\n" +
+                                     "SETXY/GOTO                  [x y]\n\n" +
+                                     "PENDOWN/PD\n\n" +
+                                     "PENUP/PU\n\n" +
+                                     "SHOWTURTLE/ST\n\n" +
+                                     "HIDETURTLE/HT\n\n" +
+                                     "HOME\n\n" +
+                                     "CLEARSCREEN/CS\n\n");
+                alert.showAndWait();
             }
         });
 
