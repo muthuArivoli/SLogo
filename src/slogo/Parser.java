@@ -15,11 +15,15 @@ public class Parser {
     private VariableHolder mainVariables;
     private ExecutablesGetter eg;
     private HashMap<String,Function> myFunctions;
+    private LangParser myLangParser;
 
     public Parser(){
         mainVariables=new VariableHolder();
         eg=new ExecutablesGetter();
         myFunctions=new HashMap<>();
+        myLangParser=new LangParser();
+        myLangParser.addPatterns("English");
+        myLangParser.addPatterns("Syntax");
     }
 
     public Executable parse(Scanner input){
@@ -40,6 +44,10 @@ public class Parser {
         return runnableCode;
     }
 
+    public void setLanguage(LangParser lp){
+        myLangParser=lp;
+    }
+
     private ArrayList<Executable> getParameters(int amount, Scanner input, Scanner line, VariableHolder myVariables){
         ArrayList<Executable> ret = new ArrayList<>();
         for(int i = 0; i<amount;i++){
@@ -51,43 +59,54 @@ public class Parser {
 
     private Executable getFinishedExecutable(String word, Scanner input, Scanner line, VariableHolder myVariables){
         System.out.println(word);
-        try {
-            int data = Integer.parseInt(word);
-            return new CVariable("constant",data);
-        }
-        catch (NumberFormatException nfe) {
-            if (word.equals("[")) {
+        String langWord = myLangParser.getSymbol(word);
+        Executable next;
+        switch(langWord)
+        {
+            case "Constant":
+                try {
+                    int data = Integer.parseInt(word);
+                    return new CVariable("constant",data);
+                }
+                catch (NumberFormatException nfe) {
+                    System.out.println("wrong number format: " + word);
+                }
+            case "Variable":
+                return variableReader(word, myVariables);
+            case "ListStart":
                 Executable group = groupParser(input, line, myVariables);
                 System.out.println("groupFinished");
                 return group;
-            }
-
-            if (word.equals("]")) {
+            case "ListEnd":
                 System.out.println("trying to end a group that never started");
-            }
-
-            Executable next = reader(word, myVariables);
-            if(next==null){
-                System.out.println("reader returned null");
-                return null;
-            }
-
-            if(next.isFunction()){
-                next.setParameters(toParams(createFunction(input, line)));
-            }
-            else if(next.needsGroupedInputs()){
-                if(groupedInformationStarted(line)) {
-                    setVariableIfNeeded(next,line,myVariables);
-                    next.setParameters(getGroupedParameters(next.getParametersAmounts(), input, line, myVariables));
-                }
-            }
-            else {
-                setVariableIfNeeded(next,line,myVariables);
+                break;
+            case "Command":
+                next = funcReader(word, myVariables);
                 next.setParameters(getParameters(next.getParametersAmounts(), input, line, myVariables));
-            }
-            System.out.println("finished: "+word);
-            return next;
+                return next;
+            default:
+                next = commandReader(langWord, myVariables);
+                if(next==null){
+                    System.out.println("reader returned null");
+                    return null;
+                }
+                if(next.isFunction()){
+                    next.setParameters(toParams(createFunction(input, line)));
+                }
+                else if(next.needsGroupedInputs()){
+                    if(groupedInformationStarted(line)) {
+                        setVariableIfNeeded(next,line,myVariables);
+                        next.setParameters(getGroupedParameters(next.getParametersAmounts(), input, line, myVariables));
+                    }
+                }
+                else {
+                    setVariableIfNeeded(next,line,myVariables);
+                    next.setParameters(getParameters(next.getParametersAmounts(), input, line, myVariables));
+                }
+                System.out.println("finished: "+word);
+                return next;
         }
+        return null;
     }
 
     private GroupEx groupParser(Scanner input, Scanner line, VariableHolder myVariables){
@@ -137,18 +156,16 @@ public class Parser {
         return null;
     }
 
-    private Executable reader(String word, VariableHolder myVariables){
-        word=word.toLowerCase();
-        if(word.equals("")){
-            System.out.println("no word given to the reader");
-            return null;
-        }
-        if(word.charAt(0)==':'){
-            return myVariables.getVariable(word.substring(1));
-        }
+    private Executable commandReader(String word, VariableHolder myVariables){
         if(eg.containsKey(word)){
             return eg.getExecutable(word);
         }
+        System.out.println("reader couldn't read: "+word);
+        return null;
+    }
+
+    private Executable funcReader(String word, VariableHolder myVariables){
+        word=word.toLowerCase();
         if(myFunctions.containsKey(word)){
             return new CommandEx(myFunctions.get(word));
         }
@@ -223,6 +240,7 @@ public class Parser {
 
     private CVariable nextVariableInLine(Scanner line, VariableHolder myVariables){
         String word = line.next();
+        System.out.println(word);
         return variableReader(word, myVariables);
     }
 
@@ -233,7 +251,6 @@ public class Parser {
             return null;
         }
         if(word.charAt(0)==':'){
-            System.out.println(word);
             return myVariables.getVariable(word.substring(1));
         }
         else {

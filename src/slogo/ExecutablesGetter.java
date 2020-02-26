@@ -23,12 +23,10 @@ public class ExecutablesGetter {
     }
 
     public boolean containsKey(String s){
-        s=s.toLowerCase();
         return OpMap.containsKey(s)||classMap.containsKey(s);
     }
 
     public Executable getExecutable(String s){
-        s=s.toLowerCase();
         if(!containsKey(s)){
             System.out.println("given string is not a key");
         }
@@ -59,76 +57,53 @@ public class ExecutablesGetter {
     }
 
     private void setClassMap() {
-        classMap.put("make", SetEx.class);
-        classMap.put("set", SetEx.class);
-        classMap.put("dotimes", DoTimesEx.class);
-        classMap.put("for", ForEx.class);
-        classMap.put("forward", ForwardEx.class);
-        classMap.put("fd", ForwardEx.class);
-        classMap.put("back", BackEx.class);
-        classMap.put("bk", BackEx.class);
-        classMap.put("left", LeftEx.class);
-        classMap.put("lt", LeftEx.class);
-        classMap.put("right", RightEx.class);
-        classMap.put("rt", RightEx.class);
-        classMap.put("setheading", SetHeadingEx.class);
-        classMap.put("seth", SetHeadingEx.class);
-        classMap.put("towards", TowardsEx.class);
-        classMap.put("setxy", SetXYEx.class);
-        classMap.put("goto", SetXYEx.class);
-        classMap.put("pendown", PenDownEx.class);
-        classMap.put("pd", PenDownEx.class);
-        classMap.put("penup", PenUpEx.class);
-        classMap.put("pu", PenUpEx.class);
-        classMap.put("showturtle", ShowTurtleEx.class);
-        classMap.put("st", ShowTurtleEx.class);
-        classMap.put("hideturtle", HideTurtleEx.class);
-        classMap.put("ht", HideTurtleEx.class);
-        classMap.put("home", HomeEx.class);
-        classMap.put("repeat", RepeatEx.class);
-        classMap.put("if", IfEx.class);
-        classMap.put("ifelse", IfElseEx.class);
-        classMap.put("xcor", XCorQ.class);
-        classMap.put("ycor", YCorQ.class);
-        classMap.put("heading", HeadingQ.class);
-        classMap.put("pendown?", PenDownQ.class);
-        classMap.put("pendownp", PenDownQ.class);
-        classMap.put("showing?", ShowingQ.class);
-        classMap.put("showingp", ShowingQ.class);
-        classMap.put("to", ToEx.class);
-        classMap.put("cs", HomeEx.class); //TO BE CHANGED LATER
+        classMap.put("MakeVariable", SetEx.class);
+        classMap.put("DoTimes", DoTimesEx.class);
+        classMap.put("For", ForEx.class);
+        classMap.put("Forward", ForwardEx.class);
+        classMap.put("Backward", BackEx.class);
+        classMap.put("Left", LeftEx.class);
+        classMap.put("Right", RightEx.class);
+        classMap.put("SetHeading", SetHeadingEx.class);
+        classMap.put("SetTowards", TowardsEx.class);
+        classMap.put("SetPosition", SetXYEx.class);
+        classMap.put("PenDown", PenDownEx.class);
+        classMap.put("PenUp", PenUpEx.class);
+        classMap.put("ShowTurtle", ShowTurtleEx.class);
+        classMap.put("HideTurtle", HideTurtleEx.class);
+        classMap.put("Home", HomeEx.class);
+        classMap.put("Repeat", RepeatEx.class);
+        classMap.put("If", IfEx.class);
+        classMap.put("IfElse", IfElseEx.class);
+        classMap.put("XCoordinate", XCorQ.class);
+        classMap.put("YCoordinate", YCorQ.class);
+        classMap.put("Heading", HeadingQ.class);
+        classMap.put("IsPenDown", PenDownQ.class);
+        classMap.put("IsShowing", ShowingQ.class);
+        classMap.put("MakeUserInstruction", ToEx.class);
+        classMap.put("ClearScreen", ClearScreenEx.class);
     }
     private void setOpMap(){
-        OpMap.put("sum",new Sum());
-        OpMap.put("+",new Sum());
-        OpMap.put("difference",new Difference());
-        OpMap.put("-",new Difference());
-        OpMap.put("product",new Product());
-        OpMap.put("*",new Product());
-        OpMap.put("quotient",new Quotient());
-        OpMap.put("/",new Quotient());
-        OpMap.put("remainder",new Remainder());
-        OpMap.put("%",new Remainder());
-        OpMap.put("minus",new Minus());
-        OpMap.put("~",new Minus());
-        OpMap.put("random",new RandOp());
-        OpMap.put("sin",new Sin());
-        OpMap.put("cos",new Cos());
-        OpMap.put("tan",new Tan());
-        OpMap.put("atan",new ATan());
-        OpMap.put("log",new Log());
-        OpMap.put("pow",new Pow());
-        OpMap.put("less?",new Less());
-        OpMap.put("lessp",new Less());
-        OpMap.put("greater?",new Greater());
-        OpMap.put("greaterp",new Greater());
-        OpMap.put("equal?",new Equal());
-        OpMap.put("equalp",new Equal());
-        OpMap.put("notequal?",new NotEqual());
-        OpMap.put("notequalp",new NotEqual());
-        OpMap.put("and",new And());
-        OpMap.put("or",new Or());
-        OpMap.put("not",new Not());
+        OpMap.put("Sum",new Sum());
+        OpMap.put("Difference",new Difference());
+        OpMap.put("Product",new Product());
+        OpMap.put("Quotient",new Quotient());
+        OpMap.put("Remainder",new Remainder());
+        OpMap.put("Minus",new Minus());
+        OpMap.put("Random",new RandOp());
+        OpMap.put("Sine",new Sin());
+        OpMap.put("Cosine",new Cos());
+        OpMap.put("Tangent",new Tan());
+        OpMap.put("ArcTangent",new ATan());
+        OpMap.put("NaturalLog",new Log());
+        OpMap.put("Power",new Pow());
+        OpMap.put("LessThan",new Less());
+        OpMap.put("GreaterThan",new Greater());
+        OpMap.put("Equal",new Equal());
+        OpMap.put("NotEqual",new NotEqual());
+        OpMap.put("And",new And());
+        OpMap.put("Or",new Or());
+        OpMap.put("Not",new Not());
     }
 }
 

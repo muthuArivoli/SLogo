@@ -5,12 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class MenuView extends Pane {
 
@@ -26,8 +24,12 @@ public class MenuView extends Pane {
     private static final String SPANISH = "Spanish";
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
+    private static final String FILE = "Run File";
     private static final String LANGUAGES = "Languages";
     private HBox menuPane;
+    private Button runButton;
+    private ComboBox langSelection;
+    private Button fileButton;
 
     public MenuView() {
         menuPane = new HBox();
@@ -45,17 +47,20 @@ public class MenuView extends Pane {
                         URDU
                 );
 
-        ComboBox left = new ComboBox(options);
-        Pane spacer = new Pane();
-        Button right = new Button(RUN);
-//        right.setOnMouseClicked();
 
-        left.setPromptText(LANGUAGES);
+        langSelection = new ComboBox(options);
+        Pane spacer = new Pane();
+        runButton = new Button(RUN);
+        fileButton = new Button(FILE);
+        HBox right =new HBox(fileButton, runButton);
+        langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(left, spacer, right);
+        menuPane.getChildren().addAll(langSelection, spacer, right);
+        menuPane.setPadding(new Insets(10,10,10,10));
     }
-
-
     public HBox getPane() {return menuPane;}
+    public Button getRunButton(){return runButton;}
+    public ComboBox getLangSelection(){return langSelection;}
+    public Button getFileButton(){return fileButton;}
 }
