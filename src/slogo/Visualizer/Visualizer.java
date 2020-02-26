@@ -27,7 +27,7 @@ public class Visualizer {
         myMenu = new MenuView(myTurtleView);
 
         rootPane = new BorderPane();
-        myScene = new Scene(rootPane, 1000, 800);
+        myScene = new Scene(rootPane, 1200, 800);
         rootPane.setRight(myDashboard.getDashboardPane());
         rootPane.setCenter(myTurtleView.getPane());
         rootPane.setPadding(new Insets(10,10,10,10));
