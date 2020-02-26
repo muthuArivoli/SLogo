@@ -106,8 +106,13 @@ public class Main extends Application {
         Turtle t =vis.addTurtle();
         BackEndAPI bAPI=new BackEndAPI();
         vis.getRunButton().setOnAction(event -> {
-            bAPI.buildAndRun(vis.getScript(), t);
-            vis.updateHistory(vis.getScript());
+            try {
+                bAPI.buildAndRun(vis.getScript(), t);
+                vis.updateHistory(vis.getScript());
+            }
+            catch(IncorrectCommandException ice){
+                vis.alertCreator("Build Failed",ice.getMessage());
+            }
         });
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {

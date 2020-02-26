@@ -170,7 +170,8 @@ public class Parser {
             return new CommandEx(myFunctions.get(word));
         }
         System.out.println("reader couldn't read: "+word);
-        return null;
+        throw new IncorrectCommandException("reader couldn't read: "+word);
+        //return null;
     }
 
     private boolean createFunction(Scanner input, Scanner line){
