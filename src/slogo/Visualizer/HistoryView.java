@@ -3,17 +3,18 @@ package slogo.Visualizer;
 import javafx.scene.control.TextArea;
 
 public class HistoryView extends TextArea {
+  private static final String PLACEHOLDER = "This shows previously ran scripts";
   private TextArea historyText;
   private int counter;
-  public HistoryView(String promptText) {
+  public HistoryView() {
+    super();
+    this.setPromptText(PLACEHOLDER);
+    this.setMinHeight(150);
     counter = 0;
-    historyText = new TextArea(promptText);
-    historyText.setMinSize(100,100);
-    historyText.setMaxSize(200,200);
   }
 
   protected void addScript(String script) {
     counter++;
-    historyText.appendText("Script #" + counter + " ran:\n" + script + "\n\n");
+    this.appendText("Script #" + counter + " ran:\n" + script + "\n\n");
   }
 }

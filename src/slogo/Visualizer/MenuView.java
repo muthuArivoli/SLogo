@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
 
 public class MenuView extends Pane {
     public enum ButtonProperty {
@@ -36,15 +37,18 @@ public class MenuView extends Pane {
     private static final String SPANISH = "Spanish";
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
+    private static final String FILE = "Run File";
     private static final String LANGUAGES = "Languages";
     private static final String STYLE_CSS = "button";
-    private static final String HELP_PAGE = "https://www2.cs.duke.edu/courses/spring20/compsci308/assign/03_parser/commands.php";
+    private static final String HELP = "help";
     private HBox menuPane;
     private ColorPicker picker;
-    private Button run;
-    Hyperlink help;
+    private Button runButton;
+    private Button helpButton;
+    private ComboBox langSelection;
+    private Button fileButton;
 
-    public MenuView(GridView grid) {
+    public MenuView(TurtleView turtle) {
         menuPane = new HBox();
 
         ObservableList<String> options =
@@ -59,25 +63,29 @@ public class MenuView extends Pane {
                     SPANISH,
                     URDU
                 );
-        ComboBox left = new ComboBox(options);
-        help = new Hyperlink();
 
-        final WebView browser = new WebView();
-        final WebEngine webEngine = browser.getEngine();
-        help.setText("Help...");
-
-        Pane spacer = new Pane();
-        run = new Button(RUN);
+        langSelection = new ComboBox(options);
+        helpButton = new Button(HELP);
 
         picker = new ColorPicker();
+        Pane spacer = new Pane();
+        runButton = new Button(RUN);
+        fileButton = new Button(FILE);
+
         picker.setOnAction(event -> {
-            grid.updateBackgroundColor(picker.getValue());
+          turtle.updateBackgroundColor(picker.getValue());
         });
-        left.setPromptText(LANGUAGES);
+
+        HBox right = new HBox(picker, fileButton, runButton);
+        langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(left, help, spacer, picker, run);
+        menuPane.getChildren().addAll(langSelection, spacer, right);
+        menuPane.setPadding(new Insets(10,10,10,10));
     }
 
     public HBox getPane() {return menuPane;}
+    public Button getRunButton(){return runButton;}
+    public ComboBox getLangSelection(){return langSelection;}
+    public Button getFileButton(){return fileButton;}
 }
