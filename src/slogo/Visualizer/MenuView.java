@@ -2,16 +2,29 @@ package slogo.Visualizer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ToolBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javafx.scene.control.ListView;
 
 public class MenuView extends Pane {
-
+    public enum ButtonProperty {
+        RUN,
+    }
     private static final double VIEWWIDTH = 10;
     private static final double VIEWHEIGHT = 10;
     private static final String CHINESE = "Chinese";
@@ -26,39 +39,51 @@ public class MenuView extends Pane {
     private static final String RUN = "Run";
     private static final String FILE = "Run File";
     private static final String LANGUAGES = "Languages";
+    private static final String STYLE_CSS = "button";
+    private static final String HELP = "help";
     private HBox menuPane;
+    private ColorPicker picker;
     private Button runButton;
+    private Button helpButton;
     private ComboBox langSelection;
     private Button fileButton;
 
-    public MenuView() {
+    public MenuView(TurtleView turtle) {
         menuPane = new HBox();
 
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                     CHINESE,
-                        ENGLISH,
-                        FRENCH,
-                        GERMAN,
-                        ITALIAN,
-                        PORTUGUESE,
-                        RUSSIAN,
-                        SPANISH,
-                        URDU
+                    ENGLISH,
+                    FRENCH,
+                    GERMAN,
+                    ITALIAN,
+                    PORTUGUESE,
+                    RUSSIAN,
+                    SPANISH,
+                    URDU
                 );
 
-
         langSelection = new ComboBox(options);
+        helpButton = new Button(HELP);
+
+        picker = new ColorPicker();
         Pane spacer = new Pane();
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
-        HBox right =new HBox(fileButton, runButton);
+
+        picker.setOnAction(event -> {
+          turtle.updateBackgroundColor(picker.getValue());
+        });
+
+        HBox right = new HBox(picker, fileButton, runButton);
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
         menuPane.getChildren().addAll(langSelection, spacer, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
+
     public HBox getPane() {return menuPane;}
     public Button getRunButton(){return runButton;}
     public ComboBox getLangSelection(){return langSelection;}
