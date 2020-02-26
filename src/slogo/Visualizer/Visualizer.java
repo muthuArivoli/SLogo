@@ -4,7 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import slogo.Turtle;
@@ -49,5 +51,13 @@ public class Visualizer {
         return myScript.getScript();
     }
     public Button getFileButton(){return myMenu.getFileButton();}
+
+    public void alertCreator(String message1, String message2) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText(message1);
+        alert.setContentText(message2);
+        alert.showAndWait();
+    }
 
 }
