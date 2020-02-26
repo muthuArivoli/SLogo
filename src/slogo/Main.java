@@ -130,7 +130,7 @@ public class Main extends Application {
                                      "HIDETURTLE/HT\n\n" +
                                      "HOME\n\n" +
                                      "CLEARSCREEN/CS\n\n");
-                alert.showAndWait();
+                alert.show();
             }
         });
 
