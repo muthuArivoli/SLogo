@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -103,7 +106,16 @@ public class Main extends Application {
         Turtle t =vis.addTurtle();
         BackEndAPI bAPI=new BackEndAPI();
         vis.getRunButton().setOnAction(event -> {bAPI.buildAndRun(vis.getScript(), t);});
-//        vis.getHelpButton().setOnAction(event -> {);
+        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Help Dialogue");
+                alert.setHeaderText("Commands List");
+                alert.setContentText("[insert all commands here]");
+                alert.showAndWait();
+            }
+        });
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
