@@ -25,9 +25,11 @@ public class MenuView extends Pane {
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
     private static final String FILE = "Run File";
+    private static final String HELP = "Help";
     private static final String LANGUAGES = "Languages";
     private HBox menuPane;
     private Button runButton;
+    private Button helpButton;
     private ComboBox langSelection;
     private Button fileButton;
 
@@ -52,7 +54,8 @@ public class MenuView extends Pane {
         Pane spacer = new Pane();
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
-        HBox right =new HBox(fileButton, runButton);
+        helpButton = new Button(HELP);
+        HBox right =new HBox(helpButton, fileButton, runButton);
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
