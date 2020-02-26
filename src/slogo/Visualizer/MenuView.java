@@ -38,9 +38,9 @@ public class MenuView extends Pane {
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
     private static final String FILE = "Run File";
+    private static final String HELP = "Help";
     private static final String LANGUAGES = "Languages";
     private static final String STYLE_CSS = "button";
-    private static final String HELP = "help";
     private HBox menuPane;
     private ColorPicker picker;
     private Button runButton;
@@ -71,12 +71,11 @@ public class MenuView extends Pane {
         Pane spacer = new Pane();
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
-
+        helpButton = new Button(HELP);
+        HBox right = new HBox(helpButton, picker, fileButton, runButton);
         picker.setOnAction(event -> {
           turtle.updateBackgroundColor(picker.getValue());
         });
-
-        HBox right = new HBox(picker, fileButton, runButton);
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
@@ -88,4 +87,5 @@ public class MenuView extends Pane {
     public Button getRunButton(){return runButton;}
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
+    public Button getHelpButton(){return helpButton;}
 }

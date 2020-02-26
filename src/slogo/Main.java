@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -96,6 +99,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Visualizer vis = new Visualizer();
         primaryStage.setScene(vis.getScene());
+        primaryStage.setResizable(false);
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
@@ -108,6 +112,28 @@ public class Main extends Application {
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
+            }
+        });
+        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Help Dialogue");
+                alert.setHeaderText("Commands List");
+                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
+                                     "BACK/BK                           [pixels]\n\n" +
+                                     "LEFT/LT                             [degrees]\n\n" +
+                                     "RIGHT/RT                          [degrees]\n\n" +
+                                     "SETHEADING/SETH     [degrees]\n\n" +
+                                     "TOWARDS                        [x y]\n\n" +
+                                     "SETXY/GOTO                  [x y]\n\n" +
+                                     "PENDOWN/PD\n\n" +
+                                     "PENUP/PU\n\n" +
+                                     "SHOWTURTLE/ST\n\n" +
+                                     "HIDETURTLE/HT\n\n" +
+                                     "HOME\n\n" +
+                                     "CLEARSCREEN/CS\n\n");
+                alert.show();
             }
         });
 

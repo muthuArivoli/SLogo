@@ -16,11 +16,11 @@ public class BackEndAPI {
     }
     private Executable build(String s){
         Scanner sc = new Scanner(s);
-        Executable e =myParser.parse(sc);
+        Executable e = myParser.parse(sc);
         return e;
     }
     public void buildAndRun(String s, Turtle t){
-        Executable e =build(s);
+        Executable e = build(s);
         e.runCommands(t);
     }
     public void setLanguage(String language){
