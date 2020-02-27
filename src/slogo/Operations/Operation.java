@@ -1,8 +1,8 @@
 package slogo.Operations;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Operation {
-    public abstract int getResult(ArrayList<Integer> inputs);
+    public abstract int getResult(List<Integer> inputs);
     public abstract int getNumInputs();
 }

@@ -2,7 +2,7 @@ package slogo.commands;
 
 import slogo.Turtle;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ForEx extends GExecutable {
     private Executable start;
@@ -23,7 +23,7 @@ public class ForEx extends GExecutable {
     }
 
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         start=parameters.get(0);
         end=parameters.get(1);
         increment=parameters.get(2);

@@ -4,6 +4,7 @@ import slogo.Turtle;
 import slogo.Variables.CVariable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Executable {
     protected int parametersAmounts;
@@ -13,13 +14,13 @@ public abstract class Executable {
     public int getParametersAmounts(){
         return parametersAmounts;
     }
-    public void setParameters(ArrayList<Executable> parameters){
+    public void setParameters(List<Executable> parameters){
         if(this.parametersAmounts!=parameters.size()){
             System.out.println("wrong amount of parameters");
         }
         setMyParameters(parameters);
     }
-    protected void setMyParameters(ArrayList<Executable>parameters){
+    protected void setMyParameters(List<Executable> parameters){
         return;
     }
 

@@ -1,10 +1,10 @@
 package slogo.Operations.Single;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Tan extends SOperation {
     @Override
-    public int getResult(ArrayList<Integer> inputs) {
+    public int getResult(List<Integer> inputs) {
         return (int) Math.tan(Math.toRadians(inputs.get(0)));
     }
 }

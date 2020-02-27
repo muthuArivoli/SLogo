@@ -3,14 +3,14 @@ package slogo;
 import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Function extends Executable{
     private VariableHolder funcVars;
     private Executable e;
-    private ArrayList<String> inputVariableNames;
-    private ArrayList<Executable> myInputs;
-    public Function(VariableHolder funcVars, ArrayList<String> inputVariableNames, Executable e){
+    private List<String> inputVariableNames;
+    private List<Executable> myInputs;
+    public Function(VariableHolder funcVars, List<String> inputVariableNames, Executable e){
         this.funcVars=funcVars;
         this.inputVariableNames=inputVariableNames;
         this.e=e;
@@ -28,7 +28,7 @@ public class Function extends Executable{
     }
 
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         myInputs=parameters;
     }
 

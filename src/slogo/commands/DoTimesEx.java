@@ -2,7 +2,7 @@ package slogo.commands;
 
 import slogo.Turtle;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DoTimesEx extends GExecutable {
     private Executable limit;
@@ -23,7 +23,7 @@ public class DoTimesEx extends GExecutable {
     }
 
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         limit=parameters.get(0);
         e=parameters.get(1);
     }

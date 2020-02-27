@@ -2,7 +2,7 @@ package slogo.commands;
 
 import slogo.Turtle;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class IfEx extends Executable {
     private Executable d;
@@ -19,7 +19,7 @@ public class IfEx extends Executable {
         return ret;
     }
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         d=parameters.get(0);
         e=parameters.get(1);
     }
