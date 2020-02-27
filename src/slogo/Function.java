@@ -4,7 +4,6 @@ import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Function extends Executable{
     private VariableHolder funcVars;

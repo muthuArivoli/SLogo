@@ -1,7 +1,5 @@
 package slogo.Operations.Two;
 
-import slogo.Operations.Single.SOperation;
-
 import java.util.ArrayList;
 
 public class Less extends TOperation {

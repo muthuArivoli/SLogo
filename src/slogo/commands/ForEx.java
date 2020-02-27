@@ -1,7 +1,6 @@
 package slogo.commands;
 
 import slogo.Turtle;
-import slogo.Variables.CVariable;
 
 import java.util.ArrayList;
 
