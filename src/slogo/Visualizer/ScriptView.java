@@ -1,12 +1,7 @@
 package slogo.Visualizer;
 
 import javafx.geometry.Insets;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 
 
 public class ScriptView extends TextArea {

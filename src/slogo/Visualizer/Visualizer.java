@@ -1,17 +1,12 @@
 package slogo.Visualizer;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import slogo.Turtle;
-
-import java.awt.*;
 
 public class Visualizer {
 

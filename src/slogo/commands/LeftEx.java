@@ -2,7 +2,7 @@ package slogo.commands;
 
 import slogo.Turtle;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LeftEx extends Executable {
     private Executable d;
@@ -14,7 +14,7 @@ public class LeftEx extends Executable {
         return t.left(d.runCommands(t));
     }
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         d=parameters.get(0);
     }
 }

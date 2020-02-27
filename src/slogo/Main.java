@@ -3,31 +3,14 @@ package slogo;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
-import slogo.commands.Executable;
-import slogo.commands.ForEx;
-import slogo.commands.ForwardEx;
-import slogo.commands.HideTurtleEx;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Feel free to completely change this code or delete it entirely. 

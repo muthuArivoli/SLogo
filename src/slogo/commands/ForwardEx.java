@@ -2,7 +2,7 @@ package slogo.commands;
 
 import slogo.Turtle;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ForwardEx extends Executable {
     private Executable d;
@@ -15,7 +15,7 @@ public class ForwardEx extends Executable {
     }
 
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         d=parameters.get(0);
     }
 }

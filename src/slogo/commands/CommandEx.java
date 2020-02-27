@@ -3,11 +3,11 @@ package slogo.commands;
 import slogo.Function;
 import slogo.Turtle;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CommandEx extends Executable{
     private Function myFunction;
-    private ArrayList<Executable> myInputs;
+    private List<Executable> myInputs;
 
     public CommandEx(Function f){
         myFunction=f;
@@ -20,7 +20,7 @@ public class CommandEx extends Executable{
         return myFunction.runCommands(t);
     }
     @Override
-    public void setMyParameters(ArrayList<Executable>parameters){
+    public void setMyParameters(List<Executable> parameters){
         myInputs=parameters;
     }
 }
