@@ -3,7 +3,6 @@ package slogo.commands;
 import slogo.Turtle;
 import slogo.Variables.CVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Executable {
