@@ -32,7 +32,9 @@ public class Parser {
             Scanner line = new Scanner(input.nextLine());
             if(line.hasNext()){
                 String word = line.next();
-                if(commentCheck(word))continue;
+                if(commentCheck(word)){
+                    continue;
+                }
                 runnableCode.addExecutable(getFinishedExecutable(word, input,line, mainVariables));
             }
             while (line.hasNext()) {
@@ -114,20 +116,28 @@ public class Parser {
         GroupEx group =new GroupEx();
         while (line.hasNext()) {
             String word = line.next();
-            if(groupIsOver(word))return group;
+            if(groupIsOver(word)){
+                return group;
+            }
             group.addExecutable(getFinishedExecutable(word,input,line, myVariables));
         }
         while (input.hasNextLine()) {
             line = new Scanner(input.nextLine());
             if(line.hasNext()){
                 String word = line.next();
-                if(commentCheck(word))continue;
-                if(groupIsOver(word))return group;
+                if(commentCheck(word)){
+                    continue;
+                }
+                if(groupIsOver(word)){
+                    return group;
+                }
                 group.addExecutable(getFinishedExecutable(word,input,line, myVariables));
             }
             while (line.hasNext()) {
                 String word = line.next();
-                if(groupIsOver(word))return group;
+                if(groupIsOver(word)){
+                    return group;
+                }
                 group.addExecutable(getFinishedExecutable(word,input,line, myVariables));
             }
         }
@@ -148,7 +158,9 @@ public class Parser {
             line = new Scanner(input.nextLine());
             if (line.hasNext()) {
                 String word = line.next();
-                if(commentCheck(word))continue;
+                if(commentCheck(word)){
+                    continue;
+                }
                 return getFinishedExecutable(word, input, line, myVariables);
             }
         }
@@ -216,7 +228,9 @@ public class Parser {
         ArrayList<String> funcVariableNames = new ArrayList<>();
         while(line.hasNext()){
             String word = line.next().toLowerCase();
-            if(groupIsOver(word))break;
+            if(groupIsOver(word)){
+                break;
+            }
             funcVariableNames.add(word.substring(1));
         }
         return funcVariableNames;
@@ -227,7 +241,9 @@ public class Parser {
         int count=0;
         while(line.hasNext()){
             String word = line.next();
-            if(groupIsOver(word))break;
+            if(groupIsOver(word)){
+                break;
+            }
             ret.add(getFinishedExecutable(word,input,line, myVariables));
             count++;
         }
