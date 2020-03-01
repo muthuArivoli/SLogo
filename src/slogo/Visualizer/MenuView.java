@@ -91,4 +91,5 @@ public class MenuView extends Pane {
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
     public Button getHelpButton(){return helpButton;}
+    public Button getPalleteButton() {return palleteButton;}
 }
