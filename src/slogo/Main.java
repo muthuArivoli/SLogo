@@ -12,7 +12,9 @@ import slogo.Visualizer.Visualizer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -82,64 +84,67 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Visualizer vis = new Visualizer();
-        primaryStage.setScene(vis.getScene());
+        Map<Visualizer,List<Turtle>> workspaces= new HashMap<>();
+        Visualizer vi = new Visualizer();
+        primaryStage.setScene(vi.getScene());
         primaryStage.setResizable(false);
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
-        List<Turtle> t = new ArrayList<Turtle>();
-        t.add(vis.addTurtle(t.size()));
-
+        List<Turtle> turtleList = new ArrayList<Turtle>();
+        turtleList.add(vi.addTurtle(turtleList.size()));
+        workspaces.put(vi,turtleList);
         BackEndAPI bAPI=new BackEndAPI();
-        vis.getRunButton().setOnAction(event -> {
-            try {
-                for(Turtle turtle:t) {
-                    bAPI.buildAndRun(vis.getScript(), turtle);
+        for(Visualizer vis:workspaces.keySet()) {
+            vis.getRunButton().setOnAction(event -> {
+                try {
+                    for (Turtle turtle : workspaces.get(vis)) {
+                        bAPI.buildAndRun(vis.getScript(), turtle);
+                    }
+                    vis.updateHistory(vis.getScript());
+                } catch (IncorrectCommandException ice) {
+                    vis.alertCreator("Build Failed", ice.getMessage());
                 }
-                vis.updateHistory(vis.getScript());
-            }
-            catch(IncorrectCommandException ice){
-                vis.alertCreator("Build Failed",ice.getMessage());
-            }
-        });
-        vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
-                bAPI.setLanguage(t1);
-            }
-        });
-        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Help Dialogue");
-                alert.setHeaderText("Commands List");
-                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
-                                     "BACK/BK                           [pixels]\n\n" +
-                                     "LEFT/LT                             [degrees]\n\n" +
-                                     "RIGHT/RT                          [degrees]\n\n" +
-                                     "SETHEADING/SETH     [degrees]\n\n" +
-                                     "TOWARDS                        [x y]\n\n" +
-                                     "SETXY/GOTO                  [x y]\n\n" +
-                                     "PENDOWN/PD\n\n" +
-                                     "PENUP/PU\n\n" +
-                                     "SHOWTURTLE/ST\n\n" +
-                                     "HIDETURTLE/HT\n\n" +
-                                     "HOME\n\n" +
-                                     "CLEARSCREEN/CS\n\n");
-                alert.show();
-            }
-        });
+            });
+            vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue ov, String t, String t1) {
+                    bAPI.setLanguage(t1);
+                }
+            });
+            vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Help Dialogue");
+                    alert.setHeaderText("Commands List");
+                    alert.setContentText("FORWARD/FD                [pixels]\n\n" +
+                            "BACK/BK                           [pixels]\n\n" +
+                            "LEFT/LT                             [degrees]\n\n" +
+                            "RIGHT/RT                          [degrees]\n\n" +
+                            "SETHEADING/SETH     [degrees]\n\n" +
+                            "TOWARDS                        [x y]\n\n" +
+                            "SETXY/GOTO                  [x y]\n\n" +
+                            "PENDOWN/PD\n\n" +
+                            "PENUP/PU\n\n" +
+                            "SHOWTURTLE/ST\n\n" +
+                            "HIDETURTLE/HT\n\n" +
+                            "HOME\n\n" +
+                            "CLEARSCREEN/CS\n\n");
+                    alert.show();
+                }
+            });
 
-        //CHOOSE FILE NOT WORKING RN
-        vis.getFileButton().setOnAction(event -> {
-            File file = fileChooser.showOpenDialog(primaryStage);
-            if (file != null) {
-                for(Turtle turtle:t) {
-                    bAPI.runFile(file, turtle);
+            //CHOOSE FILE NOT WORKING RN
+            vis.getFileButton().setOnAction(event -> {
+                File file = fileChooser.showOpenDialog(primaryStage);
+                if (file != null) {
+                    for (Turtle turtle : workspaces.get(vis)) {
+                        bAPI.runFile(file, turtle);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 
