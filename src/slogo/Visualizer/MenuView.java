@@ -46,7 +46,7 @@ public class MenuView extends Pane {
     private ColorPicker picker;
     private Button runButton;
     private Button helpButton;
-    private Button palleteButton;
+    private Button paletteButton;
     private ComboBox langSelection;
     private Button fileButton;
 
@@ -68,7 +68,7 @@ public class MenuView extends Pane {
 
         langSelection = new ComboBox(options);
         helpButton = new Button(HELP);
-        palleteButton = new Button(PALLETE);
+        paletteButton = new Button(PALLETE);
 
         picker = new ColorPicker();
         Pane spacer = new Pane();
@@ -82,7 +82,7 @@ public class MenuView extends Pane {
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(langSelection, palleteButton, spacer, right);
+        menuPane.getChildren().addAll(langSelection, paletteButton, spacer, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
 
@@ -91,5 +91,5 @@ public class MenuView extends Pane {
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
     public Button getHelpButton(){return helpButton;}
-    public Button getPalleteButton() {return palleteButton;}
+    public Button getPaletteButton() {return paletteButton;}
 }
