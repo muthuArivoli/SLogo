@@ -7,11 +7,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import slogo.configuration.TurtleInterface;
+import slogo.Visualizer.Visualizer;
+
+import java.util.List;
 
 public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
+    private int turtleID;
+    private int turtleNums;
     private int width;
     private int height;
     private int xCor;
@@ -23,9 +28,14 @@ public class Turtle implements TurtleInterface {
     private Group myLines;
     private Paint currentColor;
 
-    public Turtle(int width, int height){
+    private int sceneWidth = Visualizer.getSceneWidth();
+    private int sceneLength = Visualizer.getSceneLength();
+
+    public Turtle(int width, int height, int numTurtles){
         this.xCor=0;
         this.yCor=0;
+        this.turtleID = numTurtles;
+        this.turtleNums = numTurtles;
         this.heading=0;
         this.penDown=true;
         this.showing=true;
@@ -42,6 +52,17 @@ public class Turtle implements TurtleInterface {
     public int getYCor(){
         return yCor;
     }
+    //we have basic getters and setters for the turtle ID and number of turtles written right in the start of turtle
+    public int getTurtleID(){
+        return turtleID;
+    }
+    public int getTurtleNums(){
+        return turtleNums;
+    }
+    public void setTurtleNums(int numberOfTurtles){
+        turtleNums = numberOfTurtles;
+    }
+
     public int getHeading(){
         return heading;
     }
@@ -54,16 +75,28 @@ public class Turtle implements TurtleInterface {
     public int forward(int pixels){
         int oldX=xCor;
         int oldY=yCor;
-        xCor+=Math.sin(Math.toRadians(heading))*pixels;
-        yCor+=Math.cos(Math.toRadians(heading))*pixels;
+        //current mechanic just sets the turtle at the scene edge if the input is past the edge
+        if(xCor+Math.sin(Math.toRadians(heading))*pixels >= sceneWidth){
+            xCor = sceneWidth;
+        }
+        if(yCor+Math.sin(Math.toRadians(heading))*pixels >= sceneLength){
+            yCor = sceneLength;
+        }
+        if(xCor+Math.sin(Math.toRadians(heading))*pixels < 0){
+            xCor = 0;
+        }
+        if(yCor+Math.sin(Math.toRadians(heading))*pixels < 0) {
+            yCor = 0;
+        }
+        else {
+            xCor += Math.sin(Math.toRadians(heading)) * pixels;
+            yCor += Math.cos(Math.toRadians(heading)) * pixels;
+        }
         System.out.println("Forward: "+pixels);
         moveTurtleImage();
         drawLine(oldX,oldY);
         return pixels;
     }
-
-
-
     public int back(int pixels){
         forward(-pixels);
         return pixels;

@@ -10,11 +10,14 @@ import slogo.Turtle;
 
 public class Visualizer {
 
+    private static Integer sceneLength = 1200;
+    private static Integer sceneWidth = 1200;
     private BorderPane rootPane;
     private Scene myScene;
     private TurtleView myTurtleView;
     private MenuView myMenu;
     private DashboardView myDashboard;
+
 
 
     public Visualizer() {
@@ -24,7 +27,7 @@ public class Visualizer {
         myMenu = new MenuView(myTurtleView);
 
         rootPane = new BorderPane();
-        myScene = new Scene(rootPane, 1200, 800);
+        myScene = new Scene(rootPane, sceneWidth, sceneLength);
         rootPane.setRight(myDashboard.getDashboardPane());
         rootPane.setCenter(myTurtleView.getPane());
         rootPane.setPadding(new Insets(10,10,10,10));
@@ -37,9 +40,8 @@ public class Visualizer {
 //        }
 //    }
     public Scene getScene() {return myScene;}
-
-    public Turtle addTurtle(){
-        Turtle t =new Turtle((int) myTurtleView.getPane().getWidth(), (int) myTurtleView.getPane().getHeight());
+    public Turtle addTurtle(int turtleNum){
+        Turtle t = new Turtle((int) myTurtleView.getPane().getWidth(), (int) myTurtleView.getPane().getHeight(), turtleNum);
         myTurtleView.addGroup(t.getTurtleGroup());
         return t;
     }
@@ -52,6 +54,8 @@ public class Visualizer {
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public String getScript(){return myDashboard.getScript();}
+    public static Integer getSceneLength(){return sceneLength;}
+    public static Integer getSceneWidth(){return sceneWidth;}
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
