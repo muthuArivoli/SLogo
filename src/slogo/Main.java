@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import slogo.Visualizer.Visualizer;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -86,11 +88,15 @@ public class Main extends Application {
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
-        Turtle t =vis.addTurtle();
+        List<Turtle> t = new ArrayList<Turtle>();
+        t.add(vis.addTurtle(t.size()));
+
         BackEndAPI bAPI=new BackEndAPI();
         vis.getRunButton().setOnAction(event -> {
             try {
-                bAPI.buildAndRun(vis.getScript(), t);
+                for(Turtle turtle:t) {
+                    bAPI.buildAndRun(vis.getScript(), turtle);
+                }
                 vis.updateHistory(vis.getScript());
             }
             catch(IncorrectCommandException ice){
@@ -129,7 +135,9 @@ public class Main extends Application {
         vis.getFileButton().setOnAction(event -> {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
-                bAPI.runFile(file, t);
+                for(Turtle turtle:t) {
+                    bAPI.runFile(file, turtle);
+                }
             }
         });
     }
