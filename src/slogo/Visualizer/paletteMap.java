@@ -29,7 +29,7 @@ public class paletteMap {
         HBox paletteHolder = new HBox();
         Label num = new Label(Integer.toString(index) + "      ");
         Label col = new Label(value.toString() + "      ");
-        Rectangle r = new Rectangle(10, 10, value);
+        Rectangle r = new Rectangle(15, 15, value);
         paletteHolder.getChildren().addAll(num, col, r);
         return paletteHolder;
     }

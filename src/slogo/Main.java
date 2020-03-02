@@ -128,6 +128,13 @@ public class Main extends Application {
                 VBox secondaryLayout = new VBox();
                 Scene secondScene = new Scene(secondaryLayout, 250, 500);
 
+                HBox labels = new HBox();
+                Label index = new Label("Index       ");
+                Label string = new Label("String Value       ");
+                Label color = new Label("Color");
+                labels.getChildren().addAll(index,string, color);
+                secondaryLayout.getChildren().add(labels);
+
                 for (int i = 0; i < colors.getColorMap().size(); i++) {
                     HBox temp = colors.createScene(i, colors.getColorMap().get(i));
                     secondaryLayout.getChildren().add(temp);
