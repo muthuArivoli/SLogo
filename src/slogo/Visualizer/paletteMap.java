@@ -1,7 +1,9 @@
 package slogo.Visualizer;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -25,12 +27,29 @@ public class paletteMap {
     public void remove(int index) {colorMap.remove(index);}
     public HashMap<Integer, Color> getColorMap() {return colorMap;}
 
-    public HBox createScene(int index, Color value) {
-        HBox paletteHolder = new HBox();
-        Label num = new Label(Integer.toString(index) + "      ");
-        Label col = new Label(value.toString() + "      ");
-        Rectangle r = new Rectangle(15, 15, value);
-        paletteHolder.getChildren().addAll(num, col, r);
-        return paletteHolder;
+    public HBox createScene(HBox input) {
+        VBox indexCol = new VBox(5);
+        indexCol.setPadding(new Insets(10,10,10,30));
+        VBox stringCol = new VBox(5);
+        stringCol.setPadding(new Insets(10,10,10,10));
+        VBox colorCol = new VBox(6.5);
+        colorCol.setPadding(new Insets(10,10,10,10));
+        Label in = new Label("Index:");
+        Label s = new Label("String Value:");
+        Label c = new Label("Color:");
+        indexCol.getChildren().add(in);
+        stringCol.getChildren().add(s);
+        colorCol.getChildren().add(c);
+        for (int i = 0; i < colorMap.size(); i++) {
+            Label num = new Label(Integer.toString(i));
+            Label col = new Label(colorMap.get(i).toString());
+            Rectangle r = new Rectangle(15, 15, colorMap.get(i));
+
+            indexCol.getChildren().add(num);
+            stringCol.getChildren().add(col);
+            colorCol.getChildren().add(r);
+        }
+        input.getChildren().addAll(indexCol, colorCol, stringCol);
+        return input;
     }
 }

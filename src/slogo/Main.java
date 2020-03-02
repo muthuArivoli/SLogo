@@ -125,20 +125,13 @@ public class Main extends Application {
         vis.getPaletteButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                VBox secondaryLayout = new VBox();
+                HBox secondaryLayout = new HBox();
                 Scene secondScene = new Scene(secondaryLayout, 250, 500);
 
-                HBox labels = new HBox();
-                Label index = new Label("Index       ");
-                Label string = new Label("String Value       ");
-                Label color = new Label("Color");
-                labels.getChildren().addAll(index,string, color);
-                secondaryLayout.getChildren().add(labels);
+                HBox temp = new HBox();
+                temp = colors.createScene(temp);
+                secondaryLayout.getChildren().addAll(temp);
 
-                for (int i = 0; i < colors.getColorMap().size(); i++) {
-                    HBox temp = colors.createScene(i, colors.getColorMap().get(i));
-                    secondaryLayout.getChildren().add(temp);
-                }
                 // New window (Stage)
                 Stage newWindow = new Stage();
                 newWindow.setTitle("Palette Viewer");
