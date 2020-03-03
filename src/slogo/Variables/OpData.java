@@ -5,11 +5,12 @@ import slogo.Turtle;
 import slogo.commands.Executable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OpData extends Executable {
 
     private Operation o;
-    private ArrayList<Executable> eList;
+    private List<Executable> eList;
 
     public OpData(Operation o){
         this.o=o;
@@ -24,7 +25,7 @@ public class OpData extends Executable {
         return o.getResult(inputs);
     }
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         eList=parameters;
     }
 }

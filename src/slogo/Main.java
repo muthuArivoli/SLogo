@@ -3,21 +3,14 @@ package slogo;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
 import javafx.scene.control.Label;
 import slogo.Visualizer.paletteMap;
@@ -25,16 +18,9 @@ import slogo.commands.Executable;
 import slogo.commands.ForEx;
 import slogo.commands.ForwardEx;
 import slogo.commands.HideTurtleEx;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -111,11 +97,20 @@ public class Main extends Application {
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
-        Turtle t =vis.addTurtle();
+        List<Turtle> t = new ArrayList<Turtle>();
+        t.add(vis.addTurtle(t.size()));
+
         BackEndAPI bAPI=new BackEndAPI();
         vis.getRunButton().setOnAction(event -> {
-            bAPI.buildAndRun(vis.getScript(), t);
-            vis.updateHistory(vis.getScript());
+            try {
+                for(Turtle turtle:t) {
+                    bAPI.buildAndRun(vis.getScript(), turtle);
+                }
+                vis.updateHistory(vis.getScript());
+            }
+            catch(IncorrectCommandException ice){
+                vis.alertCreator("Build Failed",ice.getMessage());
+            }
         });
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
@@ -171,7 +166,9 @@ public class Main extends Application {
         vis.getFileButton().setOnAction(event -> {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
-                bAPI.runFile(file, t);
+                for(Turtle turtle:t) {
+                    bAPI.runFile(file, turtle);
+                }
             }
         });
     }

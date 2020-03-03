@@ -1,10 +1,9 @@
 package slogo.Visualizer;
 
-import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+
+import java.util.List;
 
 public class VariableView extends TextArea {
   private static final double MARGINS = 10;

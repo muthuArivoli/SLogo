@@ -1,9 +1,8 @@
 package slogo.commands;
 
 import slogo.Turtle;
-import slogo.Variables.CVariable;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SetEx extends VExecutable {
     private Executable setTo;
@@ -15,7 +14,7 @@ public class SetEx extends VExecutable {
         return myVariable.setData(setTo.runCommands(t));
     }
     @Override
-    public void setMyParameters(ArrayList<Executable> parameters) {
+    public void setMyParameters(List<Executable> parameters) {
         setTo=parameters.get(0);
     }
 }
