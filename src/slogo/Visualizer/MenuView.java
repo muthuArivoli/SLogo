@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -14,6 +15,7 @@ public class MenuView extends Pane {
     public enum ButtonProperty {
         RUN,
     }
+    public static final String FILE_ENTRY_PROMPT = "Filename to save:";
     private static final double VIEWWIDTH = 10;
     private static final double VIEWHEIGHT = 10;
     private static final String CHINESE = "Chinese";
@@ -29,11 +31,13 @@ public class MenuView extends Pane {
     private static final String FILE = "Run File";
     private static final String HELP = "Help";
     private static final String PALLETE = "Pallete";
+    private static final String SAVE = "Save";
     private static final String LANGUAGES = "Languages";
     private static final String STYLE_CSS = "button";
     private HBox menuPane;
     private ColorPicker picker;
     private Button runButton;
+    private Button saveButton;
     private Button helpButton;
     private Button paletteButton;
     private ComboBox langSelection;
@@ -64,7 +68,9 @@ public class MenuView extends Pane {
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
-        HBox right = new HBox(helpButton, picker, fileButton, runButton);
+        saveButton = new Button(SAVE);
+        Label prompt = new Label(FILE_ENTRY_PROMPT);
+        HBox right = new HBox(helpButton, picker, fileButton, runButton, saveButton, prompt);
         picker.setOnAction(event -> {
           turtle.updateBackgroundColor(picker.getValue());
         });
