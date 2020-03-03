@@ -54,6 +54,7 @@ public class Visualizer {
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public String getScript(){return myDashboard.getScript();}
+    public void setScript(String input) {myDashboard.setScript(input);}
     public static Integer getSceneLength(){return sceneLength;}
     public static Integer getSceneWidth(){return sceneWidth;}
 

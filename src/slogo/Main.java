@@ -32,7 +32,7 @@ public class Main extends Application {
 
      */
 
-
+    public static Visualizer vis;
     public static void main (String[] args) {
         launch(args);
 
@@ -91,7 +91,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         paletteMap colors = new paletteMap();
-        Visualizer vis = new Visualizer();
+        vis = new Visualizer();
         primaryStage.setScene(vis.getScene());
         primaryStage.setResizable(false);
         primaryStage.show();
