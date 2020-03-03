@@ -1,5 +1,7 @@
 package slogo.Visualizer;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,7 +12,7 @@ import slogo.Turtle;
 
 public class Visualizer {
 
-    private static Integer sceneLength = 1200;
+    private static Integer sceneLength = 800;
     private static Integer sceneWidth = 1200;
     private BorderPane rootPane;
     private Scene myScene;
@@ -26,12 +28,36 @@ public class Visualizer {
         myDashboard = new DashboardView();
         myMenu = new MenuView(myTurtleView);
 
+        getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Help Dialogue");
+                alert.setHeaderText("Commands List");
+                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
+                    "BACK/BK                           [pixels]\n\n" +
+                    "LEFT/LT                             [degrees]\n\n" +
+                    "RIGHT/RT                          [degrees]\n\n" +
+                    "SETHEADING/SETH     [degrees]\n\n" +
+                    "TOWARDS                        [x y]\n\n" +
+                    "SETXY/GOTO                  [x y]\n\n" +
+                    "PENDOWN/PD\n\n" +
+                    "PENUP/PU\n\n" +
+                    "SHOWTURTLE/ST\n\n" +
+                    "HIDETURTLE/HT\n\n" +
+                    "HOME\n\n" +
+                    "CLEARSCREEN/CS\n\n");
+                alert.show();
+            }
+        });
+
         rootPane = new BorderPane();
         myScene = new Scene(rootPane, sceneWidth, sceneLength);
         rootPane.setRight(myDashboard.getDashboardPane());
         rootPane.setCenter(myTurtleView.getPane());
         rootPane.setPadding(new Insets(10,10,10,10));
         rootPane.setTop(myMenu.getPane());
+
     }
 
 //    public Property getProperty(ButtonProperty type) {
@@ -53,6 +79,10 @@ public class Visualizer {
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
+    public Button getMoveForwardButton(){return myMenu.getMoveForwardButton();}
+    public Button getMoveBackwardButton(){return myMenu.getMoveBackwardButton();}
+    public Button getTurnRightButton(){return myMenu.getTurnRightButton();}
+    public Button getTurnLeftButton(){return myMenu.getTurnLeftButton();}
     public String getScript(){return myDashboard.getScript();}
     public static Integer getSceneLength(){return sceneLength;}
     public static Integer getSceneWidth(){return sceneWidth;}

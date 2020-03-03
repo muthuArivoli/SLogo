@@ -9,8 +9,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 public class MenuView extends Pane {
+
+    private static final String MOVE_FORWARD = "Move Forward";
+    private static final String MOVE_BACKWARD = "Move Backward";
+    private static final String TURN_RIGHT = "Turn Right";
+    private static final String TURN_LEFT = "Turn Left";
+
     public enum ButtonProperty {
         RUN,
     }
@@ -34,6 +41,10 @@ public class MenuView extends Pane {
     private ColorPicker picker;
     private Button runButton;
     private Button helpButton;
+    private Button moveForwardButton;
+    private Button moveBackwardButton;
+    private Button turnRightButton;
+    private Button turnLeftButton;
     private ComboBox langSelection;
     private Button fileButton;
 
@@ -54,10 +65,16 @@ public class MenuView extends Pane {
                 );
 
         langSelection = new ComboBox(options);
-        helpButton = new Button(HELP);
 
+        Region spacer1 = new Region();
+        moveForwardButton = new Button (MOVE_FORWARD);
+        moveBackwardButton = new Button (MOVE_BACKWARD);
+        turnRightButton = new Button (TURN_RIGHT);
+        turnLeftButton = new Button (TURN_LEFT);
+        HBox center = new HBox(moveForwardButton, moveBackwardButton, turnLeftButton, turnRightButton);
+
+        Region spacer2 = new Region();
         picker = new ColorPicker();
-        Pane spacer = new Pane();
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
@@ -66,9 +83,11 @@ public class MenuView extends Pane {
           turtle.updateBackgroundColor(picker.getValue());
         });
         langSelection.setPromptText(LANGUAGES);
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(langSelection, spacer, right);
+        HBox.setHgrow(spacer1, Priority.ALWAYS);
+        HBox.setHgrow(spacer2, Priority.ALWAYS);
+        spacer2.setMinSize(10, 0);
+        spacer1.setMinSize(10, 0);
+        menuPane.getChildren().addAll(langSelection, spacer1, center, spacer2, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
 
@@ -77,4 +96,9 @@ public class MenuView extends Pane {
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
     public Button getHelpButton(){return helpButton;}
+    public Button getMoveForwardButton(){return moveForwardButton;}
+    public Button getMoveBackwardButton(){return moveBackwardButton;}
+    public Button getTurnRightButton(){return turnRightButton;}
+    public Button getTurnLeftButton(){return turnLeftButton;}
+
 }

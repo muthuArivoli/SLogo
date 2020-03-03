@@ -2,6 +2,7 @@ package slogo.Visualizer;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -11,9 +12,10 @@ public class DashboardView extends Pane {
   private static final double MARGINS = 10;
   private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
 
-  HistoryView pastScripts;
-  ScriptView script;
-  VariableView variableList;
+  private HistoryView pastScripts;
+  private ScriptView script;
+  private VariableView variableList;
+  private TurtleInfoView turtleInfo;
   private VBox dashboardPane;
   public DashboardView() {
     super();

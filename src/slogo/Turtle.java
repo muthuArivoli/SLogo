@@ -1,6 +1,8 @@
 package slogo;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
