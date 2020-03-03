@@ -31,7 +31,6 @@ public class HistoryView extends TextFlow {
     this.getChildren().addAll(text_1, script_link, text_2);
 
     script_link.setOnAction(new EventHandler<ActionEvent>() {
-      Visualizer vis = new Visualizer();
       @Override
       public void handle(ActionEvent e) {
         Main.vis.setScript(input);
