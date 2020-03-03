@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import slogo.Main;
 
 public class HistoryView extends TextFlow {
   private static final String PLACEHOLDER = "This shows previously ran scripts";
@@ -33,7 +34,7 @@ public class HistoryView extends TextFlow {
       Visualizer vis = new Visualizer();
       @Override
       public void handle(ActionEvent e) {
-        System.out.println("I can do whatever I want");
+        Main.vis.setScript(input);
       }
     });
   }
