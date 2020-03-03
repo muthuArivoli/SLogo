@@ -51,6 +51,7 @@ public class Visualizer {
 
     public Button getRunButton(){return myMenu.getRunButton();}
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
+    public Button getPaletteButton(){return myMenu.getPaletteButton();}
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public String getScript(){return myDashboard.getScript();}

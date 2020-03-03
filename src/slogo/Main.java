@@ -5,11 +5,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.Visualizer.Visualizer;
-
+import javafx.scene.control.Label;
+import slogo.Visualizer.paletteMap;
+import slogo.commands.Executable;
+import slogo.commands.ForEx;
+import slogo.commands.ForwardEx;
+import slogo.commands.HideTurtleEx;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +90,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        paletteMap colors = new paletteMap();
         Visualizer vis = new Visualizer();
         primaryStage.setScene(vis.getScene());
         primaryStage.setResizable(false);
@@ -106,6 +115,28 @@ public class Main extends Application {
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
+            }
+        });
+        vis.getPaletteButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HBox secondaryLayout = new HBox();
+                Scene secondScene = new Scene(secondaryLayout, 250, 500);
+
+                HBox temp = new HBox();
+                temp = colors.createScene(temp);
+                secondaryLayout.getChildren().addAll(temp);
+
+                // New window (Stage)
+                Stage newWindow = new Stage();
+                newWindow.setTitle("Palette Viewer");
+                newWindow.setScene(secondScene);
+
+                // Set position of second window, related to primary window.
+                newWindow.setX(primaryStage.getX() + 200);
+                newWindow.setY(primaryStage.getY() + 100);
+
+                newWindow.show();
             }
         });
         vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
