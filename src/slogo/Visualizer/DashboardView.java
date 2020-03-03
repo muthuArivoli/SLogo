@@ -48,5 +48,6 @@ public class DashboardView extends Pane {
     return dashboardPane;
   }
   public String getScript() { return script.getText();}
+  public void setScript(String input) {script.setText(input);}
   protected HistoryView getPastScript() { return pastScripts;}
 }
