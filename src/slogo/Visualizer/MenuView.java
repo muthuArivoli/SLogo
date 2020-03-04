@@ -3,13 +3,11 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import slogo.Turtle;
 
 public class MenuView extends Pane {
     public enum ButtonProperty {
@@ -18,6 +16,8 @@ public class MenuView extends Pane {
     public static final String FILE_ENTRY_PROMPT = "Filename to save:";
     private static final double VIEWWIDTH = 10;
     private static final double VIEWHEIGHT = 10;
+    public static final int WIDTH_TEXTBOX = 80;
+
     private static final String CHINESE = "Chinese";
     private static final String ENGLISH = "English";
     private static final String FRENCH = "French";
@@ -68,9 +68,12 @@ public class MenuView extends Pane {
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
-        saveButton = new Button(SAVE);
         Label prompt = new Label(FILE_ENTRY_PROMPT);
-        HBox right = new HBox(helpButton, picker, fileButton, runButton, saveButton, prompt);
+        TextField textField = new TextField ();
+        textField.setMaxWidth(WIDTH_TEXTBOX);
+        Button submit = new Button(SAVE);
+        submit.setOnAction(e -> Turtle.createXMLFile((textField.getText())));
+        HBox right = new HBox(helpButton, picker, fileButton, runButton, prompt, textField, submit);
         picker.setOnAction(event -> {
           turtle.updateBackgroundColor(picker.getValue());
         });
@@ -80,6 +83,7 @@ public class MenuView extends Pane {
         menuPane.getChildren().addAll(langSelection, paletteButton, spacer, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
+
 
     public HBox getPane() {return menuPane;}
     public Button getRunButton(){return runButton;}

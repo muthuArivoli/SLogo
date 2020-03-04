@@ -9,14 +9,13 @@ import javafx.scene.layout.BorderPane;
 import slogo.Turtle;
 
 public class Visualizer {
-    private static Integer sceneLength = 1200;
-    private static Integer sceneWidth = 1200;
+    private static Integer sceneLength = 600;
+    private static Integer sceneWidth = 800;
     private BorderPane rootPane;
     private Scene myScene;
     private TurtleView myTurtleView;
     private MenuView myMenu;
     private DashboardView myDashboard;
-
 
 
     public Visualizer() {

@@ -63,6 +63,7 @@ public class Turtle implements TurtleInterface {
         turtleNums = numberOfTurtles;
     }
 
+
     public int getHeading(){
         return heading;
     }
@@ -245,6 +246,16 @@ public class Turtle implements TurtleInterface {
     }
     private double adjustedY(int y){
         return (height / 2) - (y/SCALE_DOWN);
+    }
+
+    /**
+     * Uses the XMLFileCreator to create a new document
+     * @param filename
+     */
+    public static void createXMLFile(String filename){
+        //will pass stuff with getters for now
+        XMLFileBuilder builder = new XMLFileBuilder(new Turtle(0,0, 1), "background", filename);
+        builder.createDocument();
     }
 
 

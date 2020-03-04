@@ -24,7 +24,7 @@ public class XMLFileBuilder {
     public static final String NUM_TURTLES_TAG = "numTurtles";
     public static final String BACKGROUND_COLOR_TAG = "background";
 
-    private List<Turtle> turtlesToSave;
+    private Turtle turtlesToSave;
     private DocumentBuilderFactory documentFactory;
     private DocumentBuilder documentBuilder;
     private Document document;
@@ -35,12 +35,11 @@ public class XMLFileBuilder {
     private final static String XML_ENDING = ".xml";
     private final static String DEFAULT_FOLDER = "data/";
 
-
-    public XMLFileBuilder(List<Turtle> turtles, String background, String filename) {
-        this.turtlesToSave = turtles;
+    public XMLFileBuilder(Turtle turtle, String background, String filename) {
+        this.turtlesToSave = turtle;
         this.background = background;
         //defaults to change later
-        this.numTurtles = turtles.size();
+        this.numTurtles = turtle.getTurtleNums();
         this.filename = filename + XML_ENDING;
 
         try{
@@ -88,12 +87,14 @@ public class XMLFileBuilder {
     {
         //will need something that saves all the turtles
         //fillAllTurtles(); (for example)
-
+        root.appendChild((document.createTextNode("\n")));
         Element numberOfTurtlesType = createElement(NUM_TURTLES_TAG, Integer.toString(numTurtles));
         root.appendChild(numberOfTurtlesType);
-
+        root.appendChild((document.createTextNode("\n\n")));
         Element backgroundColorType = createElement(BACKGROUND_COLOR_TAG, background);
         root.appendChild(backgroundColorType);
+        root.appendChild((document.createTextNode("\n\n")));
+
 
         for(int i = 0; i < numTurtles; i++) {
             //need to iterate through turtles to get all turtle elements in separate arrays
@@ -102,21 +103,15 @@ public class XMLFileBuilder {
 
 
     /**
-     * Method which creates a string array of all of the
-     * current states of the board to be saved in the XML file
-     */
-
-
-    /**
      * Creates a single element from a given tag name and text
      * @param tagName
      * @param text
      * @return
      */
-    private Element createElement(String tagName, String text)
-    {
+    private Element createElement(String tagName, String text) {
         Element e = document.createElement(tagName);
         e.appendChild(document.createTextNode(text));
+
         return e;
     }
 
