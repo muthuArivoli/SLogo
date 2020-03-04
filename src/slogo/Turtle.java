@@ -17,6 +17,8 @@ public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
+    private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
+    private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
     private int turtleID;
     private int turtleNums;
     private int width;
@@ -24,6 +26,7 @@ public class Turtle implements TurtleInterface {
     private int xCor;
     private int yCor;
     private int heading;
+    private boolean active;
     private boolean penDown;
     private boolean showing;
     private ImageView turtleImage;
@@ -41,12 +44,17 @@ public class Turtle implements TurtleInterface {
         this.heading=0;
         this.penDown=true;
         this.showing=true;
-        this.turtleImage = resizeImage(new Image("turtle.png"));
+        this.active=true;
+        this.turtleImage = resizeImage(ACTIVE_TURTLE_IMAGE);
+        turtleImage.setOnMouseClicked(e -> flipActive());
         this.myLines = new Group();
         this.width=width;
         this.height=height;
         this.currentColor= Color.BLACK;
         updateTurtle();
+    }
+    public boolean isActive() {
+        return active;
     }
     public int getXCor(){
         return xCor;
@@ -73,6 +81,14 @@ public class Turtle implements TurtleInterface {
     }
     public int getShowing(){
         return showing ? 1 : 0;
+    }
+    public void flipActive() {
+        this.active = !active;
+        if (active) {
+            turtleImage.setImage(ACTIVE_TURTLE_IMAGE);
+        } else {
+            turtleImage.setImage(INACTIVE_TURTLE_IMAGE);
+        }
     }
     public int forward(int pixels){
         int oldX=xCor;

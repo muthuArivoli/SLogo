@@ -95,7 +95,9 @@ public class Main extends Application {
         vis.getRunButton().setOnAction(event -> {
             try {
                 for(Turtle turtle:t) {
-                    bAPI.buildAndRun(vis.getScript(), turtle);
+                    if (turtle.isActive()) {
+                        bAPI.buildAndRun(vis.getScript(), turtle);
+                    }
                 }
                 vis.updateHistory(vis.getScript());
             }
@@ -105,22 +107,30 @@ public class Main extends Application {
         });
         vis.getMoveForwardButton().setOnAction(event -> {
             for(Turtle turtle:t) {
-                turtle.forward(25);
+                if (turtle.isActive()) {
+                    turtle.forward(25);
+                }
             }
         });
         vis.getMoveBackwardButton().setOnAction(event -> {
             for(Turtle turtle:t) {
-                turtle.back(25);
+                if (turtle.isActive()) {
+                    turtle.back(25);
+                }
             }
         });
         vis.getTurnRightButton().setOnAction(event -> {
             for(Turtle turtle:t) {
-                turtle.right(30);
+                if (turtle.isActive()) {
+                    turtle.right(30);
+                }
             }
         });
         vis.getTurnLeftButton().setOnAction(event -> {
             for(Turtle turtle:t) {
-                turtle.left(30);
+                if (turtle.isActive()) {
+                    turtle.left(30);
+                }
             }
         });
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
@@ -134,7 +144,9 @@ public class Main extends Application {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
                 for(Turtle turtle:t) {
-                    bAPI.runFile(file, turtle);
+                    if (turtle.isActive()) {
+                        bAPI.runFile(file, turtle);
+                    }
                 }
             }
         });
