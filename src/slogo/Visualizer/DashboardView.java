@@ -4,8 +4,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+
+import java.awt.*;
 
 public class DashboardView extends Pane {
   private static final double SPACING = 30;
@@ -31,8 +34,14 @@ public class DashboardView extends Pane {
     dashboardPane.setAlignment(Pos.CENTER_RIGHT);
     VBox.setVgrow(script, Priority.ALWAYS);
 
+    ScrollPane historyViewer = new ScrollPane();
+    historyViewer.setContent(pastScripts);
+    historyViewer.setPrefSize(100, 150);
+    historyViewer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    historyViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
     dashboardPane.getChildren()
-        .addAll(pastScripts, script, variableList);
+        .addAll(historyViewer, script, variableList);
 
     getChildren().add(dashboardPane);
     setHeight(dashboardPane.getMinHeight());
@@ -41,5 +50,6 @@ public class DashboardView extends Pane {
     return dashboardPane;
   }
   public String getScript() { return script.getText();}
+  public void setScript(String input) {script.setText(input);}
   protected HistoryView getPastScript() { return pastScripts;}
 }

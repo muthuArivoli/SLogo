@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import slogo.Turtle;
 
 public class Visualizer {
-
     private static Integer sceneLength = 800;
     private static Integer sceneWidth = 1200;
     private BorderPane rootPane;
@@ -77,6 +76,7 @@ public class Visualizer {
 
     public Button getRunButton(){return myMenu.getRunButton();}
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
+    public Button getPaletteButton(){return myMenu.getPaletteButton();}
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public Button getMoveForwardButton(){return myMenu.getMoveForwardButton();}
@@ -84,6 +84,7 @@ public class Visualizer {
     public Button getTurnRightButton(){return myMenu.getTurnRightButton();}
     public Button getTurnLeftButton(){return myMenu.getTurnLeftButton();}
     public String getScript(){return myDashboard.getScript();}
+    public void setScript(String input) {myDashboard.setScript(input);}
     public static Integer getSceneLength(){return sceneLength;}
     public static Integer getSceneWidth(){return sceneWidth;}
 
