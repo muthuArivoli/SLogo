@@ -1,8 +1,6 @@
 package slogo;
 
-import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
-import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,9 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import slogo.Visualizer.TurtleView;
+import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.TurtleInterface;
-import slogo.Visualizer.Visualizer;
 
 public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;

@@ -3,38 +3,26 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-
-import javafx.scene.Group;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import slogo.BackEndAPI;
-import slogo.FrontEndAPI;
-import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.Turtle;
+import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 
 public class MenuView {
 
 
-    private static final double HBOX_SPACING = 5;
     public static final int WIDTH_TEXTBOX = 150;
     private static final int ENTRY_PADDING = 100;
   private static final Insets PADDING = new Insets(10, 10, 10, 10);
 
-  public enum ButtonProperty {
-        RUN,
-    }
     public static final String FILE_ENTRY_PROMPT = " Please enter file name: ";
     public static final String FILE_SAVE_PROMPT= "  Save as file name: ";
-    private static final double VIEWWIDTH = 10;
-    private static final double VIEWHEIGHT = 10;
 
     private static final String CHINESE = "Chinese";
     private static final String ENGLISH = "English";
@@ -53,9 +41,7 @@ public class MenuView {
     private static final String PALLETE = "Pallete";
     private static final String SAVE = "Save";
     private static final String LANGUAGES = "Languages";
-    private static final String STYLE_CSS = "button";
     private HBox menuPane;
-    private StackPane intro;
 
     private ColorPicker picker;
     private Button runButton;
@@ -86,7 +72,6 @@ public class MenuView {
         paletteButton = new Button(PALLETE);
 
         Region spacer1 = new Region();
-
         Region spacer2 = new Region();
         picker = new ColorPicker();
         runButton = new Button(RUN);
@@ -96,13 +81,6 @@ public class MenuView {
         penButton = new Button(PEN);
         helpButton = new Button(HELP);
         loadEnvironmentButton = new Button(LOAD);
-//
-//        Region smallSpacer1 = new Region();
-//        smallSpacer1.maxWidth(10);
-//        Region smallSpacer2 = new Region();
-//        smallSpacer2.maxWidth(10);
-
-        Label savePrompt = new Label(FILE_SAVE_PROMPT);
         TextField saveTextField = new TextField();
         saveTextField.setMaxWidth(WIDTH_TEXTBOX);
         saveTextField.setPromptText(FILE_SAVE_PROMPT);

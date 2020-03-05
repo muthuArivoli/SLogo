@@ -2,17 +2,17 @@ package slogo.Visualizer;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class paletteMap {
+
 
     private static final String INDEX = "Index:";
     private static final String WEB_VALUE = "Web Value:";
@@ -20,7 +20,7 @@ public class paletteMap {
     private static final int BASIC_SPACING = 10;
     private static final Insets BASIC_PADDING = new Insets(BASIC_SPACING, BASIC_SPACING,
         BASIC_SPACING, BASIC_SPACING);
-    HashMap<Integer, Color> colorMap;
+    Map<Integer, Color> colorMap;
 
     public paletteMap() {
         colorMap = new HashMap<>();
@@ -35,7 +35,7 @@ public class paletteMap {
 
     public void add(int index, Color value) {colorMap.put(index, value);}
     public void remove(int index) {colorMap.remove(index);}
-    public HashMap<Integer, Color> getColorMap() {return colorMap;}
+    public Map<Integer, Color> getColorMap() {return colorMap;}
 
     public HBox createScene(HBox input) {
         VBox indexCol = new VBox(BASIC_SPACING);

@@ -1,21 +1,17 @@
 package slogo.Visualizer;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
-import slogo.Main;
 
 public class HistoryView extends TextFlow {
-  private static final String PLACEHOLDER = "This shows previously ran scripts";
   private static final int MIN_WIDTH = 500;
   private static final int MIN_HEIGHT = 200;
-  private TextFlow historyText;
   private int counter;
   private DashboardView dashBoardView;
   public HistoryView(DashboardView dbView) {
@@ -34,11 +30,6 @@ public class HistoryView extends TextFlow {
     Text text_2 = new Text("\n\n");
     this.getChildren().addAll(text_1, script_link, text_2);
 
-    script_link.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        dashBoardView.setScript(input);
-      }
-    });
+    script_link.setOnAction(e -> dashBoardView.setScript(input));
   }
 }

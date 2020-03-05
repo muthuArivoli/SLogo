@@ -1,20 +1,14 @@
 package slogo.Visualizer;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import slogo.Turtle;
 
 public class Visualizer {
-    private static final double WIDTH_TEXTBOX = 80;
-
     private static Integer sceneLength = 800;
     private static Integer sceneWidth = 1200;
 
@@ -34,27 +28,24 @@ public class Visualizer {
         myControls = new GUIControllerView();
 
 
-        getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Help Dialogue");
-                alert.setHeaderText("Commands List");
-                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
-                    "BACK/BK                           [pixels]\n\n" +
-                    "LEFT/LT                             [degrees]\n\n" +
-                    "RIGHT/RT                          [degrees]\n\n" +
-                    "SETHEADING/SETH     [degrees]\n\n" +
-                    "TOWARDS                        [x y]\n\n" +
-                    "SETXY/GOTO                  [x y]\n\n" +
-                    "PENDOWN/PD\n\n" +
-                    "PENUP/PU\n\n" +
-                    "SHOWTURTLE/ST\n\n" +
-                    "HIDETURTLE/HT\n\n" +
-                    "HOME\n\n" +
-                    "CLEARSCREEN/CS\n\n");
-                alert.show();
-            }
+        getHelpButton().setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Help Dialogue");
+            alert.setHeaderText("Commands List");
+            alert.setContentText("FORWARD/FD                [pixels]\n\n" +
+                "BACK/BK                           [pixels]\n\n" +
+                "LEFT/LT                             [degrees]\n\n" +
+                "RIGHT/RT                          [degrees]\n\n" +
+                "SETHEADING/SETH     [degrees]\n\n" +
+                "TOWARDS                        [x y]\n\n" +
+                "SETXY/GOTO                  [x y]\n\n" +
+                "PENDOWN/PD\n\n" +
+                "PENUP/PU\n\n" +
+                "SHOWTURTLE/ST\n\n" +
+                "HIDETURTLE/HT\n\n" +
+                "HOME\n\n" +
+                "CLEARSCREEN/CS\n\n");
+            alert.show();
         });
 
         rootPane = new BorderPane();
