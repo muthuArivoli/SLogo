@@ -18,10 +18,9 @@ public class MenuView {
 
 
     public static final int WIDTH_TEXTBOX = 150;
+    private static final int ENTRY_PADDING = 100;
+  private static final Insets PADDING = new Insets(10, 10, 10, 10);
 
-    public enum ButtonProperty {
-        RUN,
-    }
     public static final String FILE_ENTRY_PROMPT = " Please enter file name: ";
     public static final String FILE_SAVE_PROMPT= "  Save as file name: ";
 
@@ -35,6 +34,7 @@ public class MenuView {
     private static final String SPANISH = "Spanish";
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
+    private static final String PEN = "Pen";
     private static final String FILE = "Run Command File";
     private static final String LOAD =  "Load File";
     private static final String HELP = "Help";
@@ -48,6 +48,7 @@ public class MenuView {
     private Button saveButton;
     private Button helpButton;
     private Button paletteButton;
+    private Button penButton;
     private ComboBox langSelection;
     private Button fileButton;
     private Button loadEnvironmentButton;
@@ -77,6 +78,7 @@ public class MenuView {
         loadButton = new Button(LOAD);
         saveButton = new Button(SAVE);
         fileButton = new Button(FILE);
+        penButton = new Button(PEN);
         helpButton = new Button(HELP);
         loadEnvironmentButton = new Button(LOAD);
         TextField saveTextField = new TextField();
@@ -96,8 +98,8 @@ public class MenuView {
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer1, Priority.ALWAYS);
         HBox.setHgrow(spacer2, Priority.ALWAYS);
-        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, center, spacer2, right);
-        menuPane.setPadding(new Insets(10,10,10,10));
+        menuPane.getChildren().addAll(langSelection, paletteButton, penButton, spacer1, center, spacer2, right);
+        menuPane.setPadding(PADDING);
     }
     private void loadEnvironment(String input, TurtleView turtle){
         ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
@@ -115,5 +117,6 @@ public class MenuView {
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
     public Button getHelpButton(){return helpButton;}
+    public Button getPenButton(){return penButton;}
     public Button getPaletteButton() {return paletteButton;}
 }

@@ -4,6 +4,7 @@ import javafx.scene.control.TextArea;
 
 
 public class ScriptView extends TextArea {
+
     private static final String PLACEHOLDER = "Type your script here...";
     private static final int SCRIPT_HEIGHT = 225;
 

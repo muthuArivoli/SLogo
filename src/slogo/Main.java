@@ -2,7 +2,6 @@ package slogo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,15 +69,9 @@ public class Main extends Application {
 
     }
 
-
-
-
-
     @Override
     public void start(Stage primaryStage) {
         List<Workspace> workspaces = new ArrayList<>();
         workspaces.add(new Workspace(primaryStage));
     }
-
-
 }
