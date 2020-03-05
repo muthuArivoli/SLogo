@@ -14,9 +14,9 @@ public class DashboardView extends Pane {
   private static final double MARGINS = 10;
   private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
 
-  HistoryView pastScripts;
-  ScriptView script;
-  VariableView variableList;
+  private HistoryView pastScripts;
+  private ScriptView script;
+  private VariableView variableList;
   private VBox dashboardPane;
   public DashboardView() {
     super();

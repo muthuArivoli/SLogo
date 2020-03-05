@@ -12,8 +12,8 @@ import slogo.Turtle;
 
 public class Visualizer {
     private static final double WIDTH_TEXTBOX = 80;
-    private static Integer sceneLength = 700;
-    private static Integer sceneWidth = 1200;
+    private static Integer sceneLength = 1200;
+    private static Integer sceneWidth = 800;
     private BorderPane rootPane;
     private Scene myScene;
     private TurtleView myTurtleView;
