@@ -12,19 +12,29 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
-public class MenuView extends Pane {
+import javafx.scene.Group;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import slogo.BackEndAPI;
+import slogo.FrontEndAPI;
+import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
+import slogo.Turtle;
 
-    private static final String MOVE_FORWARD = "Move Forward";
-    private static final String MOVE_BACKWARD = "Move Backward";
-    private static final String TURN_RIGHT = "Turn Right";
-    private static final String TURN_LEFT = "Turn Left";
+public class MenuView {
+
+
+    private static final double HBOX_SPACING = 5;
+    public static final int WIDTH_TEXTBOX = 80;
+    private static final int ENTRY_PADDING = 100;
 
     public enum ButtonProperty {
         RUN,
     }
-    public static final String FILE_ENTRY_PROMPT = "Filename to save:";
+    public static final String FILE_ENTRY_PROMPT = " Please enter file name: ";
+    public static final String FILE_SAVE_PROMPT= "  Save as file name: ";
     private static final double VIEWWIDTH = 10;
     private static final double VIEWHEIGHT = 10;
+
     private static final String CHINESE = "Chinese";
     private static final String ENGLISH = "English";
     private static final String FRENCH = "French";
@@ -35,28 +45,27 @@ public class MenuView extends Pane {
     private static final String SPANISH = "Spanish";
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
-    private static final String FILE = "Run File";
+    private static final String FILE = "Run Command File";
+    private static final String LOAD =  "Load File";
     private static final String HELP = "Help";
     private static final String PALLETE = "Pallete";
     private static final String SAVE = "Save";
     private static final String LANGUAGES = "Languages";
     private static final String STYLE_CSS = "button";
     private HBox menuPane;
+    private StackPane intro;
+
     private ColorPicker picker;
     private Button runButton;
     private Button saveButton;
     private Button helpButton;
-    private Button moveForwardButton;
-    private Button moveBackwardButton;
-    private Button turnRightButton;
-    private Button turnLeftButton;
     private Button paletteButton;
     private ComboBox langSelection;
     private Button fileButton;
-
+    private Button loadEnvironmentButton;
+    private Button loadButton;
     public MenuView(TurtleView turtle) {
         menuPane = new HBox();
-
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                     CHINESE,
@@ -69,26 +78,33 @@ public class MenuView extends Pane {
                     SPANISH,
                     URDU
                 );
-
         langSelection = new ComboBox(options);
         helpButton = new Button(HELP);
         paletteButton = new Button(PALLETE);
 
         Region spacer1 = new Region();
-        moveForwardButton = new Button (MOVE_FORWARD);
-        moveBackwardButton = new Button (MOVE_BACKWARD);
-        turnRightButton = new Button (TURN_RIGHT);
-        turnLeftButton = new Button (TURN_LEFT);
-        HBox center = new HBox(moveForwardButton, moveBackwardButton, turnLeftButton, turnRightButton);
 
         Region spacer2 = new Region();
         picker = new ColorPicker();
         runButton = new Button(RUN);
+        loadButton = new Button(LOAD);
+        saveButton = new Button(SAVE);
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
-        saveButton = new Button(SAVE);
-        Label prompt = new Label(FILE_ENTRY_PROMPT);
-        HBox right = new HBox(helpButton, picker, fileButton, runButton, saveButton, prompt);
+        loadEnvironmentButton = new Button(LOAD);
+
+        Label savePrompt = new Label(FILE_SAVE_PROMPT);
+        TextField saveTextField = new TextField();
+        saveTextField.setMaxWidth(WIDTH_TEXTBOX);
+        saveButton.setOnAction(e -> Turtle.createXMLFile((saveTextField.getText())));
+
+        Label loadPrompt = new Label(FILE_ENTRY_PROMPT);
+        TextField loadTextField = new TextField();
+        loadTextField.setMaxWidth(WIDTH_TEXTBOX);
+        loadEnvironmentButton.setOnAction(e -> loadEnvironment(loadTextField.getText(), turtle));
+
+        HBox right = new HBox(helpButton, picker, fileButton, runButton, savePrompt, saveTextField, saveButton, loadPrompt, loadTextField, loadEnvironmentButton);
+
         picker.setOnAction(event -> {
           turtle.updateBackgroundColor(picker.getValue());
         });
@@ -97,8 +113,18 @@ public class MenuView extends Pane {
         HBox.setHgrow(spacer2, Priority.ALWAYS);
         spacer2.setMinSize(10, 0);
         spacer1.setMinSize(10, 0);
-        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, center, spacer2, right);
+        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, right);
         menuPane.setPadding(new Insets(10,10,10,10));
+    }
+    private void loadEnvironment(String input, TurtleView turtle){
+        ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
+        turtle.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
+        for(int i = 0; i< newlyParsedFile.getNumTurtlesFromAnInputtedFile(); i++){
+            Group ret = new Group();
+            Turtle addTurtle = new Turtle(5, 5, 1);
+            ret.getChildren().addAll(addTurtle.getTurtleGroup());
+            System.out.print(i);
+        }
     }
 
     public HBox getPane() {return menuPane;}
@@ -106,9 +132,5 @@ public class MenuView extends Pane {
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
     public Button getHelpButton(){return helpButton;}
-    public Button getMoveForwardButton(){return moveForwardButton;}
-    public Button getMoveBackwardButton(){return moveBackwardButton;}
-    public Button getTurnRightButton(){return turnRightButton;}
-    public Button getTurnLeftButton(){return turnLeftButton;}
     public Button getPaletteButton() {return paletteButton;}
 }

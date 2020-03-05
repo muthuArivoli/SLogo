@@ -1,4 +1,4 @@
-package slogo.XMLExceptions;
+package slogo.XMLSaveLoadAndExceptions;
 
 public class XMLTransformerException extends RuntimeException {
     public XMLTransformerException() {

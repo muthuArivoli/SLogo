@@ -20,8 +20,8 @@ public class VariableView extends TableView {
 
     TableColumn<String, String> variableValueColumn = new TableColumn<>("Value");
     variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("variableValue"));
-
-    this.setMinHeight(150);
+    this.getColumns().addAll(variableNameColumn, variableValueColumn);
+    this.setPrefHeight(200);
   } 
 
 //  private void displayVariables(Map<String, String> variableList) {

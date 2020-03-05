@@ -2,16 +2,17 @@ package slogo;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
+import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import slogo.Visualizer.TurtleView;
+import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.TurtleInterface;
 import slogo.Visualizer.Visualizer;
-
-import java.util.List;
 
 public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
@@ -19,8 +20,9 @@ public class Turtle implements TurtleInterface {
     public static final int SCALE_DOWN = 1;
     private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
     private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
+    private static Integer turtleNums;
+    private Tooltip turtleTip;
     private int turtleID;
-    private int turtleNums;
     private int width;
     private int height;
     private int xCor;
@@ -45,8 +47,11 @@ public class Turtle implements TurtleInterface {
         this.penDown=true;
         this.showing=true;
         this.active=true;
+        this.turtleTip = new Tooltip();
         this.turtleImage = resizeImage(ACTIVE_TURTLE_IMAGE);
         turtleImage.setOnMouseClicked(e -> flipActive());
+        Tooltip.install(turtleImage, turtleTip);
+
         this.myLines = new Group();
         this.width=width;
         this.height=height;
@@ -72,6 +77,7 @@ public class Turtle implements TurtleInterface {
     public void setTurtleNums(int numberOfTurtles){
         turtleNums = numberOfTurtles;
     }
+
 
     public int getHeading(){
         return heading;
@@ -174,11 +180,13 @@ public class Turtle implements TurtleInterface {
     public int penDown(){
         penDown=true;
         System.out.println("Pen Down");
+        updateToolTip();
         return 1;
     }
     public int penUp(){
         penDown=false;
         System.out.println("Pen Up");
+        updateToolTip();
         return 0;
     }
     public int showTurtle(){
@@ -230,15 +238,26 @@ public class Turtle implements TurtleInterface {
     private void updateTurtle(){
         moveTurtleImage();
         rotateTurtleImage();
+        updateToolTip();
+    }
+
+    private void updateToolTip() {
+        turtleTip.setText("ID: " + turtleID + "\n" +
+            "(X, Y): " + xCor +  ", " + yCor + "\n" +
+            "Heading = " + heading + "\n"  +
+            "Pen state: " + penDown + "\n" +
+            "Pen color: " + currentColor);
     }
 
     // Image methods below --- :)
     private void moveTurtleImage() {
         turtleImage.setX(adjustedX(xCor)-turtleImage.getFitWidth()/2);
         turtleImage.setY(adjustedY(yCor)-turtleImage.getFitWidth()/2);
+        updateToolTip();
     }
     private void rotateTurtleImage(){
         turtleImage.setRotate(heading);
+        updateToolTip();
     }
 
     private ImageView resizeImage(Image input) {
@@ -263,6 +282,16 @@ public class Turtle implements TurtleInterface {
     }
     private double adjustedY(int y){
         return (height / 2) - (y/SCALE_DOWN);
+    }
+
+    /**
+     * Uses the XMLFileCreator to create a new document
+     * @param filename
+     */
+    public static void createXMLFile(String filename){
+        //will pass stuff with getters for now
+        XMLFileBuilder builder = new XMLFileBuilder(turtleNums, TurtleView.getBackgroundColor(), filename);
+        builder.createDocument();
     }
 
 

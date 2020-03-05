@@ -1,7 +1,6 @@
-package slogo;
+package slogo.XMLSaveLoadAndExceptions;
 
 import java.io.File;
-import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,8 +11,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import slogo.XMLExceptions.XMLCreationExceptions;
-import slogo.XMLExceptions.XMLTransformerException;
+import slogo.Turtle;
 
 /**
  * This class serves to build an XMl document to contain the turtle environment passed
@@ -24,23 +22,22 @@ public class XMLFileBuilder {
     public static final String NUM_TURTLES_TAG = "numTurtles";
     public static final String BACKGROUND_COLOR_TAG = "background";
 
-    private List<Turtle> turtlesToSave;
+    private Integer turtlesToSave;
     private DocumentBuilderFactory documentFactory;
     private DocumentBuilder documentBuilder;
     private Document document;
     private String background;
-
     private String filename;
     private int numTurtles;
     private final static String XML_ENDING = ".xml";
     private final static String DEFAULT_FOLDER = "data/";
 
-
-    public XMLFileBuilder(List<Turtle> turtles, String background, String filename) {
-        this.turtlesToSave = turtles;
+    public XMLFileBuilder(Integer turtleNums, String background, String filename) {
+        this.turtlesToSave = turtleNums;
         this.background = background;
+
         //defaults to change later
-        this.numTurtles = turtles.size();
+        this.numTurtles = turtleNums;
         this.filename = filename + XML_ENDING;
 
         try{
@@ -88,33 +85,22 @@ public class XMLFileBuilder {
     {
         //will need something that saves all the turtles
         //fillAllTurtles(); (for example)
-
         Element numberOfTurtlesType = createElement(NUM_TURTLES_TAG, Integer.toString(numTurtles));
         root.appendChild(numberOfTurtlesType);
-
         Element backgroundColorType = createElement(BACKGROUND_COLOR_TAG, background);
         root.appendChild(backgroundColorType);
 
         for(int i = 0; i < numTurtles; i++) {
             //need to iterate through turtles to get all turtle elements in separate arrays
         }
-        }
-
-
-    /**
-     * Method which creates a string array of all of the
-     * current states of the board to be saved in the XML file
-     */
-
-
+    }
     /**
      * Creates a single element from a given tag name and text
      * @param tagName
      * @param text
      * @return
      */
-    private Element createElement(String tagName, String text)
-    {
+    private Element createElement(String tagName, String text) {
         Element e = document.createElement(tagName);
         e.appendChild(document.createTextNode(text));
         return e;

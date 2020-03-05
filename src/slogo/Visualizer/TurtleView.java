@@ -6,16 +6,21 @@ import javafx.scene.paint.Color;
 
 public class TurtleView extends Pane {
 
+    private static String myBackground;
     private Group myGroup;
     private Pane myPane;
-
+    private String myBackgroundSyntax;
+    private String DEFAULT_BACKGROUND_COLOR = "#FFFFFF";
 
     public TurtleView() {
         //will convert to group for liens etc
         myGroup = new Group();
         myPane = new Pane();
+        myBackgroundSyntax = "-fx-background-color: #";
+        myBackground = myBackgroundSyntax + DEFAULT_BACKGROUND_COLOR;
+
         myPane.getChildren().addAll(myGroup);
-        myPane.setBorder(new Border(new BorderStroke(Color.BLACK,
+        myPane.setBorder(new Border(new BorderStroke(Color.WHITE,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
     public void addGroup(Group g){
@@ -24,9 +29,17 @@ public class TurtleView extends Pane {
 
     public void updateBackgroundColor(Color c) {
         String hex = c.toString().substring(2,10);
-        myPane.setStyle("-fx-background-color: #" + hex);
+        myBackground = myBackgroundSyntax + hex;
+        myPane.setStyle(myBackground);
+    }
+    public void setBackgroundColorUsingXML(String newColor){
+        myBackground = newColor;
+        myPane.setStyle(myBackground);
     }
 
-    public Pane getPane() {return myPane;}
+    public Pane getPane() { return myPane;}
+    public static String getBackgroundColor() {return myBackground;}
+
+
 
 }

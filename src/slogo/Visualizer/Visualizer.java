@@ -3,22 +3,25 @@ package slogo.Visualizer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import slogo.Turtle;
 
 public class Visualizer {
-    private static Integer sceneLength = 800;
-    private static Integer sceneWidth = 1200;
+    private static final double WIDTH_TEXTBOX = 80;
+    private static Integer sceneLength = 700;
+    private static Integer sceneWidth = 1300;
     private BorderPane rootPane;
     private Scene myScene;
     private TurtleView myTurtleView;
     private MenuView myMenu;
     private DashboardView myDashboard;
-
+    private GUIControllerView myControls;
 
 
     public Visualizer() {
@@ -26,6 +29,8 @@ public class Visualizer {
         myTurtleView = new TurtleView();
         myDashboard = new DashboardView();
         myMenu = new MenuView(myTurtleView);
+        myControls = new GUIControllerView();
+
 
         getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -52,8 +57,9 @@ public class Visualizer {
 
         rootPane = new BorderPane();
         myScene = new Scene(rootPane, sceneWidth, sceneLength);
-        rootPane.setRight(myDashboard.getDashboardPane());
+        rootPane.setRight(myDashboard);
         rootPane.setCenter(myTurtleView.getPane());
+        rootPane.setBottom(myControls);
         rootPane.setPadding(new Insets(10,10,10,10));
         rootPane.setTop(myMenu.getPane());
 
@@ -79,10 +85,10 @@ public class Visualizer {
     public Button getPaletteButton(){return myMenu.getPaletteButton();}
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
-    public Button getMoveForwardButton(){return myMenu.getMoveForwardButton();}
-    public Button getMoveBackwardButton(){return myMenu.getMoveBackwardButton();}
-    public Button getTurnRightButton(){return myMenu.getTurnRightButton();}
-    public Button getTurnLeftButton(){return myMenu.getTurnLeftButton();}
+    public Button getMoveForwardButton(){return myControls.getMoveForwardButton();}
+    public Button getMoveBackwardButton(){return myControls.getMoveBackwardButton();}
+    public Button getTurnRightButton(){return myControls.getTurnRightButton();}
+    public Button getTurnLeftButton(){return myControls.getTurnLeftButton();}
     public String getScript(){return myDashboard.getScript();}
     public void setScript(String input) {myDashboard.setScript(input);}
     public static Integer getSceneLength(){return sceneLength;}
