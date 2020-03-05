@@ -1,7 +1,6 @@
-package slogo;
+package slogo.XMLSaveLoadAndExceptions;
 
 import java.io.File;
-import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,8 +11,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import slogo.XMLExceptions.XMLCreationExceptions;
-import slogo.XMLExceptions.XMLTransformerException;
+import slogo.Turtle;
 
 /**
  * This class serves to build an XMl document to contain the turtle environment passed
@@ -29,7 +27,6 @@ public class XMLFileBuilder {
     private DocumentBuilder documentBuilder;
     private Document document;
     private String background;
-
     private String filename;
     private int numTurtles;
     private final static String XML_ENDING = ".xml";
@@ -38,6 +35,7 @@ public class XMLFileBuilder {
     public XMLFileBuilder(Turtle turtle, String background, String filename) {
         this.turtlesToSave = turtle;
         this.background = background;
+
         //defaults to change later
         this.numTurtles = turtle.getTurtleNums();
         this.filename = filename + XML_ENDING;
@@ -87,21 +85,15 @@ public class XMLFileBuilder {
     {
         //will need something that saves all the turtles
         //fillAllTurtles(); (for example)
-        root.appendChild((document.createTextNode("\n")));
         Element numberOfTurtlesType = createElement(NUM_TURTLES_TAG, Integer.toString(numTurtles));
         root.appendChild(numberOfTurtlesType);
-        root.appendChild((document.createTextNode("\n\n")));
         Element backgroundColorType = createElement(BACKGROUND_COLOR_TAG, background);
         root.appendChild(backgroundColorType);
-        root.appendChild((document.createTextNode("\n\n")));
-
 
         for(int i = 0; i < numTurtles; i++) {
             //need to iterate through turtles to get all turtle elements in separate arrays
         }
-        }
-
-
+    }
     /**
      * Creates a single element from a given tag name and text
      * @param tagName
@@ -111,7 +103,6 @@ public class XMLFileBuilder {
     private Element createElement(String tagName, String text) {
         Element e = document.createElement(tagName);
         e.appendChild(document.createTextNode(text));
-
         return e;
     }
 
