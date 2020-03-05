@@ -5,11 +5,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.Visualizer.Visualizer;
-
+import javafx.scene.control.Label;
+import slogo.Visualizer.paletteMap;
+import slogo.commands.Executable;
+import slogo.commands.ForEx;
+import slogo.commands.ForwardEx;
+import slogo.commands.HideTurtleEx;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +33,7 @@ public class Main extends Application {
      *
 
      */
-
-
+    private List<Workspace> workspaces;
     public static void main (String[] args) {
         launch(args);
 
@@ -82,69 +89,18 @@ public class Main extends Application {
 
     }
 
+
+
+
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Map<Visualizer,List<Turtle>> workspaces= new HashMap<>();
-        Visualizer vi = new Visualizer();
-        primaryStage.setScene(vi.getScene());
-        primaryStage.setResizable(false);
-        primaryStage.show();
-        final FileChooser fileChooser = new FileChooser();
 
-        List<Turtle> turtleList = new ArrayList<Turtle>();
-        turtleList.add(vi.addTurtle(turtleList.size()));
-        workspaces.put(vi,turtleList);
-        BackEndAPI bAPI=new BackEndAPI();
-        for(Visualizer vis:workspaces.keySet()) {
-            vis.getRunButton().setOnAction(event -> {
-                try {
-                    for (Turtle turtle : workspaces.get(vis)) {
-                        bAPI.buildAndRun(vis.getScript(), turtle);
-                    }
-                    vis.updateHistory(vis.getScript());
-                } catch (IncorrectCommandException ice) {
-                    vis.alertCreator("Build Failed", ice.getMessage());
-                }
-            });
-            vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue ov, String t, String t1) {
-                    bAPI.setLanguage(t1);
-                }
-            });
-            vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Help Dialogue");
-                    alert.setHeaderText("Commands List");
-                    alert.setContentText("FORWARD/FD                [pixels]\n\n" +
-                            "BACK/BK                           [pixels]\n\n" +
-                            "LEFT/LT                             [degrees]\n\n" +
-                            "RIGHT/RT                          [degrees]\n\n" +
-                            "SETHEADING/SETH     [degrees]\n\n" +
-                            "TOWARDS                        [x y]\n\n" +
-                            "SETXY/GOTO                  [x y]\n\n" +
-                            "PENDOWN/PD\n\n" +
-                            "PENUP/PU\n\n" +
-                            "SHOWTURTLE/ST\n\n" +
-                            "HIDETURTLE/HT\n\n" +
-                            "HOME\n\n" +
-                            "CLEARSCREEN/CS\n\n");
-                    alert.show();
-                }
-            });
+    public void start(Stage primaryStage) {
 
-            //CHOOSE FILE NOT WORKING RN
-            vis.getFileButton().setOnAction(event -> {
-                File file = fileChooser.showOpenDialog(primaryStage);
-                if (file != null) {
-                    for (Turtle turtle : workspaces.get(vis)) {
-                        bAPI.runFile(file, turtle);
-                    }
-                }
-            });
-        }
+        List<Workspace> workspaces = new ArrayList<>();
+        workspaces.add(new Workspace(primaryStage));
+
+
     }
 
 

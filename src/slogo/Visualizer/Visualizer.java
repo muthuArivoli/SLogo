@@ -1,23 +1,24 @@
 package slogo.Visualizer;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import slogo.Turtle;
 
 public class Visualizer {
-
+    private static final double WIDTH_TEXTBOX = 80;
     private static Integer sceneLength = 1200;
-    private static Integer sceneWidth = 1200;
+    private static Integer sceneWidth = 800;
     private BorderPane rootPane;
     private Scene myScene;
     private TurtleView myTurtleView;
     private MenuView myMenu;
     private DashboardView myDashboard;
-
 
 
     public Visualizer() {
@@ -51,9 +52,11 @@ public class Visualizer {
 
     public Button getRunButton(){return myMenu.getRunButton();}
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
+    public Button getPaletteButton(){return myMenu.getPaletteButton();}
     public Button getFileButton(){return myMenu.getFileButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public String getScript(){return myDashboard.getScript();}
+    public void setScript(String input) {myDashboard.setScript(input);}
     public static Integer getSceneLength(){return sceneLength;}
     public static Integer getSceneWidth(){return sceneWidth;}
 
