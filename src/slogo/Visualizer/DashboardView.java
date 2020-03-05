@@ -1,7 +1,9 @@
 package slogo.Visualizer;
 
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
@@ -17,9 +19,9 @@ public class DashboardView extends Pane {
   private HistoryView pastScripts;
   private ScriptView script;
   private VariableView variableList;
+  private TurtleInfoView turtleInfo;
   private VBox dashboardPane;
   public DashboardView() {
-    super();
     dashboardPane = new VBox(SPACING);
     dashboardPane.prefHeightProperty().bind(this.heightProperty());
     dashboardPane.setPadding(PADDING);
@@ -31,6 +33,7 @@ public class DashboardView extends Pane {
     dashboardPane.setMaxWidth(Double.MAX_VALUE);
     dashboardPane.setAlignment(Pos.CENTER_RIGHT);
     VBox.setVgrow(script, Priority.ALWAYS);
+    VBox.setVgrow(script, Priority.SOMETIMES);
 
     ScrollPane historyViewer = new ScrollPane();
     historyViewer.setContent(pastScripts);
@@ -46,6 +49,17 @@ public class DashboardView extends Pane {
   }
   public VBox getDashboardPane() {
     return dashboardPane;
+  }
+  public void addVariables(Map<String, String> variables) {
+    for (String varName: variables.keySet()) {
+      if (!variableList.getItems().contains(varName)) {
+        variableList.getItems().add(0, varName);
+        variableList.getItems().add(1, variables.get(varName));
+      } else {
+        int i = variableList.getColumns().indexOf(varName);
+
+      }
+    }
   }
   public String getScript() { return script.getText();}
   public void setScript(String input) {script.setText(input);}

@@ -19,7 +19,7 @@ public class HistoryView extends TextFlow {
   public HistoryView(DashboardView dbView) {
     super();
     this.setMinWidth(500);
-    this.setMinHeight(140);
+    this.setMinHeight(200);
     this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     counter = 0;
     dashBoardView = dbView;

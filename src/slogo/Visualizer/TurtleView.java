@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class TurtleView extends Pane {
 
-    private static String myBackground = "";
+    private static String myBackground;
     private Group myGroup;
     private Pane myPane;
     private String myBackgroundSyntax;
@@ -29,13 +29,16 @@ public class TurtleView extends Pane {
 
     public void updateBackgroundColor(Color c) {
         String hex = c.toString().substring(2,10);
-        myPane.setStyle(myBackgroundSyntax + hex);
         myBackground = myBackgroundSyntax + hex;
+        myPane.setStyle(myBackground);
     }
-    public void setBackgroundColorUsingXML(String newColor){myBackground = newColor;}
+    public void setBackgroundColorUsingXML(String newColor){
+        myBackground = newColor;
+        myPane.setStyle(myBackground);
+    }
 
     public Pane getPane() { return myPane;}
-    public static String getBackgroundColor() { return myBackground;}
+    public static String getBackgroundColor() {return myBackground;}
 
 
 

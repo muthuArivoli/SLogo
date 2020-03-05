@@ -94,7 +94,6 @@ public class Main extends Application {
 
 
     @Override
-
     public void start(Stage primaryStage) {
 
         List<Workspace> workspaces = new ArrayList<>();
