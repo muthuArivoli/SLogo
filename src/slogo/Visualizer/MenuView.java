@@ -3,6 +3,15 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -11,7 +20,9 @@ import slogo.FrontEndAPI;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.Turtle;
 
-public class MenuView extends Pane {
+public class MenuView {
+
+
     private static final double HBOX_SPACING = 5;
     public static final int WIDTH_TEXTBOX = 80;
     private static final int ENTRY_PADDING = 100;
@@ -70,8 +81,11 @@ public class MenuView extends Pane {
         langSelection = new ComboBox(options);
         helpButton = new Button(HELP);
         paletteButton = new Button(PALLETE);
+
+        Region spacer1 = new Region();
+
+        Region spacer2 = new Region();
         picker = new ColorPicker();
-        Pane spacer = new Pane();
         runButton = new Button(RUN);
         loadButton = new Button(LOAD);
         saveButton = new Button(SAVE);
@@ -80,7 +94,7 @@ public class MenuView extends Pane {
         loadEnvironmentButton = new Button(LOAD);
 
         Label savePrompt = new Label(FILE_SAVE_PROMPT);
-        TextField saveTextField = new TextField ();
+        TextField saveTextField = new TextField();
         saveTextField.setMaxWidth(WIDTH_TEXTBOX);
         saveButton.setOnAction(e -> Turtle.createXMLFile((saveTextField.getText())));
 
@@ -95,9 +109,11 @@ public class MenuView extends Pane {
           turtle.updateBackgroundColor(picker.getValue());
         });
         langSelection.setPromptText(LANGUAGES);
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        spacer.setMinSize(5, 0);
-        menuPane.getChildren().addAll(langSelection, paletteButton, spacer, right);
+        HBox.setHgrow(spacer1, Priority.ALWAYS);
+        HBox.setHgrow(spacer2, Priority.ALWAYS);
+        spacer2.setMinSize(10, 0);
+        spacer1.setMinSize(10, 0);
+        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
     private void loadEnvironment(String input, TurtleView turtle){

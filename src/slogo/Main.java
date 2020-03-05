@@ -108,12 +108,42 @@ public class Main extends Application {
         vis.getRunButton().setOnAction(event -> {
             try {
                 for(Turtle turtle:t) {
-                    bAPI.buildAndRun(vis.getScript(), turtle);
+                    if (turtle.isActive()) {
+                        bAPI.buildAndRun(vis.getScript(), turtle);
+                    }
                 }
                 vis.updateHistory(vis.getScript());
             }
             catch(IncorrectCommandException ice){
                 vis.alertCreator("Build Failed",ice.getMessage());
+            }
+        });
+        vis.getMoveForwardButton().setOnAction(event -> {
+            for(Turtle turtle:t) {
+                if (turtle.isActive()) {
+                    turtle.forward(25);
+                }
+            }
+        });
+        vis.getMoveBackwardButton().setOnAction(event -> {
+            for(Turtle turtle:t) {
+                if (turtle.isActive()) {
+                    turtle.back(25);
+                }
+            }
+        });
+        vis.getTurnRightButton().setOnAction(event -> {
+            for(Turtle turtle:t) {
+                if (turtle.isActive()) {
+                    turtle.right(30);
+                }
+            }
+        });
+        vis.getTurnLeftButton().setOnAction(event -> {
+            for(Turtle turtle:t) {
+                if (turtle.isActive()) {
+                    turtle.left(30);
+                }
             }
         });
         vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
@@ -171,7 +201,9 @@ public class Main extends Application {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
                 for(Turtle turtle:t) {
-                    bAPI.runFile(file, turtle);
+                    if (turtle.isActive()) {
+                        bAPI.runFile(file, turtle);
+                    }
                 }
             }
         });
