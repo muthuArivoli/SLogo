@@ -15,12 +15,14 @@ public class HistoryView extends TextFlow {
   private static final String PLACEHOLDER = "This shows previously ran scripts";
   private TextFlow historyText;
   private int counter;
-  public HistoryView() {
+  private DashboardView dashBoardView;
+  public HistoryView(DashboardView dbView) {
     super();
     this.setMinWidth(500);
     this.setMinHeight(200);
     this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     counter = 0;
+    dashBoardView = dbView;
   }
 
   protected void addScript(String input) {
@@ -33,7 +35,7 @@ public class HistoryView extends TextFlow {
     script_link.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        Main.vis.setScript(input);
+        dashBoardView.setScript(input);
       }
     });
   }

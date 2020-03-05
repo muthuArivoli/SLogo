@@ -26,7 +26,7 @@ public class DashboardView extends Pane {
     dashboardPane.prefHeightProperty().bind(this.heightProperty());
     dashboardPane.setPadding(PADDING);
 
-    pastScripts = new HistoryView();
+    pastScripts = new HistoryView(this);
     script = new ScriptView();
     variableList = new VariableView();
 
