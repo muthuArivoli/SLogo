@@ -13,7 +13,7 @@ import slogo.Turtle;
 
 public class MenuView extends Pane {
     private static final double HBOX_SPACING = 5;
-    public static final int WIDTH_TEXTBOX = 80;
+    public static final int WIDTH_TEXTBOX = 150;
     private static final int ENTRY_PADDING = 100;
 
     public enum ButtonProperty {
@@ -71,33 +71,38 @@ public class MenuView extends Pane {
         helpButton = new Button(HELP);
         paletteButton = new Button(PALLETE);
         picker = new ColorPicker();
-        Pane spacer = new Pane();
+        Region spacer1 = new Region();
+        Region spacer2 = new Region();
         runButton = new Button(RUN);
         loadButton = new Button(LOAD);
         saveButton = new Button(SAVE);
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
         loadEnvironmentButton = new Button(LOAD);
+//
+//        Region smallSpacer1 = new Region();
+//        smallSpacer1.maxWidth(10);
+//        Region smallSpacer2 = new Region();
+//        smallSpacer2.maxWidth(10);
 
-        Label savePrompt = new Label(FILE_SAVE_PROMPT);
         TextField saveTextField = new TextField ();
         saveTextField.setMaxWidth(WIDTH_TEXTBOX);
+        saveTextField.setPromptText(FILE_SAVE_PROMPT);
         saveButton.setOnAction(e -> Turtle.createXMLFile((saveTextField.getText())));
 
-        Label loadPrompt = new Label(FILE_ENTRY_PROMPT);
         TextField loadTextField = new TextField();
         loadTextField.setMaxWidth(WIDTH_TEXTBOX);
+        loadTextField.setPromptText(FILE_ENTRY_PROMPT);
         loadEnvironmentButton.setOnAction(e -> loadEnvironment(loadTextField.getText(), turtle));
-
-        HBox right = new HBox(helpButton, picker, fileButton, runButton, savePrompt, saveTextField, saveButton, loadPrompt, loadTextField, loadEnvironmentButton);
-
+        HBox center = new HBox(saveTextField, saveButton, loadTextField, loadEnvironmentButton);
+        HBox right = new HBox(helpButton, picker, fileButton, runButton);
         picker.setOnAction(event -> {
           turtle.updateBackgroundColor(picker.getValue());
         });
         langSelection.setPromptText(LANGUAGES);
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        spacer.setMinSize(5, 0);
-        menuPane.getChildren().addAll(langSelection, paletteButton, spacer, right);
+        HBox.setHgrow(spacer1, Priority.ALWAYS);
+        HBox.setHgrow(spacer2, Priority.ALWAYS);
+        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, center, spacer2, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
     private void loadEnvironment(String input, TurtleView turtle){
