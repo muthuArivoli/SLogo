@@ -1,27 +1,34 @@
 package slogo;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import slogo.Visualizer.TurtleView;
+import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.TurtleInterface;
 import slogo.Visualizer.Visualizer;
-
-import java.util.List;
 
 public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
+    private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
+    private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
+    private static Integer turtleNums;
+    private Tooltip turtleTip;
     private int turtleID;
-    private int turtleNums;
     private int width;
     private int height;
     private int xCor;
     private int yCor;
     private int heading;
+    private boolean active;
     private boolean penDown;
     private boolean showing;
     private ImageView turtleImage;
@@ -40,13 +47,21 @@ public class Turtle implements TurtleInterface {
         this.heading=0;
         this.penDown=true;
         this.showing=true;
-        this.turtleImage = resizeImage(new Image("turtle.png"));
+        this.active=true;
+        this.turtleTip = new Tooltip();
+        this.turtleImage = resizeImage(ACTIVE_TURTLE_IMAGE);
+        turtleImage.setOnMouseClicked(e -> flipActive());
+        Tooltip.install(turtleImage, turtleTip);
+
         this.myLines = new Group();
         this.width=width;
         this.height=height;
         this.currentColor= Color.BLACK;
         this.penWidth=1.0;
         updateTurtle();
+    }
+    public boolean isActive() {
+        return active;
     }
     public int getXCor(){
         return xCor;
@@ -65,6 +80,7 @@ public class Turtle implements TurtleInterface {
         turtleNums = numberOfTurtles;
     }
 
+
     public int getHeading(){
         return heading;
     }
@@ -74,10 +90,18 @@ public class Turtle implements TurtleInterface {
     public int getShowing(){
         return showing ? 1 : 0;
     }
-    public void updatePenColor(Color input) {this.currentColor = input;}
     public Color getPenColor() {return currentColor;}
+    public void setPenColor(Color color){this.currentColor=color;}
     public void setPenWidth(double input) {this.penWidth = input;}
     public double getPenWidth() {return this.penWidth;}
+    public void flipActive() {
+        this.active = !active;
+        if (active) {
+            turtleImage.setImage(ACTIVE_TURTLE_IMAGE);
+        } else {
+            turtleImage.setImage(INACTIVE_TURTLE_IMAGE);
+        }
+    }
     public int forward(int pixels){
         int oldX=xCor;
         int oldY=yCor;
@@ -162,11 +186,13 @@ public class Turtle implements TurtleInterface {
     public int penDown(){
         penDown=true;
         System.out.println("Pen Down");
+        updateToolTip();
         return 1;
     }
     public int penUp(){
         penDown=false;
         System.out.println("Pen Up");
+        updateToolTip();
         return 0;
     }
     public int showTurtle(){
@@ -190,10 +216,6 @@ public class Turtle implements TurtleInterface {
         myLines.getChildren().clear();
         return ret;
     }
-    public void setPenColor(Color color){
-        currentColor=color;
-    }
-
     private double pythagorean(double a, double b){
         double cSquared= (a*a)+(b*b);
         return Math.sqrt(cSquared);
@@ -218,15 +240,26 @@ public class Turtle implements TurtleInterface {
     private void updateTurtle(){
         moveTurtleImage();
         rotateTurtleImage();
+        updateToolTip();
+    }
+
+    private void updateToolTip() {
+        turtleTip.setText("ID: " + turtleID + "\n" +
+            "(X, Y): " + xCor +  ", " + yCor + "\n" +
+            "Heading = " + heading + "\n"  +
+            "Pen state: " + penDown + "\n" +
+            "Pen color: " + currentColor);
     }
 
     // Image methods below --- :)
     private void moveTurtleImage() {
         turtleImage.setX(adjustedX(xCor)-turtleImage.getFitWidth()/2);
         turtleImage.setY(adjustedY(yCor)-turtleImage.getFitWidth()/2);
+        updateToolTip();
     }
     private void rotateTurtleImage(){
         turtleImage.setRotate(heading);
+        updateToolTip();
     }
 
     private ImageView resizeImage(Image input) {
@@ -252,6 +285,16 @@ public class Turtle implements TurtleInterface {
     }
     private double adjustedY(int y){
         return (height / 2) - (y/SCALE_DOWN);
+    }
+
+    /**
+     * Uses the XMLFileCreator to create a new document
+     * @param filename
+     */
+    public static void createXMLFile(String filename){
+        //will pass stuff with getters for now
+        XMLFileBuilder builder = new XMLFileBuilder(turtleNums, TurtleView.getBackgroundColor(), filename);
+        builder.createDocument();
     }
 
 
