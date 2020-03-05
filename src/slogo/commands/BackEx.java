@@ -1,6 +1,6 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ public class BackEx extends Executable {
         setParametersAmounts(1);
     }
     @Override
-    public int runCommands(Turtle t) {
-        return t.back(d.runCommands(t));
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.back(d.runCommands(cInterface));
     }
 
     @Override

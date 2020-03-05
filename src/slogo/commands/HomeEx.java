@@ -1,10 +1,10 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 public class HomeEx extends Executable {
     @Override
-    public int runCommands(Turtle t) {
-        return t.home();
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.home();
     }
 }

@@ -1,10 +1,10 @@
 package slogo.commands.Queries;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 public class PenDownQ extends Query {
     @Override
-    public int runCommands(Turtle t) {
-        return t.getPenDown();
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.getPenDown();
     }
 }

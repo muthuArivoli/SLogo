@@ -2,11 +2,11 @@ package slogo;
 
 import javafx.scene.Group;
 import slogo.commands.Executable;
-import slogo.configuration.TurtleInterface;
+import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FrontEndAPI implements TurtleInterface {
+public class FrontEndAPI implements CommandInterface {
     private HashMap<Integer, Turtle> myTurtles;
     private ArrayList<Integer> currentTurtles;
     private Group myVisuals;

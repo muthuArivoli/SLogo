@@ -1,13 +1,13 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 
 public class HideTurtleEx extends Executable {
 
     @Override
-    public int runCommands(Turtle t) {
-        return t.hideTurtle();
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.hideTurtle();
     }
 
 }

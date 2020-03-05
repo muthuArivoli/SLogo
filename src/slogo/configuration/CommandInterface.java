@@ -1,6 +1,6 @@
 package slogo.configuration;
 
-public interface TurtleInterface {
+public interface CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
 

@@ -1,10 +1,10 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 public class ClearScreenEx extends Executable {
     @Override
-    public int runCommands(Turtle t) {
-        return t.clearScreen();
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.clearScreen();
     }
 }
