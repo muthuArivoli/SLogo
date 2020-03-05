@@ -17,12 +17,14 @@ public class HistoryView extends TextFlow {
   private static final int MIN_HEIGHT = 200;
   private TextFlow historyText;
   private int counter;
-  public HistoryView() {
+  private DashboardView dashBoardView;
+  public HistoryView(DashboardView dbView) {
     super();
     this.setMinWidth(MIN_WIDTH);
     this.setMinHeight(MIN_HEIGHT);
     this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     counter = 0;
+    dashBoardView = dbView;
   }
 
   protected void addScript(String input) {
@@ -35,7 +37,7 @@ public class HistoryView extends TextFlow {
     script_link.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        Main.vis.setScript(input);
+        dashBoardView.setScript(input);
       }
     });
   }
