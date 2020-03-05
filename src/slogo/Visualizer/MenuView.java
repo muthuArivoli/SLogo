@@ -15,17 +15,13 @@ import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 public class MenuView {
 
 
-    private static final double HBOX_SPACING = 5;
     public static final int WIDTH_TEXTBOX = 150;
-    private static final int ENTRY_PADDING = 100;
 
     public enum ButtonProperty {
         RUN,
     }
     public static final String FILE_ENTRY_PROMPT = " Please enter file name: ";
     public static final String FILE_SAVE_PROMPT= "  Save as file name: ";
-    private static final double VIEWWIDTH = 10;
-    private static final double VIEWHEIGHT = 10;
 
     private static final String CHINESE = "Chinese";
     private static final String ENGLISH = "English";
@@ -43,9 +39,7 @@ public class MenuView {
     private static final String PALLETE = "Pallete";
     private static final String SAVE = "Save";
     private static final String LANGUAGES = "Languages";
-    private static final String STYLE_CSS = "button";
     private HBox menuPane;
-    private StackPane intro;
 
     private ColorPicker picker;
     private Button runButton;
@@ -75,7 +69,6 @@ public class MenuView {
         paletteButton = new Button(PALLETE);
 
         Region spacer1 = new Region();
-
         Region spacer2 = new Region();
         picker = new ColorPicker();
         runButton = new Button(RUN);
@@ -84,13 +77,6 @@ public class MenuView {
         fileButton = new Button(FILE);
         helpButton = new Button(HELP);
         loadEnvironmentButton = new Button(LOAD);
-//
-//        Region smallSpacer1 = new Region();
-//        smallSpacer1.maxWidth(10);
-//        Region smallSpacer2 = new Region();
-//        smallSpacer2.maxWidth(10);
-
-        Label savePrompt = new Label(FILE_SAVE_PROMPT);
         TextField saveTextField = new TextField();
         saveTextField.setMaxWidth(WIDTH_TEXTBOX);
         saveTextField.setPromptText(FILE_SAVE_PROMPT);

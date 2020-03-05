@@ -27,7 +27,7 @@ public class Workspace {
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
-        List<Turtle> t = new ArrayList<Turtle>();
+        t = new ArrayList<>();
         t.add(vis.addTurtle(t.size()));
 
         BackEndAPI bAPI=new BackEndAPI();

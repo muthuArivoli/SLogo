@@ -15,7 +15,6 @@ public class Main extends Application {
      *
 
      */
-    private List<Workspace> workspaces;
     public static void main (String[] args) {
         launch(args);
 
@@ -77,11 +76,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         List<Workspace> workspaces = new ArrayList<>();
         workspaces.add(new Workspace(primaryStage));
-
-
     }
 
 

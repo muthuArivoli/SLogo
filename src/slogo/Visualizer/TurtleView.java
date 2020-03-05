@@ -28,7 +28,8 @@ public class TurtleView extends Pane {
     }
 
     public void updateBackgroundColor(Color c) {
-        String hex = c.toString().substring(2,10);
+        System.out.println(c);
+        String hex = c.toString().substring(2,8);
         myBackground = myBackgroundSyntax + hex;
         myPane.setStyle(myBackground);
     }
