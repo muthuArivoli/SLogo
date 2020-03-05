@@ -166,7 +166,7 @@ public class Main extends Application {
             }
         });
 
-        //CHOOSE FILE NOT WORKING RN
+        //CHOOSE COMMAND FILE NOT WORKING RN
         vis.getFileButton().setOnAction(event -> {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {

@@ -6,10 +6,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import slogo.Visualizer.TurtleView;
+import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.TurtleInterface;
 import slogo.Visualizer.Visualizer;
-
-import java.util.List;
 
 public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
@@ -254,7 +254,7 @@ public class Turtle implements TurtleInterface {
      */
     public static void createXMLFile(String filename){
         //will pass stuff with getters for now
-        XMLFileBuilder builder = new XMLFileBuilder(new Turtle(0,0, 1), "background", filename);
+        XMLFileBuilder builder = new XMLFileBuilder(new Turtle(0,0, 1), TurtleView.getBackgroundColor(), filename);
         builder.createDocument();
     }
 
