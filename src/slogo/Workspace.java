@@ -129,7 +129,8 @@ public class Workspace {
                 Stage newWindow = new Stage();
                 newWindow.setTitle("Pen Editor");
                 newWindow.setScene(secondScene);
-
+                newWindow.setResizable(false);
+                
                 // Set position of second window, related to primary window.
                 newWindow.setX(primaryStage.getX() + 200);
                 newWindow.setY(primaryStage.getY() + 100);
@@ -156,6 +157,7 @@ public class Workspace {
                 Stage newWindow = new Stage();
                 newWindow.setTitle("Palette Viewer");
                 newWindow.setScene(secondScene);
+                newWindow.setResizable(false);
 
                 // Set position of second window, related to primary window.
                 newWindow.setX(primaryStage.getX() + 200);
