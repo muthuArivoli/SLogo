@@ -6,7 +6,6 @@ import slogo.Operations.Two.*;
 import slogo.Variables.OpData;
 import slogo.commands.*;
 import slogo.commands.Queries.*;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

@@ -22,7 +22,7 @@ public class XMLFileBuilder {
     public static final String NUM_TURTLES_TAG = "numTurtles";
     public static final String BACKGROUND_COLOR_TAG = "background";
 
-    private Turtle turtlesToSave;
+    private Integer turtlesToSave;
     private DocumentBuilderFactory documentFactory;
     private DocumentBuilder documentBuilder;
     private Document document;
@@ -32,12 +32,12 @@ public class XMLFileBuilder {
     private final static String XML_ENDING = ".xml";
     private final static String DEFAULT_FOLDER = "data/";
 
-    public XMLFileBuilder(Turtle turtle, String background, String filename) {
-        this.turtlesToSave = turtle;
+    public XMLFileBuilder(Integer turtleNums, String background, String filename) {
+        this.turtlesToSave = turtleNums;
         this.background = background;
 
         //defaults to change later
-        this.numTurtles = turtle.getTurtleNums();
+        this.numTurtles = turtleNums;
         this.filename = filename + XML_ENDING;
 
         try{

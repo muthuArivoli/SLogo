@@ -3,7 +3,6 @@ package slogo;
 import javafx.scene.Group;
 import slogo.commands.Executable;
 import slogo.configuration.TurtleInterface;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +30,7 @@ public class FrontEndAPI implements TurtleInterface {
     public int id(){
         int ret=0;
         for(int i:currentTurtles){
-            ret = i;
+                ret = i;
         }
         return ret;
     }
@@ -227,7 +226,7 @@ public class FrontEndAPI implements TurtleInterface {
         return ret;
     }
 
-    private void addTurtle(int id){
+    public void addTurtle(int id){
         Turtle newT=new Turtle(width,height,1);
         myTurtles.put(id, newT);
         myVisuals.getChildren().addAll(newT.getTurtleGroup());

@@ -3,9 +3,11 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import slogo.BackEndAPI;
+import slogo.FrontEndAPI;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.Turtle;
 
@@ -101,8 +103,11 @@ public class MenuView extends Pane {
     private void loadEnvironment(String input, TurtleView turtle){
         ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
         turtle.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
-        for(int i = 0; i<newlyParsedFile.getNumTurtlesFromAnInputtedFile(); i++){
-            // add a turtle via the backend command
+        for(int i = 0; i< newlyParsedFile.getNumTurtlesFromAnInputtedFile(); i++){
+            Group ret = new Group();
+            Turtle addTurtle = new Turtle(5, 5, 1);
+            ret.getChildren().addAll(addTurtle.getTurtleGroup());
+            System.out.print(i);
         }
     }
 

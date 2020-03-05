@@ -15,8 +15,8 @@ public class Turtle implements TurtleInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
+    private static Integer turtleNums;
     private int turtleID;
-    private int turtleNums;
     private int width;
     private int height;
     private int xCor;
@@ -254,7 +254,7 @@ public class Turtle implements TurtleInterface {
      */
     public static void createXMLFile(String filename){
         //will pass stuff with getters for now
-        XMLFileBuilder builder = new XMLFileBuilder(new Turtle(0,0, 1), TurtleView.getBackgroundColor(), filename);
+        XMLFileBuilder builder = new XMLFileBuilder(turtleNums, TurtleView.getBackgroundColor(), filename);
         builder.createDocument();
     }
 
