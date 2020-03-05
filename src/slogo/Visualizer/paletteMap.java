@@ -11,9 +11,10 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class paletteMap {
-    HashMap<Integer, Color> colorMap;
+    Map<Integer, Color> colorMap;
 
     public paletteMap() {
         colorMap = new HashMap<>();
@@ -27,7 +28,7 @@ public class paletteMap {
 
     public void add(int index, Color value) {colorMap.put(index, value);}
     public void remove(int index) {colorMap.remove(index);}
-    public HashMap<Integer, Color> getColorMap() {return colorMap;}
+    public Map<Integer, Color> getColorMap() {return colorMap;}
 
     public HBox createScene(HBox input) {
         VBox indexCol = new VBox(10);

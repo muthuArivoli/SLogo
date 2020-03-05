@@ -3,22 +3,14 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import slogo.BackEndAPI;
-import slogo.FrontEndAPI;
-import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import slogo.Turtle;
+import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 
 public class MenuView {
 
