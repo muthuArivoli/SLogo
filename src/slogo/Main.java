@@ -132,25 +132,24 @@ public class Main extends Application {
 
                     }
                 });
-                Button toggle = new Button("Pen Up");
+                String text = (t.get(0).getPenDown() == 1) ? "Pen Up" : "Pen Down";
+                Button toggle = new Button(text);
                 toggle.setMinWidth(130);
-                AtomicInteger toggled = new AtomicInteger(1);
                 toggle.setOnAction(event2 -> {
                     for (Turtle turtle : t)  {
-                        if (toggled.get() == 1) {
+                        if (turtle.getPenDown() == 1) {
                             turtle.penUp();
                             toggle.setText("Pen Down");
-                            toggled.addAndGet(-1);
                         }
                         else {
                             turtle.penDown();
                             toggle.setText("Pen Up");
-                            toggled.addAndGet(1);
                         }
 
                     }
                 });
                 ColorPicker picker = new ColorPicker();
+                picker.setValue(t.get(0).getPenColor());
                 picker.setOnAction(event3 -> {
                     for (Turtle turtle : t)  {
                         turtle.updatePenColor(picker.getValue());
