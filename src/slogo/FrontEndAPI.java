@@ -1,6 +1,8 @@
 package slogo;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import slogo.Visualizer.TurtleView;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
@@ -12,8 +14,15 @@ public class FrontEndAPI implements CommandInterface {
     private Group myVisuals;
     private int width;
     private int height;
+    private ColorMap myPallet;
+    private Color currentPenColor;
+    private int currentPenColorIndex;
+    private TurtleView myTurtleView;
+    private Color currentBackgroundColor;
+
 
     public FrontEndAPI(Group visuals, int width, int height, int numTurtles){
+        this.myPallet =new ColorMap();
         this.myTurtles = new HashMap<>();
         this.myVisuals=visuals;
         this.width=width;
@@ -218,6 +227,49 @@ public class FrontEndAPI implements CommandInterface {
     }
 
     @Override
+    public int setBackground(int index) {
+        currentBackgroundColor = myPallet.getColor(index);
+        myTurtleView.updateBackgroundColor(currentBackgroundColor);
+        return index;
+    }
+
+    @Override
+    public int setPenColor(int index) {
+        currentPenColor = myPallet.getColor(index);
+        currentPenColorIndex = index;
+        for(Turtle t: myTurtles.values()){
+            t.setPenColor(currentPenColor);
+        }
+        return index;
+    }
+
+    @Override
+    public int setShape(int index) {
+        return 0;
+    }
+
+    @Override
+    public int setPallet(int index, int r, int g, int b) {
+        myPallet.setPallet(index, r, g, b);
+        return index;
+    }
+
+    @Override
+    public int setPenSize(int pixels) {
+        return 0;
+    }
+
+    @Override
+    public int getPenColor() {
+        return currentPenColorIndex;
+    }
+
+    @Override
+    public int getShape() {
+        return 0;
+    }
+
+    @Override
     public int clearScreen() {
         int ret=0;
         for(int i:currentTurtles){
@@ -227,7 +279,7 @@ public class FrontEndAPI implements CommandInterface {
     }
 
     public void addTurtle(int id){
-        Turtle newT=new Turtle(width,height,1);
+        Turtle newT=new Turtle(width,height, currentPenColor,1);
         myTurtles.put(id, newT);
         myVisuals.getChildren().addAll(newT.getTurtleGroup());
     }

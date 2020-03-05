@@ -9,8 +9,11 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import slogo.Visualizer.TurtleView;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
+import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 import slogo.Visualizer.Visualizer;
+
+import java.util.ArrayList;
 
 public class Turtle implements CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
@@ -36,7 +39,7 @@ public class Turtle implements CommandInterface {
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
 
-    public Turtle(int width, int height, int numTurtles){
+    public Turtle(int width, int height, Color startingColor, int numTurtles){
         this.xCor=0;
         this.yCor=0;
         this.turtleID = numTurtles;
@@ -53,7 +56,7 @@ public class Turtle implements CommandInterface {
         this.myLines = new Group();
         this.width=width;
         this.height=height;
-        this.currentColor= Color.BLACK;
+        this.currentColor= startingColor;
         updateTurtle();
     }
     public boolean isActive() {
@@ -64,16 +67,6 @@ public class Turtle implements CommandInterface {
     }
     public int getYCor(){
         return yCor;
-    }
-    //we have basic getters and setters for the turtle ID and number of turtles written right in the start of turtle
-    public int getTurtleID(){
-        return turtleID;
-    }
-    public int getTurtleNums(){
-        return turtleNums;
-    }
-    public void setTurtleNums(int numberOfTurtles){
-        turtleNums = numberOfTurtles;
     }
 
 
@@ -203,11 +196,84 @@ public class Turtle implements CommandInterface {
         return setXY(0,0);
     }
 
+    @Override
+    public int setBackground(int index) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setPenColor(int index) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setShape(int index) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setPallet(int index, int r, int g, int b) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setPenSize(int pixels) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int getPenColor() {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int getShape() {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public ArrayList<Integer> ask(ArrayList<Integer> turtles) {
+        //ERROR
+        return null;
+    }
+
+    @Override
+    public ArrayList<Integer> askWith(Executable e) {
+        //ERROR
+        return null;
+    }
+
+    @Override
+    public int tell(ArrayList<Integer> turtles) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int id() {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int turtles() {
+        //ERROR
+        return 0;
+    }
+
     public int clearScreen() {
         int ret = home();
         myLines.getChildren().clear();
         return ret;
     }
+
     public void setPenColor(Paint color){
         currentColor=color;
     }
