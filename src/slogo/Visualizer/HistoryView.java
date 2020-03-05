@@ -1,7 +1,5 @@
 package slogo.Visualizer;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Background;

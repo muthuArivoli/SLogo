@@ -1,6 +1,5 @@
 package slogo.Visualizer;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.TextArea;
 
 
