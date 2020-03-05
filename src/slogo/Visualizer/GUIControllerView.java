@@ -9,6 +9,7 @@ public class GUIControllerView extends HBox{
   private static final String MOVE_BACKWARD = "Move Backward";
   private static final String TURN_RIGHT = "Turn Right";
   private static final String TURN_LEFT = "Turn Left";
+  private static final Insets PADDING = new Insets(10, 10, 10, 10);
 
   private Button moveForwardButton;
   private Button moveBackwardButton;
@@ -21,7 +22,7 @@ public class GUIControllerView extends HBox{
     turnRightButton = new Button (TURN_RIGHT);
     turnLeftButton = new Button (TURN_LEFT);
     this.getChildren().addAll(moveForwardButton, moveBackwardButton, turnLeftButton, turnRightButton);
-    this.setPadding(new Insets(10,10,10,10));
+    this.setPadding(PADDING);
   }
 
   public Button getMoveForwardButton(){return moveForwardButton;}

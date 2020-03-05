@@ -19,7 +19,6 @@ public class DashboardView extends Pane {
   private HistoryView pastScripts;
   private ScriptView script;
   private VariableView variableList;
-  private TurtleInfoView turtleInfo;
   private VBox dashboardPane;
   public DashboardView() {
     dashboardPane = new VBox(SPACING);
@@ -63,5 +62,5 @@ public class DashboardView extends Pane {
   }
   public String getScript() { return script.getText();}
   public void setScript(String input) {script.setText(input);}
-  protected HistoryView getPastScript() { return pastScripts;}
+  public HistoryView getPastScript() { return pastScripts;}
 }

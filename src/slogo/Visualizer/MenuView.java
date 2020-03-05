@@ -26,8 +26,9 @@ public class MenuView {
     private static final double HBOX_SPACING = 5;
     public static final int WIDTH_TEXTBOX = 150;
     private static final int ENTRY_PADDING = 100;
+  private static final Insets PADDING = new Insets(10, 10, 10, 10);
 
-    public enum ButtonProperty {
+  public enum ButtonProperty {
         RUN,
     }
     public static final String FILE_ENTRY_PROMPT = " Please enter file name: ";
@@ -117,7 +118,7 @@ public class MenuView {
         HBox.setHgrow(spacer1, Priority.ALWAYS);
         HBox.setHgrow(spacer2, Priority.ALWAYS);
         menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, center, spacer2, right);
-        menuPane.setPadding(new Insets(10,10,10,10));
+        menuPane.setPadding(PADDING);
     }
     private void loadEnvironment(String input, TurtleView turtle){
         ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
