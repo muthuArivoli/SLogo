@@ -86,6 +86,7 @@ public class Visualizer {
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
     public Button getPaletteButton(){return myMenu.getPaletteButton();}
     public Button getFileButton(){return myMenu.getFileButton();}
+    public Button getPenButton(){return myMenu.getPenButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public Button getMoveForwardButton(){return myControls.getMoveForwardButton();}
     public Button getMoveBackwardButton(){return myControls.getMoveBackwardButton();}

@@ -33,7 +33,8 @@ public class Turtle implements TurtleInterface {
     private boolean showing;
     private ImageView turtleImage;
     private Group myLines;
-    private Paint currentColor;
+    private Color currentColor;
+    private double penWidth;
 
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
@@ -56,6 +57,7 @@ public class Turtle implements TurtleInterface {
         this.width=width;
         this.height=height;
         this.currentColor= Color.BLACK;
+        this.penWidth=1.0;
         updateTurtle();
     }
     public boolean isActive() {
@@ -88,6 +90,10 @@ public class Turtle implements TurtleInterface {
     public int getShowing(){
         return showing ? 1 : 0;
     }
+    public Color getPenColor() {return currentColor;}
+    public void setPenColor(Color color){this.currentColor=color;}
+    public void setPenWidth(double input) {this.penWidth = input;}
+    public double getPenWidth() {return this.penWidth;}
     public void flipActive() {
         this.active = !active;
         if (active) {
@@ -210,10 +216,6 @@ public class Turtle implements TurtleInterface {
         myLines.getChildren().clear();
         return ret;
     }
-    public void setPenColor(Paint color){
-        currentColor=color;
-    }
-
     private double pythagorean(double a, double b){
         double cSquared= (a*a)+(b*b);
         return Math.sqrt(cSquared);
@@ -273,6 +275,7 @@ public class Turtle implements TurtleInterface {
     private void drawLine(int sX, int sY){
         if(penDown){
             Line line = new Line(adjustedX(sX), adjustedY(sY), adjustedX(xCor), adjustedY(yCor));
+            line.setStrokeWidth(penWidth);
             line.setStroke(currentColor);
             myLines.getChildren().addAll(line);
         }
