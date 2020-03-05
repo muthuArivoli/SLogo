@@ -27,6 +27,7 @@ public class Turtle implements TurtleInterface {
     private ImageView turtleImage;
     private Group myLines;
     private Paint currentColor;
+    private double penWidth;
 
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
@@ -44,6 +45,7 @@ public class Turtle implements TurtleInterface {
         this.width=width;
         this.height=height;
         this.currentColor= Color.BLACK;
+        this.penWidth=1.0;
         updateTurtle();
     }
     public int getXCor(){
@@ -72,6 +74,10 @@ public class Turtle implements TurtleInterface {
     public int getShowing(){
         return showing ? 1 : 0;
     }
+    public void updatePenColor(Paint input) {this.currentColor = input;}
+    public Paint getPenColor() {return currentColor;}
+    public void setPenWidth(double input) {this.penWidth = input;}
+    public double getPenWidth() {return this.penWidth;}
     public int forward(int pixels){
         int oldX=xCor;
         int oldY=yCor;
@@ -236,6 +242,7 @@ public class Turtle implements TurtleInterface {
     private void drawLine(int sX, int sY){
         if(penDown){
             Line line = new Line(adjustedX(sX), adjustedY(sY), adjustedX(xCor), adjustedY(yCor));
+            line.setStrokeWidth(penWidth);
             line.setStroke(currentColor);
             myLines.getChildren().addAll(line);
         }

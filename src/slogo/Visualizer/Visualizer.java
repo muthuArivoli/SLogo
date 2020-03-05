@@ -53,6 +53,7 @@ public class Visualizer {
     public ComboBox getLangSelection(){return myMenu.getLangSelection();}
     public Button getPaletteButton(){return myMenu.getPaletteButton();}
     public Button getFileButton(){return myMenu.getFileButton();}
+    public Button getPenButton(){return myMenu.getPenButton();}
     public Button getHelpButton(){return myMenu.getHelpButton();}
     public String getScript(){return myDashboard.getScript();}
     public void setScript(String input) {myDashboard.setScript(input);}

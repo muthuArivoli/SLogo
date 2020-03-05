@@ -26,6 +26,7 @@ public class MenuView extends Pane {
     private static final String SPANISH = "Spanish";
     private static final String URDU = "Urdu";
     private static final String RUN = "Run";
+    private static final String PEN = "Pen";
     private static final String FILE = "Run File";
     private static final String HELP = "Help";
     private static final String PALLETE = "Pallete";
@@ -36,6 +37,7 @@ public class MenuView extends Pane {
     private Button runButton;
     private Button helpButton;
     private Button paletteButton;
+    private Button penButton;
     private ComboBox langSelection;
     private Button fileButton;
 
@@ -63,6 +65,7 @@ public class MenuView extends Pane {
         Pane spacer = new Pane();
         runButton = new Button(RUN);
         fileButton = new Button(FILE);
+        penButton = new Button(PEN);
         helpButton = new Button(HELP);
         HBox right = new HBox(helpButton, picker, fileButton, runButton);
         picker.setOnAction(event -> {
@@ -71,7 +74,7 @@ public class MenuView extends Pane {
         langSelection.setPromptText(LANGUAGES);
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 0);
-        menuPane.getChildren().addAll(langSelection, paletteButton, spacer, right);
+        menuPane.getChildren().addAll(langSelection, paletteButton, penButton, spacer, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
 
@@ -80,5 +83,6 @@ public class MenuView extends Pane {
     public ComboBox getLangSelection(){return langSelection;}
     public Button getFileButton(){return fileButton;}
     public Button getHelpButton(){return helpButton;}
+    public Button getPenButton(){return penButton;}
     public Button getPaletteButton() {return paletteButton;}
 }

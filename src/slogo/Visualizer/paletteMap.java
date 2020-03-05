@@ -23,6 +23,7 @@ public class paletteMap {
         colorMap.put(3, Color.YELLOW);
         colorMap.put(4, Color.ORANGE);
         colorMap.put(5, Color.PURPLE);
+        colorMap.put(6, Color.BLACK);
     }
 
     public void add(int index, Color value) {colorMap.put(index, value);}
