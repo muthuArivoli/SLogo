@@ -287,15 +287,7 @@ public class Turtle implements TurtleInterface {
         return (height / 2) - (y/SCALE_DOWN);
     }
 
-    /**
-     * Uses the XMLFileCreator to create a new document
-     * @param filename
-     */
-    public static void createXMLFile(String filename){
-        //will pass stuff with getters for now
-        XMLFileBuilder builder = new XMLFileBuilder(turtleNums, TurtleView.getBackgroundColor(), filename);
-        builder.createDocument();
-    }
+
 
 
 }

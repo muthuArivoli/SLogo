@@ -92,6 +92,12 @@ public class Visualizer {
     public Button getMoveBackwardButton(){return myControls.getMoveBackwardButton();}
     public Button getTurnRightButton(){return myControls.getTurnRightButton();}
     public Button getTurnLeftButton(){return myControls.getTurnLeftButton();}
+    public Button getSaveButton(){return myMenu.getSaveButton();}
+    public Button getLoadEnvironmentButtonButton(){return myMenu.getLoadEnvironmentButtonButton();}
+    public TextField getSaveTextField(){return myMenu.getSaveTextField();}
+    public TextField getLoadTextField(){return myMenu.getLoadTextField();}
+    public String getBackgroundColor() {return myTurtleView.getBackgroundColor();}
+    public void setBackgroundColorUsingXML(String newColor){myTurtleView.setBackgroundColorUsingXML(newColor); }
     public String getScript(){return myDashboard.getScript();}
     public void setScript(String input) {myDashboard.setScript(input);}
     public static Integer getSceneLength(){return sceneLength;}

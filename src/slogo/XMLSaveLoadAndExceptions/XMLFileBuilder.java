@@ -1,6 +1,7 @@
 package slogo.XMLSaveLoadAndExceptions;
 
 import java.io.File;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,6 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import slogo.Turtle;
+import slogo.Visualizer.Visualizer;
 
 /**
  * This class serves to build an XMl document to contain the turtle environment passed
@@ -22,7 +24,7 @@ public class XMLFileBuilder {
     public static final String NUM_TURTLES_TAG = "numTurtles";
     public static final String BACKGROUND_COLOR_TAG = "background";
 
-    private Integer turtlesToSave;
+    private Turtle turtlesToSave;
     private DocumentBuilderFactory documentFactory;
     private DocumentBuilder documentBuilder;
     private Document document;
@@ -32,12 +34,12 @@ public class XMLFileBuilder {
     private final static String XML_ENDING = ".xml";
     private final static String DEFAULT_FOLDER = "data/";
 
-    public XMLFileBuilder(Integer turtleNums, String background, String filename) {
-        this.turtlesToSave = turtleNums;
+    public XMLFileBuilder(List<Turtle> turtles, Visualizer vis, String filename) {
+        this.turtlesToSave = turtles.get(turtles.lastIndexOf(turtles));
         this.background = background;
 
         //defaults to change later
-        this.numTurtles = turtleNums;
+        //this.numTurtles = turtleNums;
         this.filename = filename + XML_ENDING;
 
         try{

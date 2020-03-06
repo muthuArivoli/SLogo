@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,8 +15,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import slogo.Visualizer.TurtleView;
 import slogo.Visualizer.Visualizer;
 import slogo.Visualizer.paletteMap;
+import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
+import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,6 +83,7 @@ public class Workspace {
                 }
             }
         });
+
         vis.getPenButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -138,7 +144,10 @@ public class Workspace {
                 newWindow.show();
             }
         });
-        vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
+        vis.getSaveButton().setOnAction(e -> createXMLFile((vis.getSaveTextField().getText())));
+        vis.getLoadEnvironmentButtonButton().setOnAction(e -> loadEnvironment(vis.getLoadTextField().getText(), t));
+
+            vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
             }
@@ -188,6 +197,30 @@ public class Workspace {
                 alert.show();
             }
         });
+        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Help Dialogue");
+                alert.setHeaderText("Commands List");
+                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
+                        "BACK/BK                           [pixels]\n\n" +
+                        "LEFT/LT                             [degrees]\n\n" +
+                        "RIGHT/RT                          [degrees]\n\n" +
+                        "SETHEADING/SETH     [degrees]\n\n" +
+                        "TOWARDS                        [x y]\n\n" +
+                        "SETXY/GOTO                  [x y]\n\n" +
+                        "PENDOWN/PD\n\n" +
+                        "PENUP/PU\n\n" +
+                        "SHOWTURTLE/ST\n\n" +
+                        "HIDETURTLE/HT\n\n" +
+                        "HOME\n\n" +
+                        "CLEARSCREEN/CS\n\n");
+                alert.show();
+            }
+        });
+
+
 
         //CHOOSE COMMAND FILE NOT WORKING RN
         vis.getFileButton().setOnAction(event -> {
@@ -201,7 +234,24 @@ public class Workspace {
             }
         });
     }
-
+    private void loadEnvironment(String input, List<Turtle> turtle){
+        ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
+        vis.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
+        for(int i = 0; i< newlyParsedFile.getNumTurtlesFromAnInputtedFile(); i++){
+            Group ret = new Group();
+            Turtle addTurtle = new Turtle(5, 5, 1);
+            ret.getChildren().addAll(addTurtle.getTurtleGroup());
+            System.out.print(i);
+        }
+    }
+    /**
+     * Uses the XMLFileCreator to create a new document
+     * @param filename
+     */
+    private void createXMLFile(String filename){
+        XMLFileBuilder builder = new XMLFileBuilder(t, vis, filename);
+        builder.createDocument();
+    }
     public Visualizer getVisualizer(){
         return vis;
     }
