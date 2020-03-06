@@ -1,10 +1,10 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 public class PenUpEx extends Executable {
     @Override
-    public int runCommands(Turtle t) {
-        return t.penUp();
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.penUp();
     }
 }

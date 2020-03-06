@@ -1,6 +1,6 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ public class RepeatEx extends Executable {
 
 
     @Override
-    public int runCommands(Turtle t) {
+    public int runCommands(CommandInterface cInterface) {
         int ret=0;
-        for(int i = 0; i<amount.runCommands(t); i++){
-            ret=e.runCommands(t);
+        for(int i = 0; i<amount.runCommands(cInterface); i++){
+            ret=e.runCommands(cInterface);
         }
         return ret;
     }

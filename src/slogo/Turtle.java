@@ -10,15 +10,18 @@ import javafx.scene.shape.Line;
 import slogo.Visualizer.TurtleView;
 import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
-import slogo.configuration.TurtleInterface;
+import slogo.commands.Executable;
+import slogo.configuration.CommandInterface;
+import slogo.Visualizer.Visualizer;
 
-public class Turtle implements TurtleInterface {
+import java.util.ArrayList;
+
+public class Turtle implements CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
     private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
     private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
-    private static Integer turtleNums;
     private Tooltip turtleTip;
     private int turtleID;
     private int width;
@@ -37,11 +40,10 @@ public class Turtle implements TurtleInterface {
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
 
-    public Turtle(int width, int height, int numTurtles){
+    public Turtle(int width, int height, Color startingColor, int turtleID){
+        this.turtleID=turtleID;
         this.xCor=0;
         this.yCor=0;
-        this.turtleID = numTurtles;
-        this.turtleNums = numTurtles;
         this.heading=0;
         this.penDown=true;
         this.showing=true;
@@ -54,8 +56,7 @@ public class Turtle implements TurtleInterface {
         this.myLines = new Group();
         this.width=width;
         this.height=height;
-        this.currentColor= Color.BLACK;
-        this.penWidth=1.0;
+        this.currentColor= startingColor;
         updateTurtle();
     }
     public boolean isActive() {
@@ -66,16 +67,6 @@ public class Turtle implements TurtleInterface {
     }
     public int getYCor(){
         return yCor;
-    }
-    //we have basic getters and setters for the turtle ID and number of turtles written right in the start of turtle
-    public int getTurtleID(){
-        return turtleID;
-    }
-    public int getTurtleNums(){
-        return turtleNums;
-    }
-    public void setTurtleNums(int numberOfTurtles){
-        turtleNums = numberOfTurtles;
     }
 
 
@@ -209,11 +200,88 @@ public class Turtle implements TurtleInterface {
         return setXY(0,0);
     }
 
+    @Override
+    public int setBackground(int index) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setPenColor(int index) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setShape(int index) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setPallet(int index, int r, int g, int b) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int setPenSize(int pixels) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int getPenColor() {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int getShape() {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public ArrayList<Integer> ask(ArrayList<Integer> turtles) {
+        //ERROR
+        return null;
+    }
+
+    @Override
+    public ArrayList<Integer> askWith(Executable e) {
+        //ERROR
+        return null;
+    }
+
+    @Override
+    public int tell(ArrayList<Integer> turtles) {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int id() {
+        //ERROR
+        return 0;
+    }
+
+    @Override
+    public int turtles() {
+        //ERROR
+        return 0;
+    }
+
     public int clearScreen() {
         int ret = home();
         myLines.getChildren().clear();
         return ret;
     }
+
+    public void setPenColor(Paint color){
+        currentColor=color;
+    }
+
     private double pythagorean(double a, double b){
         double cSquared= (a*a)+(b*b);
         return Math.sqrt(cSquared);
@@ -289,11 +357,7 @@ public class Turtle implements TurtleInterface {
      * Uses the XMLFileCreator to create a new document
      * @param filename
      */
-    public static void createXMLFile(String filename){
-        //will pass stuff with getters for now
-        XMLFileBuilder builder = new XMLFileBuilder(turtleNums, TurtleView.getBackgroundColor(), filename);
-        builder.createDocument();
-    }
+
 
 
 }

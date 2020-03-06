@@ -1,6 +1,6 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ public class TowardsEx extends Executable {
         setParametersAmounts(2);
     }
     @Override
-    public int runCommands(Turtle t) {
-        return t.towards(d1.runCommands(t), d2.runCommands(t));
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.towards(d1.runCommands(cInterface), d2.runCommands(cInterface));
     }
     @Override
     public void setMyParameters(List<Executable> parameters) {

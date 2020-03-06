@@ -4,18 +4,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import slogo.Visualizer.TurtleView;
 import slogo.Visualizer.Visualizer;
 import slogo.Visualizer.paletteMap;
+import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
+import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,60 +23,57 @@ import java.util.List;
 
 public class Workspace {
     private Visualizer vis;
-    private List<Turtle> t;
-    private paletteMap pMap;
+    private FrontEndAPI fAPI;
+
+
     public Workspace(Stage primaryStage) {
-        pMap = new paletteMap();
-        vis = new Visualizer();
+        Button runButton =new Button();
+        Button moveForwardButton = new Button();
+        Button moveBackwardButton = new Button();
+        Button turnRightButton = new Button();
+        Button turnLeftButton = new Button();
+        Button paletteButton = new Button();
+        Button helpButton = new Button();
+        Button loadEnvironmentButton = new Button();
+        Button saveButton = new Button();
+        Button fileButton = new Button();
+        ColorPicker cPicker = new ColorPicker();
+        ComboBox langSelection = new ComboBox();
+        TextField loadTextField = new TextField();
+        TextField saveTextField = new TextField();
+
+
+        paletteMap colors = new paletteMap();
+        vis = new Visualizer(cPicker,runButton,saveButton,helpButton,paletteButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
         primaryStage.setScene(vis.getScene());
         primaryStage.setResizable(false);
         primaryStage.show();
         final FileChooser fileChooser = new FileChooser();
 
-        t = new ArrayList<>();
-        t.add(vis.addTurtle(t.size()));
+        fAPI= vis.getFrontEndAPI(1);
 
         BackEndAPI bAPI=new BackEndAPI();
-        vis.getRunButton().setOnAction(event -> {
+
+        runButton.setOnAction(event -> {
             try {
-                for(Turtle turtle:t) {
-                    if (turtle.isActive()) {
-                        bAPI.buildAndRun(vis.getScript(), turtle);
-                    }
-                }
+                bAPI.buildAndRun(vis.getScript(), fAPI);
                 vis.updateHistory(vis.getScript());
             }
             catch(IncorrectCommandException ice){
                 vis.alertCreator("Build Failed",ice.getMessage());
             }
         });
-        vis.getMoveForwardButton().setOnAction(event -> {
-            for(Turtle turtle:t) {
-                if (turtle.isActive()) {
-                    turtle.forward(25);
-                }
-            }
+        moveForwardButton.setOnAction(event -> {
+            fAPI.forward(25);
         });
-        vis.getMoveBackwardButton().setOnAction(event -> {
-            for(Turtle turtle:t) {
-                if (turtle.isActive()) {
-                    turtle.back(25);
-                }
-            }
+        moveBackwardButton.setOnAction(event -> {
+            fAPI.back(25);
         });
-        vis.getTurnRightButton().setOnAction(event -> {
-            for(Turtle turtle:t) {
-                if (turtle.isActive()) {
-                    turtle.right(30);
-                }
-            }
+        turnRightButton.setOnAction(event -> {
+            fAPI.right(30);
         });
-        vis.getTurnLeftButton().setOnAction(event -> {
-            for(Turtle turtle:t) {
-                if (turtle.isActive()) {
-                    turtle.left(30);
-                }
-            }
+        turnLeftButton.setOnAction(event -> {
+            fAPI.forward(30);
         });
         vis.getPenButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -143,7 +140,7 @@ public class Workspace {
                 bAPI.setLanguage(t1);
             }
         });
-        vis.getPaletteButton().setOnAction(new EventHandler<ActionEvent>() {
+        paletteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 HBox secondaryLayout = new HBox();
@@ -166,7 +163,7 @@ public class Workspace {
                 newWindow.show();
             }
         });
-        vis.getHelpButton().setOnAction(new EventHandler<ActionEvent>() {
+        helpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -189,20 +186,28 @@ public class Workspace {
             }
         });
 
+        loadEnvironmentButton.setOnAction(e -> loadEnvironment(loadTextField.getText()));
+
+        saveButton.setOnAction(e -> {
+            XMLFileBuilder builder = new XMLFileBuilder(fAPI.turtles(), fAPI.getStringBackgroundColor(), saveTextField.getText());
+            builder.createDocument();
+        });
+
         //CHOOSE COMMAND FILE NOT WORKING RN
-        vis.getFileButton().setOnAction(event -> {
+        fileButton.setOnAction(event -> {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
-                for(Turtle turtle:t) {
-                    if (turtle.isActive()) {
-                        bAPI.runFile(file, turtle);
-                    }
-                }
+                bAPI.runFile(file, fAPI);
             }
         });
     }
 
     public Visualizer getVisualizer(){
         return vis;
+    }
+    private void loadEnvironment(String input){
+        ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
+        fAPI=vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
+        fAPI.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
     }
 }

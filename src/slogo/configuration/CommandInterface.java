@@ -1,6 +1,10 @@
 package slogo.configuration;
 
-public interface TurtleInterface {
+import slogo.commands.Executable;
+
+import java.util.ArrayList;
+
+public interface CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
 
@@ -22,6 +26,21 @@ public interface TurtleInterface {
     int showTurtle();
     int hideTurtle();
     int home();
+
+    int setBackground(int index);
+    int setPenColor(int index);
+    int setShape(int index);
+    int setPallet(int index, int r, int g, int b);
+    int setPenSize(int pixels);
+    int getPenColor();
+    int getShape();
+    ArrayList<Integer> ask(ArrayList<Integer> turtles);
+    ArrayList<Integer> askWith(Executable e);
+    int tell(ArrayList<Integer> turtles);
+    int id();
+    int turtles();
+
+
 
     //not implemented yet
     int clearScreen();

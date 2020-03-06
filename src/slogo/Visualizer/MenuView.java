@@ -38,23 +38,16 @@ public class MenuView {
     private static final String FILE = "Run Command File";
     private static final String LOAD =  "Load File";
     private static final String HELP = "Help";
-    private static final String PALLETE = "Pallete";
+    private static final String PALETTE = "Palette";
     private static final String SAVE = "Save";
     private static final String LANGUAGES = "Languages";
-    private HBox menuPane;
+    private static final String STYLE_CSS = "button";
 
-    private ColorPicker picker;
-    private Button runButton;
-    private Button saveButton;
-    private Button helpButton;
-    private Button paletteButton;
-    private Button penButton;
-    private ComboBox langSelection;
-    private Button fileButton;
-    private Button loadEnvironmentButton;
-    private Button loadButton;
-    public MenuView(TurtleView turtle) {
-        menuPane = new HBox();
+
+    public MenuView(HBox menuPane, ColorPicker picker, Button runButton, Button saveButton,
+                    Button helpButton, Button paletteButton, Button fileButton, Button loadEnvironmentButton,
+                    ComboBox langSelection, TextField loadTextField, TextField saveTextField) {
+
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                     CHINESE,
@@ -67,56 +60,41 @@ public class MenuView {
                     SPANISH,
                     URDU
                 );
-        langSelection = new ComboBox(options);
-        helpButton = new Button(HELP);
-        paletteButton = new Button(PALLETE);
+        langSelection.setItems(options);
+
+        paletteButton.setText(PALETTE);
 
         Region spacer1 = new Region();
         Region spacer2 = new Region();
-        picker = new ColorPicker();
-        runButton = new Button(RUN);
-        loadButton = new Button(LOAD);
-        saveButton = new Button(SAVE);
-        fileButton = new Button(FILE);
-        penButton = new Button(PEN);
-        helpButton = new Button(HELP);
-        loadEnvironmentButton = new Button(LOAD);
-        TextField saveTextField = new TextField();
+
+        runButton.setText(RUN);
+        saveButton.setText(SAVE);
+        fileButton.setText(FILE);
+        helpButton.setText(HELP);
+        loadEnvironmentButton.setText(LOAD);
+//
+//        Region smallSpacer1 = new Region();
+//        smallSpacer1.maxWidth(10);
+//        Region smallSpacer2 = new Region();
+//        smallSpacer2.maxWidth(10);
+
+        Label savePrompt = new Label(FILE_SAVE_PROMPT);
+
         saveTextField.setMaxWidth(WIDTH_TEXTBOX);
         saveTextField.setPromptText(FILE_SAVE_PROMPT);
-        saveButton.setOnAction(e -> Turtle.createXMLFile((saveTextField.getText())));
 
-        TextField loadTextField = new TextField();
         loadTextField.setMaxWidth(WIDTH_TEXTBOX);
         loadTextField.setPromptText(FILE_ENTRY_PROMPT);
-        loadEnvironmentButton.setOnAction(e -> loadEnvironment(loadTextField.getText(), turtle));
+
         HBox center = new HBox(saveTextField, saveButton, loadTextField, loadEnvironmentButton);
         HBox right = new HBox(helpButton, picker, fileButton, runButton);
-        picker.setOnAction(event -> {
-          turtle.updateBackgroundColor(picker.getValue());
-        });
+
         langSelection.setPromptText(LANGUAGES);
+
         HBox.setHgrow(spacer1, Priority.ALWAYS);
         HBox.setHgrow(spacer2, Priority.ALWAYS);
-        menuPane.getChildren().addAll(langSelection, paletteButton, penButton, spacer1, center, spacer2, right);
-        menuPane.setPadding(PADDING);
-    }
-    private void loadEnvironment(String input, TurtleView turtle){
-        ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
-        turtle.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
-        for(int i = 0; i< newlyParsedFile.getNumTurtlesFromAnInputtedFile(); i++){
-            Group ret = new Group();
-            Turtle addTurtle = new Turtle(5, 5, 1);
-            ret.getChildren().addAll(addTurtle.getTurtleGroup());
-            System.out.print(i);
-        }
-    }
 
-    public HBox getPane() {return menuPane;}
-    public Button getRunButton(){return runButton;}
-    public ComboBox getLangSelection(){return langSelection;}
-    public Button getFileButton(){return fileButton;}
-    public Button getHelpButton(){return helpButton;}
-    public Button getPenButton(){return penButton;}
-    public Button getPaletteButton() {return paletteButton;}
+        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, center, spacer2, right);
+        menuPane.setPadding(new Insets(10,10,10,10));
+    }
 }

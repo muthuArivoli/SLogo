@@ -1,6 +1,6 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.ArrayList;
 
@@ -18,12 +18,15 @@ public class GroupEx extends Executable {
 
 
     @Override
-    public int runCommands(Turtle t) {
+    public int runCommands(CommandInterface cInterface) {
         int ret=0;
         for(Executable e:eList){
-            ret = e.runCommands(t);
+            ret = e.runCommands(cInterface);
         }
         return ret;
     }
 
+    public ArrayList<Executable> getGroupMembers(){
+        return eList;
+    }
 }

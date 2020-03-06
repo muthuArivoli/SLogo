@@ -95,14 +95,7 @@ public class Parser {
                 if(next.isFunction()){
                     next.setParameters(toParams(createFunction(input, line)));
                 }
-                else if(next.needsGroupedInputs()){
-                    if(groupedInformationStarted(line)) {
-                        setVariableIfNeeded(next,line,myVariables);
-                        next.setParameters(getGroupedParameters(next.getParametersAmounts(), input, line, myVariables));
-                    }
-                }
                 else {
-                    setVariableIfNeeded(next,line,myVariables);
                     next.setParameters(getParameters(next.getParametersAmounts(), input, line, myVariables));
                 }
                 System.out.println("finished: "+word);
@@ -236,29 +229,8 @@ public class Parser {
         return funcVariableNames;
     }
 
-    private ArrayList<Executable> getGroupedParameters(int amount, Scanner input, Scanner line, VariableHolder myVariables){
-        ArrayList<Executable> ret = new ArrayList<>();
-        int count=0;
-        while(line.hasNext()){
-            String word = line.next();
-            if(groupIsOver(word)){
-                break;
-            }
-            ret.add(getFinishedExecutable(word,input,line, myVariables));
-            count++;
-        }
-        ret.addAll(getParameters(amount-count,input,line,myVariables));
-        return ret;
-    }
-
     private boolean groupedInformationStarted(Scanner line){
         return line.hasNext()&&line.next().equals("[");
-    }
-
-    private CVariable nextVariableInLine(Scanner line, VariableHolder myVariables){
-        String word = line.next();
-        System.out.println(word);
-        return variableReader(word, myVariables);
     }
 
     private CVariable variableReader(String word, VariableHolder myVariables){
@@ -273,12 +245,6 @@ public class Parser {
         else {
             System.out.println("given word is not a variable");
             return null;
-        }
-    }
-
-    private void setVariableIfNeeded(Executable e, Scanner line, VariableHolder myVariables){
-        if (e.needsVariable()) {
-            e.setVariable(nextVariableInLine(line, myVariables));
         }
     }
 

@@ -1,7 +1,7 @@
 package slogo.commands;
 
 import slogo.Function;
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public class CommandEx extends Executable{
     }
 
     @Override
-    public int runCommands(Turtle t) {
+    public int runCommands(CommandInterface cInterface) {
         myFunction.setParameters(myInputs);
-        return myFunction.runCommands(t);
+        return myFunction.runCommands(cInterface);
     }
     @Override
     public void setMyParameters(List<Executable> parameters){
