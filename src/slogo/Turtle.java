@@ -21,7 +21,6 @@ public class Turtle implements CommandInterface {
     public static final int SCALE_DOWN = 1;
     private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
     private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
-    private static Integer turtleNums;
     private Tooltip turtleTip;
     private int turtleID;
     private int width;
@@ -39,11 +38,10 @@ public class Turtle implements CommandInterface {
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
 
-    public Turtle(int width, int height, Color startingColor, int numTurtles){
+    public Turtle(int width, int height, Color startingColor, int turtleID){
+        this.turtleID=turtleID;
         this.xCor=0;
         this.yCor=0;
-        this.turtleID = numTurtles;
-        this.turtleNums = numTurtles;
         this.heading=0;
         this.penDown=true;
         this.showing=true;
@@ -352,11 +350,7 @@ public class Turtle implements CommandInterface {
      * Uses the XMLFileCreator to create a new document
      * @param filename
      */
-    public static void createXMLFile(String filename){
-        //will pass stuff with getters for now
-        XMLFileBuilder builder = new XMLFileBuilder(turtleNums, TurtleView.getBackgroundColor(), filename);
-        builder.createDocument();
-    }
+
 
 
 }

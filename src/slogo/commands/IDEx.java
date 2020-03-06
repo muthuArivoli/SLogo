@@ -1,4 +1,13 @@
 package slogo.commands;
 
-public class IDEx {
+import slogo.configuration.CommandInterface;
+
+public class IDEx extends Executable {
+    public IDEx(){
+        setParametersAmounts(0);
+    }
+    @Override
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.id();
+    }
 }

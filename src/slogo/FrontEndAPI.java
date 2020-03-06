@@ -3,6 +3,7 @@ package slogo;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import slogo.Visualizer.TurtleView;
+import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
@@ -18,15 +19,18 @@ public class FrontEndAPI implements CommandInterface {
     private Color currentPenColor;
     private int currentPenColorIndex;
     private TurtleView myTurtleView;
-    private Color currentBackgroundColor;
 
 
-    public FrontEndAPI(Group visuals, int width, int height, int numTurtles){
+    public FrontEndAPI(TurtleView tv, int numTurtles, ArrayList<Integer> activeTurtles){
+        this.myTurtleView=tv;
         this.myPallet =new ColorMap();
         this.myTurtles = new HashMap<>();
-        this.myVisuals=visuals;
-        this.width=width;
-        this.height=height;
+        this.myVisuals=new Group();
+        this.myTurtleView.addGroup(myVisuals);
+        this.width=tv.getWidth();
+        this.height=tv.getHeight();
+        setPenColor(1);
+        this.currentTurtles = activeTurtles;
         for(int i =0 ; i< numTurtles;i++){
             addTurtle(i+1);
         }
@@ -228,8 +232,7 @@ public class FrontEndAPI implements CommandInterface {
 
     @Override
     public int setBackground(int index) {
-        currentBackgroundColor = myPallet.getColor(index);
-        myTurtleView.updateBackgroundColor(currentBackgroundColor);
+        myTurtleView.updateBackgroundColor(myPallet.getColor(index));
         return index;
     }
 
@@ -277,10 +280,17 @@ public class FrontEndAPI implements CommandInterface {
         }
         return ret;
     }
+    public void setBackgroundColorUsingXML(String newColor){
+        myTurtleView.setBackgroundColorUsingXML(newColor);
+    }
 
     public void addTurtle(int id){
-        Turtle newT=new Turtle(width,height, currentPenColor,1);
+        Turtle newT=new Turtle(width,height, currentPenColor,id);
         myTurtles.put(id, newT);
         myVisuals.getChildren().addAll(newT.getTurtleGroup());
+    }
+
+    public String getStringBackgroundColor(){
+        return myTurtleView.getBackgroundColor();
     }
 }

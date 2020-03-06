@@ -19,7 +19,6 @@ public class DashboardView extends Pane {
   private HistoryView pastScripts;
   private ScriptView script;
   private VariableView variableList;
-  private TurtleInfoView turtleInfo;
   private VBox dashboardPane;
   public DashboardView() {
     dashboardPane = new VBox(SPACING);

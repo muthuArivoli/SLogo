@@ -19,9 +19,9 @@ public class BackEndAPI {
         Executable e = myParser.parse(sc);
         return e;
     }
-    public void buildAndRun(String s, Turtle t){
+    public void buildAndRun(String s, FrontEndAPI fAPI){
         Executable e = build(s);
-        e.runCommands(t);
+        e.runCommands(fAPI);
     }
     public void setLanguage(String language){
         LangParser lp = new LangParser();
@@ -29,7 +29,7 @@ public class BackEndAPI {
         lp.addPatterns("Syntax");
         myParser.setLanguage(lp);
     }
-    public void runFile(File f, Turtle t){
+    public void runFile(File f, FrontEndAPI fAPI){
         Scanner sc = null;
 
         try {
@@ -38,6 +38,6 @@ public class BackEndAPI {
             System.out.println("the file was not found");
         }
         Executable e = myParser.parse(sc);
-        e.runCommands(t);
+        e.runCommands(fAPI);
     }
 }
