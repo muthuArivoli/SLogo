@@ -1,15 +1,13 @@
 package slogo.Visualizer;
 
-import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
+import java.util.Map;
 
 public class DashboardView extends Pane {
   private static final double SPACING = 30;
@@ -62,5 +60,5 @@ public class DashboardView extends Pane {
   }
   public String getScript() { return script.getText();}
   public void setScript(String input) {script.setText(input);}
-  protected HistoryView getPastScript() { return pastScripts;}
+  public HistoryView getPastScript() { return pastScripts;}
 }

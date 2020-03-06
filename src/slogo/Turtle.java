@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import slogo.Visualizer.TurtleView;
+import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
@@ -33,7 +34,8 @@ public class Turtle implements CommandInterface {
     private boolean showing;
     private ImageView turtleImage;
     private Group myLines;
-    private Paint currentColor;
+    private Color currentColor;
+    private double penWidth;
 
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
@@ -77,6 +79,10 @@ public class Turtle implements CommandInterface {
     public int getShowing(){
         return showing ? 1 : 0;
     }
+    public Color getPenColor() {return currentColor;}
+    public void setPenColor(Color color){this.currentColor=color;}
+    public void setPenWidth(double input) {this.penWidth = input;}
+    public double getPenWidth() {return this.penWidth;}
     public void flipActive() {
         this.active = !active;
         if (active) {
@@ -335,6 +341,7 @@ public class Turtle implements CommandInterface {
     private void drawLine(int sX, int sY){
         if(penDown){
             Line line = new Line(adjustedX(sX), adjustedY(sY), adjustedX(xCor), adjustedY(yCor));
+            line.setStrokeWidth(penWidth);
             line.setStroke(currentColor);
             myLines.getChildren().addAll(line);
         }

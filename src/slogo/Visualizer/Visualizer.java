@@ -1,12 +1,12 @@
 package slogo.Visualizer;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -18,8 +18,6 @@ import slogo.Turtle;
 import java.util.ArrayList;
 
 public class Visualizer {
-    private static final double WIDTH_TEXTBOX = 80;
-
     private static Integer sceneLength = 800;
     private static Integer sceneWidth = 1200;
 
