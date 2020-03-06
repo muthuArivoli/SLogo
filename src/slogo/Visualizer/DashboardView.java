@@ -9,7 +9,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
+import java.util.*;
+import slogo.Variables.CVariable;
 
 public class DashboardView extends Pane {
   private static final double SPACING = 30;
@@ -19,7 +20,6 @@ public class DashboardView extends Pane {
   private HistoryView pastScripts;
   private ScriptView script;
   private VariableView variableList;
-  private TurtleInfoView turtleInfo;
   private VBox dashboardPane;
   public DashboardView() {
     dashboardPane = new VBox(SPACING);
@@ -43,23 +43,15 @@ public class DashboardView extends Pane {
 
     dashboardPane.getChildren()
         .addAll(historyViewer, script, variableList);
-
+    
     getChildren().add(dashboardPane);
     setHeight(dashboardPane.getMinHeight());
   }
   public VBox getDashboardPane() {
     return dashboardPane;
   }
-  public void addVariables(Map<String, String> variables) {
-    for (String varName: variables.keySet()) {
-      if (!variableList.getItems().contains(varName)) {
-        variableList.getItems().add(0, varName);
-        variableList.getItems().add(1, variables.get(varName));
-      } else {
-        int i = variableList.getColumns().indexOf(varName);
-
-      }
-    }
+  public void addVariables(List<CVariable> variables) {
+    variableList.getVariableTable().getItems().addAll((variables));
   }
   public String getScript() { return script.getText();}
   public void setScript(String input) {script.setText(input);}
