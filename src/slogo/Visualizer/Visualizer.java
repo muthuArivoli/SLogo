@@ -1,19 +1,12 @@
 package slogo.Visualizer;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import slogo.FrontEndAPI;
-import slogo.Turtle;
 
 import java.util.ArrayList;
 
@@ -29,16 +22,17 @@ public class Visualizer {
 
 
     public Visualizer(ColorPicker picker, Button runButton, Button saveButton, Button helpButton,
-                      Button paletteButton, Button fileButton, Button loadEnvironmentButton,
-                      ComboBox langSelection, TextField loadTextField, TextField saveTextField) {
+                      Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
+                      ComboBox langSelection, TextField loadTextField, TextField saveTextField,
+                      Button moveForwardButton, Button moveBackwardButton, Button turnRightButton, Button turnLeftButton) {
 
         Pane turtlePane=new Pane();
         HBox menuPane=new HBox();
 
         myTurtleView = new TurtleView(turtlePane);
         myDashboard = new DashboardView();
-        new MenuView(menuPane,picker,runButton,saveButton,helpButton,paletteButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
-        myControls = new GUIControllerView();
+        new MenuView(menuPane,picker,runButton,saveButton,helpButton,paletteButton,penButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
+        myControls = new GUIControllerView(moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton);
         rootPane = new BorderPane();
         myScene = new Scene(rootPane, sceneWidth, sceneLength);
         rootPane.setRight(myDashboard);

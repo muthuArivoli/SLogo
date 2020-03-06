@@ -4,22 +4,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import slogo.Visualizer.TurtleView;
 import slogo.Visualizer.Visualizer;
-import slogo.Visualizer.paletteMap;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Workspace {
     private Visualizer vis;
@@ -37,14 +33,18 @@ public class Workspace {
         Button loadEnvironmentButton = new Button();
         Button saveButton = new Button();
         Button fileButton = new Button();
+        Button penButton = new Button();
         ColorPicker cPicker = new ColorPicker();
         ComboBox langSelection = new ComboBox();
         TextField loadTextField = new TextField();
         TextField saveTextField = new TextField();
 
 
-        paletteMap colors = new paletteMap();
-        vis = new Visualizer(cPicker,runButton,saveButton,helpButton,paletteButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
+        vis = new Visualizer(cPicker,runButton,saveButton,helpButton,
+                paletteButton, penButton,fileButton,loadEnvironmentButton,
+                langSelection,loadTextField, saveTextField,
+                moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton);
+
         primaryStage.setScene(vis.getScene());
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -63,19 +63,24 @@ public class Workspace {
                 vis.alertCreator("Build Failed",ice.getMessage());
             }
         });
+
         moveForwardButton.setOnAction(event -> {
             fAPI.forward(25);
         });
+
         moveBackwardButton.setOnAction(event -> {
             fAPI.back(25);
         });
+
         turnRightButton.setOnAction(event -> {
             fAPI.right(30);
         });
+
         turnLeftButton.setOnAction(event -> {
-            fAPI.forward(30);
+            fAPI.left(30);
         });
-        vis.getPenButton().setOnAction(new EventHandler<ActionEvent>() {
+
+        penButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 HBox secondaryLayout = new HBox();
@@ -83,43 +88,38 @@ public class Workspace {
 
                 VBox temp = new VBox(25);
                 temp.setPadding(new Insets(50,57,50,57));
-                Slider slider1 = new Slider(1, 10, t.get(0).getPenWidth());
-                slider1.setMaxWidth(135);
-                slider1.setShowTickMarks(true);
-                slider1.setShowTickLabels(true);
-                slider1.valueProperty().addListener(new ChangeListener<Number>() {
+                Slider sizeSlider = new Slider(1, 10, fAPI.getPenSize());
+                sizeSlider.setMaxWidth(135);
+                sizeSlider.setShowTickMarks(true);
+                sizeSlider.setShowTickLabels(true);
+                sizeSlider.setMajorTickUnit(1);
+                sizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
                     public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
-                        double newValue2 = newValue.doubleValue();
-                        for (Turtle turtle : t) {
-                            turtle.setPenWidth(newValue2);
-                        }
-
+                        int newIntVal=newValue.intValue();
+                        sizeSlider.setValue(newIntVal);
+                        fAPI.setPenSize(newIntVal);
                     }
                 });
-                String text = (t.get(0).getPenDown() == 1) ? "Pen Up" : "Pen Down";
+                String text = (fAPI.getPenDown() == 1) ? "Pen Up" : "Pen Down";
                 Button toggle = new Button(text);
                 toggle.setMinWidth(130);
                 toggle.setOnAction(event2 -> {
-                    for (Turtle turtle : t)  {
-                        if (turtle.getPenDown() == 1) {
-                            turtle.penUp();
-                            toggle.setText("Pen Down");
-                        }
-                        else {
-                            turtle.penDown();
-                            toggle.setText("Pen Up");
-                        }
-
+                    if (fAPI.getPenDown() == 1) {
+                        fAPI.penUp();
+                        toggle.setText("Pen Down");
                     }
+                    else {
+                        fAPI.penDown();
+                        toggle.setText("Pen Up");
+                    }
+
                 });
                 ColorPicker picker = new ColorPicker();
-                picker.setValue(t.get(0).getPenColor());
+                picker.setValue(fAPI.getPenPaintColor());
                 picker.setOnAction(event3 -> {
-                    for (Turtle turtle : t)  {
-                        turtle.setPenColor(picker.getValue());
-                    }
+                    fAPI.setSelectedPenColor(picker.getValue());
                 });
-                temp.getChildren().addAll(slider1, toggle, picker);
+                temp.getChildren().addAll(sizeSlider, toggle, picker);
                 secondaryLayout.getChildren().addAll(temp);
 
                 // New window (Stage)
@@ -135,19 +135,20 @@ public class Workspace {
                 newWindow.show();
             }
         });
-        vis.getLangSelection().valueProperty().addListener(new ChangeListener<String>() {
+
+        langSelection.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
             }
         });
+
         paletteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 HBox secondaryLayout = new HBox();
                 Scene secondScene = new Scene(secondaryLayout, 250, 500);
 
-                HBox temp = new HBox();
-                temp = pMap.createScene(temp);
+                HBox temp = fAPI.getDisplayPalette();
                 secondaryLayout.getChildren().addAll(temp);
 
                 // New window (Stage)
@@ -163,6 +164,7 @@ public class Workspace {
                 newWindow.show();
             }
         });
+
         helpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

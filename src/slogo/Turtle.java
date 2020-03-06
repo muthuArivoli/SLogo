@@ -5,14 +5,10 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import slogo.Visualizer.TurtleView;
 import slogo.Visualizer.Visualizer;
-import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
-import slogo.Visualizer.Visualizer;
 
 import java.util.ArrayList;
 
@@ -35,7 +31,7 @@ public class Turtle implements CommandInterface {
     private ImageView turtleImage;
     private Group myLines;
     private Color currentColor;
-    private double penWidth;
+    private int penSize;
 
     private int sceneWidth = Visualizer.getSceneWidth();
     private int sceneLength = Visualizer.getSceneLength();
@@ -45,6 +41,7 @@ public class Turtle implements CommandInterface {
         this.xCor=0;
         this.yCor=0;
         this.heading=0;
+        this.penSize=1;
         this.penDown=true;
         this.showing=true;
         this.active=true;
@@ -79,10 +76,11 @@ public class Turtle implements CommandInterface {
     public int getShowing(){
         return showing ? 1 : 0;
     }
-    public Color getPenColor() {return currentColor;}
+    @Override
+    public int getPenColor() {return 0;}
     public void setPenColor(Color color){this.currentColor=color;}
-    public void setPenWidth(double input) {this.penWidth = input;}
-    public double getPenWidth() {return this.penWidth;}
+
+    public int getPenSize() {return this.penSize;}
     public void flipActive() {
         this.active = !active;
         if (active) {
@@ -91,25 +89,24 @@ public class Turtle implements CommandInterface {
             turtleImage.setImage(INACTIVE_TURTLE_IMAGE);
         }
     }
+
     public int forward(int pixels){
         int oldX=xCor;
         int oldY=yCor;
+        xCor += Math.sin(Math.toRadians(heading)) * pixels;
+        yCor += Math.cos(Math.toRadians(heading)) * pixels;
         //current mechanic just sets the turtle at the scene edge if the input is past the edge
-        if(xCor+Math.sin(Math.toRadians(heading))*pixels >= sceneWidth){
-            xCor = sceneWidth;
+        if(adjustedX(xCor) > width){
+            setAdjustedX(width);
         }
-        if(yCor+Math.sin(Math.toRadians(heading))*pixels >= sceneLength){
-            yCor = sceneLength;
+        if(adjustedY(yCor) > height){
+            setAdjustedY(height);
         }
-        if(xCor+Math.sin(Math.toRadians(heading))*pixels < 0){
-            xCor = 0;
+        if(adjustedX(xCor) < 0){
+            setAdjustedX(0);
         }
-        if(yCor+Math.sin(Math.toRadians(heading))*pixels < 0) {
-            yCor = 0;
-        }
-        else {
-            xCor += Math.sin(Math.toRadians(heading)) * pixels;
-            yCor += Math.cos(Math.toRadians(heading)) * pixels;
+        if(adjustedY(yCor) < 0) {
+            setAdjustedY(0);
         }
         System.out.println("Forward: "+pixels);
         moveTurtleImage();
@@ -226,15 +223,10 @@ public class Turtle implements CommandInterface {
 
     @Override
     public int setPenSize(int pixels) {
-        //ERROR
-        return 0;
+        penSize =pixels;
+        return pixels;
     }
 
-    @Override
-    public int getPenColor() {
-        //ERROR
-        return 0;
-    }
 
     @Override
     public int getShape() {
@@ -262,8 +254,7 @@ public class Turtle implements CommandInterface {
 
     @Override
     public int id() {
-        //ERROR
-        return 0;
+        return turtleID;
     }
 
     @Override
@@ -278,9 +269,6 @@ public class Turtle implements CommandInterface {
         return ret;
     }
 
-    public void setPenColor(Paint color){
-        currentColor=color;
-    }
 
     private double pythagorean(double a, double b){
         double cSquared= (a*a)+(b*b);
@@ -341,11 +329,19 @@ public class Turtle implements CommandInterface {
     private void drawLine(int sX, int sY){
         if(penDown){
             Line line = new Line(adjustedX(sX), adjustedY(sY), adjustedX(xCor), adjustedY(yCor));
-            line.setStrokeWidth(penWidth);
+            line.setStrokeWidth(penSize);
             line.setStroke(currentColor);
             myLines.getChildren().addAll(line);
         }
     }
+
+    private void setAdjustedX(int x){
+        xCor= (int) ((turtleImage.getFitWidth()/2)+(x/SCALE_DOWN)-(width/2));
+    }
+    private void setAdjustedY(int y){
+        yCor=(int) ((turtleImage.getFitWidth()/2)-(y/SCALE_DOWN)+(height/2));
+    }
+
     private double adjustedX(int x){
         return (width / 2) + (x/SCALE_DOWN);
     }
