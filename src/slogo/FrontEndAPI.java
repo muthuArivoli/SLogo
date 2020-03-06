@@ -1,9 +1,9 @@
 package slogo;
 
 import javafx.scene.Group;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import slogo.Visualizer.TurtleView;
-import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
@@ -36,10 +36,12 @@ public class FrontEndAPI implements CommandInterface {
         }
     }
 
+    @Override
     public int turtles(){
         return myTurtles.size();
     }
 
+    @Override
     public int id(){
         int ret=0;
         for(int i:currentTurtles){
@@ -48,6 +50,7 @@ public class FrontEndAPI implements CommandInterface {
         return ret;
     }
 
+    @Override
     public ArrayList<Integer> askWith(Executable e){
         ArrayList<Integer> old = currentTurtles;
         currentTurtles =new ArrayList<>();
@@ -59,12 +62,14 @@ public class FrontEndAPI implements CommandInterface {
         return old;
     }
 
+    @Override
     public ArrayList<Integer> ask(ArrayList<Integer> turtles){
         ArrayList<Integer> old = currentTurtles;
         currentTurtles = turtles;
         return old;
     }
 
+    @Override
     public int tell(ArrayList<Integer> turtles){
         int ret=0;
         for(int i:turtles){
@@ -240,9 +245,7 @@ public class FrontEndAPI implements CommandInterface {
     public int setPenColor(int index) {
         currentPenColor = myPallet.getColor(index);
         currentPenColorIndex = index;
-        for(Turtle t: myTurtles.values()){
-            t.setPenColor(currentPenColor);
-        }
+        updatePenColor();
         return index;
     }
 
@@ -259,12 +262,24 @@ public class FrontEndAPI implements CommandInterface {
 
     @Override
     public int setPenSize(int pixels) {
-        return 0;
+        for(int i:currentTurtles){
+            myTurtles.get(i).setPenSize(pixels);
+        }
+        return pixels;
     }
 
     @Override
     public int getPenColor() {
         return currentPenColorIndex;
+    }
+
+    public Color getPenPaintColor(){
+        return currentPenColor;
+    }
+
+    public void setSelectedPenColor(Color c){
+        currentPenColor=c;
+        updatePenColor();
     }
 
     @Override
@@ -280,6 +295,7 @@ public class FrontEndAPI implements CommandInterface {
         }
         return ret;
     }
+
     public void setBackgroundColorUsingXML(String newColor){
         myTurtleView.setBackgroundColorUsingXML(newColor);
     }
@@ -292,5 +308,23 @@ public class FrontEndAPI implements CommandInterface {
 
     public String getStringBackgroundColor(){
         return myTurtleView.getBackgroundColor();
+    }
+
+    public HBox getDisplayPalette(){
+        return myPallet.getDisplayPallet();
+    }
+
+    public int getPenSize(){
+        int ret=0;
+        for(int i:currentTurtles){
+            ret= myTurtles.get(i).getPenSize();
+        }
+        return ret;
+    }
+
+    private void updatePenColor(){
+        for(Turtle t: myTurtles.values()){
+            t.setPenColor(currentPenColor);
+        }
     }
 }

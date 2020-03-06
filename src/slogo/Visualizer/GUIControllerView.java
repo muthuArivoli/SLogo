@@ -11,22 +11,13 @@ public class GUIControllerView extends HBox{
   private static final String TURN_LEFT = "Turn Left";
   private static final Insets PADDING = new Insets(10, 10, 10, 10);
 
-  private Button moveForwardButton;
-  private Button moveBackwardButton;
-  private Button turnRightButton;
-  private Button turnLeftButton;
-  public GUIControllerView() {
 
-    moveForwardButton = new Button(MOVE_FORWARD);
-    moveBackwardButton = new Button (MOVE_BACKWARD);
-    turnRightButton = new Button (TURN_RIGHT);
-    turnLeftButton = new Button (TURN_LEFT);
+  public GUIControllerView(Button moveForwardButton, Button moveBackwardButton, Button turnRightButton, Button turnLeftButton) {
+    moveForwardButton.setText(MOVE_FORWARD);
+    moveBackwardButton.setText(MOVE_BACKWARD);
+    turnRightButton.setText(TURN_RIGHT);
+    turnLeftButton.setText(TURN_LEFT);
     this.getChildren().addAll(moveForwardButton, moveBackwardButton, turnLeftButton, turnRightButton);
     this.setPadding(PADDING);
   }
-
-  public Button getMoveForwardButton(){return moveForwardButton;}
-  public Button getMoveBackwardButton(){return moveBackwardButton;}
-  public Button getTurnRightButton(){return turnRightButton;}
-  public Button getTurnLeftButton(){return turnLeftButton;}
 }

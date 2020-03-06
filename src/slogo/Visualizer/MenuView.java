@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -45,7 +42,7 @@ public class MenuView {
 
 
     public MenuView(HBox menuPane, ColorPicker picker, Button runButton, Button saveButton,
-                    Button helpButton, Button paletteButton, Button fileButton, Button loadEnvironmentButton,
+                    Button helpButton, Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
                     ComboBox langSelection, TextField loadTextField, TextField saveTextField) {
 
         ObservableList<String> options =
@@ -63,6 +60,7 @@ public class MenuView {
         langSelection.setItems(options);
 
         paletteButton.setText(PALETTE);
+        penButton.setText(PEN);
 
         Region spacer1 = new Region();
         Region spacer2 = new Region();
@@ -94,7 +92,7 @@ public class MenuView {
         HBox.setHgrow(spacer1, Priority.ALWAYS);
         HBox.setHgrow(spacer2, Priority.ALWAYS);
 
-        menuPane.getChildren().addAll(langSelection, paletteButton, spacer1, center, spacer2, right);
+        menuPane.getChildren().addAll(langSelection, paletteButton, penButton, spacer1, center, spacer2, right);
         menuPane.setPadding(new Insets(10,10,10,10));
     }
 }
