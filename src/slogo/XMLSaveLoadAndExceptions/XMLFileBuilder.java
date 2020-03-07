@@ -1,7 +1,9 @@
 package slogo.XMLSaveLoadAndExceptions;
 
 import java.io.File;
+
 import javafx.scene.paint.Color;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,6 +12,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import slogo.FrontEndAPI;
@@ -26,15 +29,15 @@ public class XMLFileBuilder {
     public static final String PEN_COLOR_TAG = "penColor";
     public static final String PALETTE_TAG = "palette";
     public static final String CURRENT_SCRIPTS_TAG = "currentScripts";
+    public static final String PAST_SCRIPTS_TAG = "pastScripts";
 
-
-    private DocumentBuilderFactory documentFactory;
-    private DocumentBuilder documentBuilder;
     private Document document;
     private String background;
     private String filename;
     private Color penColor;
     private String currentScripts;
+    //private String pastScripts;
+
 
     private int numTurtles;
     private final static String XML_ENDING = ".xml";
@@ -45,14 +48,14 @@ public class XMLFileBuilder {
         this.background = fAPI.getStringBackgroundColor();
         this.penColor = fAPI.getPenPaintColor();
         this.currentScripts = vis.getScript();
+        //this.pastScripts = vis.getPastScript();
         this.filename = filename + XML_ENDING;
 
-        try{
-            this.documentFactory = DocumentBuilderFactory.newInstance();
-            this.documentBuilder = documentFactory.newDocumentBuilder();
+        try {
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
             this.document = documentBuilder.newDocument();
-        }
-        catch (ParserConfigurationException pce) {
+        } catch (ParserConfigurationException pce) {
             throw new XMLCreationExceptions();
         }
     }
@@ -60,8 +63,7 @@ public class XMLFileBuilder {
     /**
      * Builds the root element to add new element to and eventually transform
      */
-    public void createDocument(){
-        // root element
+    public void createDocument() {
         Element root = document.createElement(SLOGO_TAG);
         document.appendChild(root);
         addElementsToRoot(root);
@@ -71,27 +73,24 @@ public class XMLFileBuilder {
     /**
      * Transformer allows us to write the DOM object to the desired output StreamResult
      */
-    private void transform(){
-        try{
+    private void transform() {
+        try {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File(DEFAULT_FOLDER + filename));
             transformer.transform(domSource, streamResult);
-        }
-        catch (TransformerException tfe) {
+        } catch (TransformerException tfe) {
             throw new XMLTransformerException();
         }
     }
 
     /**
      * Add the elements that are necessary to every turtle environment
+     *
      * @param root
      */
-    private void addElementsToRoot(Element root)
-    {
-        //will need something that saves all the turtles
-        //fillAllTurtles(); (for example)
+    private void addElementsToRoot(Element root) {
         Element numberOfTurtlesType = createElement(NUM_TURTLES_TAG, Integer.toString(numTurtles));
         root.appendChild(numberOfTurtlesType);
         Element backgroundColorType = createElement(BACKGROUND_COLOR_TAG, background);
@@ -100,12 +99,14 @@ public class XMLFileBuilder {
         root.appendChild(penColorType);
         Element currentScriptsType = createElement(CURRENT_SCRIPTS_TAG, currentScripts);
         root.appendChild(currentScriptsType);
-        //Element paletteType = createElement(CURRENT_SCRIPTS_TAG, background);
-        //root.appendChild(currentScriptsType);
+        //Element pastScriptsType = createElement(PAST_SCRIPTS_TAG, pastScripts);
+        //root.appendChild(pastScriptsType);
 
     }
+
     /**
      * Creates a single element from a given tag name and text
+     *
      * @param tagName
      * @param text
      * @return documented element formatted with correct nodes

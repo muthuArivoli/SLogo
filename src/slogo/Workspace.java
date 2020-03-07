@@ -24,8 +24,6 @@ import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.Property;
 
-
-
 public class Workspace {
     private static final int HELPLINES = 14;
     private static final int BUTTONMOVEDISTANCE = 25;
