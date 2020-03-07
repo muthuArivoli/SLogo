@@ -1,5 +1,6 @@
 package slogo;
 
+import com.sun.jdi.InvocationException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -16,6 +17,8 @@ import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.security.PrivilegedExceptionAction;
 
 public class Workspace {
     private Visualizer vis;
@@ -59,7 +62,7 @@ public class Workspace {
                 bAPI.buildAndRun(vis.getScript(), fAPI);
                 vis.updateHistory(vis.getScript());
             }
-            catch(IncorrectCommandException ice){
+            catch(IncorrectCommandException | IllegalAccessException | InvocationTargetException | InstantiationException ice){
                 vis.alertCreator("Build Failed",ice.getMessage());
             }
         });
@@ -199,7 +202,11 @@ public class Workspace {
         fileButton.setOnAction(event -> {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
-                bAPI.runFile(file, fAPI);
+                try {
+                    bAPI.runFile(file, fAPI);
+                } catch (Exception e) {
+                    vis.alertCreator("Run Failed", e.getMessage());
+                }
             }
         });
     }
