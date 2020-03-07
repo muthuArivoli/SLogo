@@ -86,7 +86,7 @@ public class Visualizer {
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(prop.getPropValues("error"));
+        alert.setTitle("error");
         alert.setHeaderText(message1);
         alert.setContentText(message2);
         alert.showAndWait();

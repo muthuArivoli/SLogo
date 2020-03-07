@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import slogo.configuration.Property;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 public class ColorMap {
