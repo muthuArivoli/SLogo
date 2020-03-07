@@ -71,11 +71,6 @@ public class MenuView {
         fileButton.setText(FILE);
         helpButton.setText(HELP);
         loadEnvironmentButton.setText(LOAD);
-//
-//        Region smallSpacer1 = new Region();
-//        smallSpacer1.maxWidth(10);
-//        Region smallSpacer2 = new Region();
-//        smallSpacer2.maxWidth(10);
 
         Label savePrompt = new Label(FILE_SAVE_PROMPT);
 

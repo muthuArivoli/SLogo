@@ -3,7 +3,10 @@ package slogo;
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import slogo.Visualizer.DashboardView;
+import slogo.Visualizer.HistoryView;
 import slogo.Visualizer.TurtleView;
+import slogo.Visualizer.Visualizer;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
@@ -19,14 +22,16 @@ public class FrontEndAPI implements CommandInterface {
     private Color currentPenColor;
     private int currentPenColorIndex;
     private TurtleView myTurtleView;
+    private DashboardView myDashboardView;
 
-
-    public FrontEndAPI(TurtleView tv, int numTurtles, ArrayList<Integer> activeTurtles){
+    public FrontEndAPI(TurtleView tv, DashboardView dv, int numTurtles, ArrayList<Integer> activeTurtles){
         this.myTurtleView=tv;
+        this.myDashboardView = dv;
         this.myPallet =new ColorMap();
         this.myTurtles = new HashMap<>();
         this.myVisuals=new Group();
         this.myTurtleView.addGroup(myVisuals);
+
         this.width=tv.getWidth();
         this.height=tv.getHeight();
         setPenColor(1);
@@ -299,6 +304,10 @@ public class FrontEndAPI implements CommandInterface {
     public void setBackgroundColorUsingXML(String newColor){
         myTurtleView.setBackgroundColorUsingXML(newColor);
     }
+
+    public void setCurrentScriptUsingXML(String newCurrentScript){myDashboardView.setScript(newCurrentScript);};
+
+    public void setPastScriptsUsingXML(HistoryView newPastScripts) {myDashboardView.setPastScript(newPastScripts);}
 
     public void addTurtle(int id){
         Turtle newT=new Turtle(width,height, currentPenColor,id);

@@ -1,5 +1,6 @@
 package slogo.XMLSaveLoadAndExceptions;
 
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -7,6 +8,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.lang.reflect.Field;
 
 /**
  * This class handles all of the document building and grabbing data
@@ -16,12 +18,16 @@ public class ParseXMLFile {
 
     public static final String DEFAULT_NUM_TURTLES_TAG = "1";
     public static final String DEFAULT_BACKGROUND_COLOR_TAG = "background";
+    public static final String DEFAULT_CURRENT_SCRIPTS_TAG = "";
+    public static final String DEFAULT_PAINT_COLOR_TAG = "";
+
 
     public static final String UNKNOWN_TAG_ERROR = "The tag %s was not found. Variable has been filled with default value: %s";
 
     private String filename;
     private String backgroundColor;
-
+    private Color penColor;
+    private String currentScripts;
     private File file;
     private Document doc;
     private Element mainElement;
@@ -48,7 +54,9 @@ public class ParseXMLFile {
 
             numTurtles = getIntegerElementByTag("numTurtles", DEFAULT_NUM_TURTLES_TAG);
             backgroundColor = getStringElementByTag("background", DEFAULT_BACKGROUND_COLOR_TAG);
-            System.out.println(numTurtles + "\n" +  backgroundColor);
+            currentScripts = getStringElementByTag("currentScripts", DEFAULT_CURRENT_SCRIPTS_TAG);
+            penColor = Color.web(getStringElementByTag("penColor", DEFAULT_PAINT_COLOR_TAG));
+            //System.out.println(numTurtles + "\n" +  backgroundColor);
         }
         catch (Exception e) {
             String errorMessage = "Could not parse given file";
@@ -63,6 +71,12 @@ public class ParseXMLFile {
      */
     public Integer getNumTurtlesFromAnInputtedFile() {return numTurtles; }
     public String getBackgroundColorFromAnInputtedFile() {return backgroundColor; }
+    //need dash in front end API
+    public String getCurrentScriptFromAnInputtedFile() {return currentScripts;}
+    //public String getPastScriptFromAnInputtedFile() {return pastScripts;}
+
+    public Color getPenColorFromAnInputtedFile() {return penColor;}
+
 
     private String getStringElementByTag (String tagName, String defaultVal) throws ParserException {
         if(mainElement.getElementsByTagName(tagName).getLength() == 0) {

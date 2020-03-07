@@ -1,7 +1,11 @@
 package slogo.XMLSaveLoadAndExceptions;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import slogo.FrontEndAPI;
+import slogo.Visualizer.Visualizer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,23 +25,28 @@ public class XMLFileBuilder {
     public static final String SLOGO_TAG = "slogo";
     public static final String NUM_TURTLES_TAG = "numTurtles";
     public static final String BACKGROUND_COLOR_TAG = "background";
+    public static final String PEN_COLOR_TAG = "penColor";
+    public static final String PALETTE_TAG = "palette";
+    public static final String CURRENT_SCRIPTS_TAG = "currentScripts";
 
-    private Integer turtlesToSave;
+
     private DocumentBuilderFactory documentFactory;
     private DocumentBuilder documentBuilder;
     private Document document;
     private String background;
     private String filename;
+    private Color penColor;
+    private String currentScripts;
+
     private int numTurtles;
     private final static String XML_ENDING = ".xml";
     private final static String DEFAULT_FOLDER = "data/";
 
-    public XMLFileBuilder(Integer turtleNums, String background, String filename) {
-        this.turtlesToSave = turtleNums;
-        this.background = background;
-
-        //defaults to change later
-        this.numTurtles = turtleNums;
+    public XMLFileBuilder(FrontEndAPI fAPI, Visualizer vis, String filename) {
+         this.numTurtles = fAPI.turtles();
+         this.background = fAPI.getStringBackgroundColor();
+         this.penColor = fAPI.getPenPaintColor();
+        this.currentScripts = vis.getScript();
         this.filename = filename + XML_ENDING;
 
         try{
@@ -89,16 +98,19 @@ public class XMLFileBuilder {
         root.appendChild(numberOfTurtlesType);
         Element backgroundColorType = createElement(BACKGROUND_COLOR_TAG, background);
         root.appendChild(backgroundColorType);
+        Element penColorType = createElement(PEN_COLOR_TAG, penColor.toString());
+        root.appendChild(penColorType);
+        Element currentScriptsType = createElement(CURRENT_SCRIPTS_TAG, currentScripts);
+        root.appendChild(currentScriptsType);
+        //Element paletteType = createElement(CURRENT_SCRIPTS_TAG, background);
+        //root.appendChild(currentScriptsType);
 
-        for(int i = 0; i < numTurtles; i++) {
-            //need to iterate through turtles to get all turtle elements in separate arrays
-        }
     }
     /**
      * Creates a single element from a given tag name and text
      * @param tagName
      * @param text
-     * @return
+     * @return documented element formatted with correct nodes
      */
     private Element createElement(String tagName, String text) {
         Element e = document.createElement(tagName);

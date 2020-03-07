@@ -1,11 +1,13 @@
 package slogo;
 
+import java.util.Collection;
 import slogo.Variables.CVariable;
 import slogo.Variables.VariableHolder;
 import slogo.commands.CommandEx;
 import slogo.commands.Executable;
 import slogo.commands.GroupEx;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -26,7 +28,7 @@ public class Parser {
         myLangParser.addPatterns("Syntax");
     }
 
-    public Executable parse(Scanner input){
+    public Executable parse(Scanner input) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         GroupEx runnableCode =new GroupEx();
         while (input.hasNextLine()) {
             Scanner line = new Scanner(input.nextLine());
@@ -50,7 +52,7 @@ public class Parser {
         myLangParser=lp;
     }
 
-    private ArrayList<Executable> getParameters(int amount, Scanner input, Scanner line, VariableHolder myVariables){
+    private ArrayList<Executable> getParameters(int amount, Scanner input, Scanner line, VariableHolder myVariables) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         ArrayList<Executable> ret = new ArrayList<>();
         for(int i = 0; i<amount;i++){
             System.out.print("param "+(i+1)+": ");
@@ -59,7 +61,7 @@ public class Parser {
         return ret;
     }
 
-    private Executable getFinishedExecutable(String word, Scanner input, Scanner line, VariableHolder myVariables){
+    private Executable getFinishedExecutable(String word, Scanner input, Scanner line, VariableHolder myVariables) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         System.out.println(word);
         String langWord = myLangParser.getSymbol(word);
         Executable next;
@@ -104,7 +106,7 @@ public class Parser {
         return null;
     }
 
-    private GroupEx groupParser(Scanner input, Scanner line, VariableHolder myVariables){
+    private GroupEx groupParser(Scanner input, Scanner line, VariableHolder myVariables) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         System.out.println("groupStart");
         GroupEx group =new GroupEx();
         while (line.hasNext()) {
@@ -142,7 +144,7 @@ public class Parser {
         return word.equals("]");
     }
 
-    private Executable parseNext(Scanner input, Scanner line, VariableHolder myVariables){
+    private Executable parseNext(Scanner input, Scanner line, VariableHolder myVariables) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if (line.hasNext()) {
             String word = line.next();
             return getFinishedExecutable(word, input, line, myVariables);
@@ -161,7 +163,7 @@ public class Parser {
         return null;
     }
 
-    private Executable commandReader(String word, VariableHolder myVariables){
+    private Executable commandReader(String word, VariableHolder myVariables) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if(eg.containsKey(word)){
             return eg.getExecutable(word);
         }
@@ -179,7 +181,7 @@ public class Parser {
         //return null;
     }
 
-    private boolean createFunction(Scanner input, Scanner line){
+    private boolean createFunction(Scanner input, Scanner line) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         String name;
         ArrayList<String> inputVarNames;
         VariableHolder funcVars=new VariableHolder();
@@ -248,6 +250,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Used for variable table view
+     * @return Collection of CVariable values
+     */
+    public VariableHolder getVariableHolder() {
+        return mainVariables;
+    }
     private boolean commentCheck(String word){
         return (word.charAt(0) == '#');
     }

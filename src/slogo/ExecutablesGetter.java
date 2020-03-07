@@ -10,6 +10,7 @@ import slogo.commands.Queries.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 public class ExecutablesGetter {
     private HashMap<String, Operation> OpMap;
@@ -26,7 +27,7 @@ public class ExecutablesGetter {
         return OpMap.containsKey(s)||classMap.containsKey(s);
     }
 
-    public Executable getExecutable(String s){
+    public Executable getExecutable (String s) throws InstantiationException,InvocationTargetException, IllegalAccessException{
         if(!containsKey(s)){
             System.out.println("given string is not a key");
         }
@@ -39,17 +40,17 @@ public class ExecutablesGetter {
             try {
                 c= basicClass.getConstructor(new Class[]{});
             } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+                throw new NoSuchElementException();
             }
             Executable retEx=null;
             try {
                 retEx= (Executable) c.newInstance();
             } catch (InstantiationException e) {
-                e.printStackTrace();
+                throw new InstantiationException("ERROR: could not instantitate class properly");
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new IllegalAccessException("ERROR: Illegal Access to class");
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                throw e;
             }
             return retEx;
         }
