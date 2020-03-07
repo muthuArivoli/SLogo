@@ -1,19 +1,16 @@
 package slogo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import javafx.scene.Group;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import slogo.Visualizer.Visualizer;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Turtle implements CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
@@ -24,6 +21,8 @@ public class Turtle implements CommandInterface {
             new Image("turtle2.png"), new Image("turtle3.png"), new Image("turtle4.png")));
     private static final Image TURTLE_IMAGE_INACTIVE = new Image("greyed-turtle.png");
     private static final HashMap<Image, Integer> INACTIVE_TURTLE_MAP = new HashMap<>();
+    private static final int CIRCLE = 360;
+    private static final int FIT_WIDTH = 30;
 
     private Tooltip turtleTip;
     private int turtleID;
@@ -288,10 +287,10 @@ public class Turtle implements CommandInterface {
 
     private int correctDegrees(int degrees){
         while(degrees<0){
-            degrees+=360;
+            degrees+= CIRCLE;
         }
-        while(degrees>360){
-            degrees-=360;
+        while(degrees> CIRCLE){
+            degrees-= CIRCLE;
         }
 
         return degrees;
@@ -330,7 +329,7 @@ public class Turtle implements CommandInterface {
     private ImageView resizeImage(Image input) {
         ImageView result = new ImageView();
         result.setImage(input);
-        result.setFitWidth(30);
+        result.setFitWidth(FIT_WIDTH);
         result.setPreserveRatio(true);
         result.setSmooth(true);
         result.setCache(true);

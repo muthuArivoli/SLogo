@@ -1,9 +1,8 @@
 package slogo.commands;
 
+import java.util.List;
 import slogo.Function;
 import slogo.configuration.CommandInterface;
-
-import java.util.List;
 
 public class CommandEx extends Executable{
     private Function myFunction;

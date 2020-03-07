@@ -2,8 +2,8 @@ package slogo.Visualizer;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
@@ -15,13 +15,15 @@ public class DashboardView extends Pane {
   private static final double SPACING = 30;
   private static final double MARGINS = 10;
   private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
+  private static final int PREF_WIDTH = 100;
+  private static final int PREF_HEIGHT = 150;
 
   private HistoryView pastScripts;
   private ScriptView script;
   private VariableView variableList;
-  private VBox dashboardPane;
+
   public DashboardView(Button saveVariablesButton) {
-    dashboardPane = new VBox(SPACING);
+    VBox dashboardPane = new VBox(SPACING);
     dashboardPane.prefHeightProperty().bind(this.heightProperty());
     dashboardPane.setPadding(PADDING);
 
@@ -36,7 +38,7 @@ public class DashboardView extends Pane {
 
     ScrollPane historyViewer = new ScrollPane();
     historyViewer.setContent(pastScripts);
-    historyViewer.setPrefSize(100, 150);
+    historyViewer.setPrefSize(PREF_WIDTH, PREF_HEIGHT);
     historyViewer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     historyViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
@@ -45,13 +47,6 @@ public class DashboardView extends Pane {
     
     getChildren().add(dashboardPane);
     setHeight(dashboardPane.getMinHeight());
-  }
-  public void addGroup(Group toAdd){
-    dashboardPane.getChildren().addAll(toAdd);
-  }
-
-  public VBox getDashboardPane() {
-    return dashboardPane;
   }
   public TableView<CVariable> getVariableTable() {
     return variableList.getTable();

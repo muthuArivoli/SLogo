@@ -1,12 +1,11 @@
 package slogo;
 
-import slogo.Variables.VariableHolder;
-import slogo.commands.Executable;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
+import slogo.Variables.VariableHolder;
+import slogo.commands.Executable;
 
 public class BackEndAPI {
     private static final String FILE_NOT_FOUND_MESSAGE = "the file was not found";

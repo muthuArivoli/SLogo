@@ -2,8 +2,6 @@ package slogo.commands;
 
 import slogo.configuration.CommandInterface;
 
-import java.util.List;
-
 public class TurtlesEx extends Executable {
     public TurtlesEx(){
         setParametersAmounts(0);

@@ -1,11 +1,8 @@
 package slogo.commands;
 
-import javafx.scene.Group;
-import slogo.Variables.CVariable;
-import slogo.XMLSaveLoadAndExceptions.ParserException;
-import slogo.configuration.CommandInterface;
-
 import java.util.List;
+import slogo.Variables.CVariable;
+import slogo.configuration.CommandInterface;
 
 public abstract class Executable {
     protected int parametersAmounts;

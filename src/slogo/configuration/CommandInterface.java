@@ -1,8 +1,7 @@
 package slogo.configuration;
 
-import slogo.commands.Executable;
-
 import java.util.ArrayList;
+import slogo.commands.Executable;
 
 public interface CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;

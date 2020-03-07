@@ -1,38 +1,34 @@
 package slogo.Visualizer;
 
-import java.util.Map;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TextArea;
-
-import java.util.List;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import slogo.Variables.CVariable;
 
 public class VariableView extends VBox {
   private static final String SAVE_CHANGES = "Save Changes";
+  private static final int MIN_COLUMN_WIDTH = 250;
+  private static final int PREF_TABLE_HEIGHT = 200;
+  private static final String VARIABLE_NAME = "Variable Name";
+  private static final String VALUE = "Value";
   private TableView<CVariable> variableTable;
 
   public VariableView(Button saveVariablesButton) {
     super();
     variableTable = new TableView<>();
-    variableTable.setPrefHeight(200);
+    variableTable.setPrefHeight(PREF_TABLE_HEIGHT);
     variableTable.setEditable(true);
 
-    TableColumn<CVariable, String> variableNameColumn = new TableColumn<>("Variable Name");
-    variableNameColumn.setMinWidth(300);
+    TableColumn<CVariable, String> variableNameColumn = new TableColumn<>(VARIABLE_NAME);
+    variableNameColumn.setMinWidth(MIN_COLUMN_WIDTH);
     variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-    TableColumn<CVariable, String> variableValueColumn = new TableColumn<>("Value");
+    TableColumn<CVariable, String> variableValueColumn = new TableColumn<>(VALUE);
     variableValueColumn.setCellValueFactory(new PropertyValueFactory<>("dataTable"));
-    variableValueColumn.setMinWidth(200);
+    variableValueColumn.setMinWidth(MIN_COLUMN_WIDTH);
     variableValueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     variableValueColumn.setOnEditCommit(event -> {
       variableTable.getItems().get(event.getTablePosition().getRow()).setData(Integer.parseInt(event.getNewValue()));

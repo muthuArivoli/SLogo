@@ -1,16 +1,15 @@
 package slogo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import slogo.Visualizer.DashboardView;
 import slogo.Visualizer.HistoryView;
 import slogo.Visualizer.TurtleView;
-import slogo.Visualizer.Visualizer;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FrontEndAPI implements CommandInterface {
     private HashMap<Integer, Turtle> myTurtles;

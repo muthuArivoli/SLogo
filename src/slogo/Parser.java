@@ -1,19 +1,32 @@
 package slogo;
 
-import java.util.Collection;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 import slogo.Variables.CVariable;
 import slogo.Variables.VariableHolder;
 import slogo.commands.CommandEx;
 import slogo.commands.Executable;
 import slogo.commands.GroupEx;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-
 public class Parser {
 
+    private static final String PROGRAM_FINISHED_COMPILING = "Program Finished Compiling";
+    private static final String CONSTANT = "constant";
+    private static final String WRONG_NUMBER_FORMAT = "wrong number format: ";
+    private static final String GROUP_FINISHED = "groupFinished";
+    private static final String GROUP_NEVER_STARTED = "trying to end a group that never started";
+    private static final String RETURNED_NULL = "reader returned null";
+    private static final String GROUP_START = "groupStart";
+    private static final String GROUP_NEVER_ENDS = "group never ends";
+    private static final String COULDNT_READ = "reader couldn't read: ";
+    private static final String ALREADY_EXISTS = "function already exists";
+    private static final String NO_FUNCTION_NAME = "no function name given";
+    private static final String NEVER_STARTED = "grouped information never started";
+    private static final String NO_WORD_GIVEN = "no word given to the variable reader";
+    private static final String NOT_A_VARIABLE = "given word is not a variable";
+    private static final String FINISHED = "finished: ";
     private VariableHolder mainVariables;
     private ExecutablesGetter eg;
     private HashMap<String,Function> myFunctions;
@@ -44,7 +57,7 @@ public class Parser {
                 runnableCode.addExecutable(getFinishedExecutable(word, input,line, mainVariables));
             }
         }
-        System.out.println("Program Finished Compiling\n\n");
+        System.out.println(PROGRAM_FINISHED_COMPILING + "\n\n");
         return runnableCode;
     }
 
@@ -70,19 +83,19 @@ public class Parser {
             case "Constant":
                 try {
                     int data = Integer.parseInt(word);
-                    return new CVariable("constant",data);
+                    return new CVariable(CONSTANT,data);
                 }
                 catch (NumberFormatException nfe) {
-                    System.out.println("wrong number format: " + word);
+                    System.out.println(WRONG_NUMBER_FORMAT + word);
                 }
             case "Variable":
                 return variableReader(word, myVariables);
             case "ListStart":
                 Executable group = groupParser(input, line, myVariables);
-                System.out.println("groupFinished");
+                System.out.println(GROUP_FINISHED);
                 return group;
             case "ListEnd":
-                System.out.println("trying to end a group that never started");
+                System.out.println(GROUP_NEVER_STARTED);
                 break;
             case "Command":
                 next = funcReader(word, myVariables);
@@ -91,7 +104,7 @@ public class Parser {
             default:
                 next = commandReader(langWord, myVariables);
                 if(next==null){
-                    System.out.println("reader returned null");
+                    System.out.println(RETURNED_NULL);
                     return null;
                 }
                 if(next.isFunction()){
@@ -100,14 +113,14 @@ public class Parser {
                 else {
                     next.setParameters(getParameters(next.getParametersAmounts(), input, line, myVariables));
                 }
-                System.out.println("finished: "+word);
+                System.out.println(FINISHED + word);
                 return next;
         }
         return null;
     }
 
     private GroupEx groupParser(Scanner input, Scanner line, VariableHolder myVariables) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        System.out.println("groupStart");
+        System.out.println(GROUP_START);
         GroupEx group =new GroupEx();
         while (line.hasNext()) {
             String word = line.next();
@@ -136,7 +149,7 @@ public class Parser {
                 group.addExecutable(getFinishedExecutable(word,input,line, myVariables));
             }
         }
-        System.out.println("group never ends");
+        System.out.println(GROUP_NEVER_ENDS);
         return null;
     }
 
@@ -167,7 +180,7 @@ public class Parser {
         if(eg.containsKey(word)){
             return eg.getExecutable(word);
         }
-        System.out.println("reader couldn't read: "+word);
+        System.out.println(COULDNT_READ +word);
         return null;
     }
 
@@ -176,8 +189,8 @@ public class Parser {
         if(myFunctions.containsKey(word)){
             return new CommandEx(myFunctions.get(word));
         }
-        System.out.println("reader couldn't read: "+word);
-        throw new IncorrectCommandException("reader couldn't read: "+word);
+        System.out.println(COULDNT_READ +word);
+        throw new IncorrectCommandException(COULDNT_READ +word);
         //return null;
     }
 
@@ -187,12 +200,12 @@ public class Parser {
         if(line.hasNext()){
             name = line.next().toLowerCase();
             if(eg.containsKey(name)){
-                System.out.println("function already exists");
+                System.out.println(ALREADY_EXISTS);
                 return false;
             }
         }
         else{
-            System.out.println("no function name given");
+            System.out.println(NO_FUNCTION_NAME);
             return false;
         }
         ArrayList<String> inputVarNames;
@@ -200,7 +213,7 @@ public class Parser {
             inputVarNames=getFunctionVariableNames(line);
         }
         else {
-            System.out.println("grouped information never started");
+            System.out.println(NEVER_STARTED);
             return false;
         }
         for(String s:inputVarNames){
@@ -215,7 +228,7 @@ public class Parser {
 
     private ArrayList<Executable> toParams(boolean fC){
         ArrayList<Executable> ret = new ArrayList<>();
-        ret.add(new CVariable("constant",fC? 1: 0));
+        ret.add(new CVariable(CONSTANT,fC? 1: 0));
         return ret;
     }
 
@@ -238,14 +251,14 @@ public class Parser {
     private CVariable variableReader(String word, VariableHolder myVariables){
         word=word.toLowerCase();
         if(word.equals("")){
-            System.out.println("no word given to the variable reader");
+            System.out.println(NO_WORD_GIVEN);
             return null;
         }
         if(word.charAt(0)==':'){
             return myVariables.getVariable(word.substring(1));
         }
         else {
-            System.out.println("given word is not a variable");
+            System.out.println(NOT_A_VARIABLE);
             return null;
         }
     }

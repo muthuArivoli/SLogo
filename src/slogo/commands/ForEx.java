@@ -1,11 +1,12 @@
 package slogo.commands;
 
+import java.util.List;
 import slogo.Variables.CVariable;
 import slogo.configuration.CommandInterface;
 
-import java.util.List;
-
 public class ForEx extends Executable {
+
+    private static final int PARAM_NUM = 4;
     private CVariable myVariable;
     private Executable start;
     private Executable end;
@@ -27,7 +28,7 @@ public class ForEx extends Executable {
     @Override
     public void setMyParameters(List<Executable> parameters) {
         List<Executable> groupMembers = getGroupFromExecutable(parameters.get(0)).getGroupMembers();
-        if(groupMembers.size()!=4){
+        if(groupMembers.size()!= PARAM_NUM){
             System.out.println("Error: Expected 4 inputs in For and got: "+groupMembers.size());
             //Throw exception;
         }

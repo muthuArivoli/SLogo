@@ -1,10 +1,9 @@
 package slogo;
 
+import java.util.List;
 import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
-
-import java.util.List;
 
 public class Function extends Executable{
     private VariableHolder funcVars;

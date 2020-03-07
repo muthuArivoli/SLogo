@@ -1,9 +1,9 @@
 package slogo;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
