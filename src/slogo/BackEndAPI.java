@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class BackEndAPI {
+    private static final String FILE_NOT_FOUND_MESSAGE = "the file was not found";
     private Parser myParser;
 
     public BackEndAPI(){
@@ -35,7 +36,7 @@ public class BackEndAPI {
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            System.out.println("the file was not found");
+            System.out.println(FILE_NOT_FOUND_MESSAGE);
         }
         Executable e = myParser.parse(sc);
         e.runCommands(fAPI);

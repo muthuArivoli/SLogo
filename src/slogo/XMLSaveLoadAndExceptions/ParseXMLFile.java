@@ -4,11 +4,10 @@ import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.lang.reflect.Field;
+
 
 /**
  * This class handles all of the document building and grabbing data
@@ -32,17 +31,19 @@ public class ParseXMLFile {
     private Document doc;
     private Element mainElement;
     private int numTurtles;
+    private boolean parseFail;
 
 
-    public ParseXMLFile(String filename) throws ParserException {
+    public ParseXMLFile(String filename){
         this.filename = filename;
         readXMLFile();
+
     }
 
     /**
      * Reads XML file specified by the filename and sets basic variables
      */
-    private void readXMLFile() throws ParserException {
+    private boolean readXMLFile() {
         try {
             file = new File(filename);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -56,11 +57,14 @@ public class ParseXMLFile {
             backgroundColor = getStringElementByTag("background", DEFAULT_BACKGROUND_COLOR_TAG);
             currentScripts = getStringElementByTag("currentScripts", DEFAULT_CURRENT_SCRIPTS_TAG);
             penColor = Color.web(getStringElementByTag("penColor", DEFAULT_PAINT_COLOR_TAG));
-            //System.out.println(numTurtles + "\n" +  backgroundColor);
+            parseFail = false;
+            return true;
         }
         catch (Exception e) {
-            String errorMessage = "Could not parse given file";
-            throw new ParserException(errorMessage);
+            String errorMessage = "Could not parse given file: " + filename +"\n Check Tag information in README for proper tagging.";
+            System.out.println(errorMessage);
+            parseFail = true;
+            return false;
         }
     }
 
@@ -76,7 +80,7 @@ public class ParseXMLFile {
     //public String getPastScriptFromAnInputtedFile() {return pastScripts;}
 
     public Color getPenColorFromAnInputtedFile() {return penColor;}
-
+    public boolean getFailStatus(){return parseFail;}
 
     private String getStringElementByTag (String tagName, String defaultVal) throws ParserException {
         if(mainElement.getElementsByTagName(tagName).getLength() == 0) {

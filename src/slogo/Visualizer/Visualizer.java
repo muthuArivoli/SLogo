@@ -80,13 +80,9 @@ public class Visualizer {
     public void addVariables(List<CVariable> variables) {
         myDashboard.getVariableTable().getItems().setAll(variables);
     }
-    public static Integer getSceneLength(){return sceneLength;}
-
-    public static Integer getSceneWidth(){return sceneWidth;}
-
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("error");
+        alert.setTitle("Error");
         alert.setHeaderText(message1);
         alert.setContentText(message2);
         alert.showAndWait();
