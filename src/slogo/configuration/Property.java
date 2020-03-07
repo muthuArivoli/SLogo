@@ -7,10 +7,10 @@ public class Property {
     String result = "";
     InputStream inputStream;
 
-    public String getPropValues(String input) throws IOException {
+    public String getPropValues(String input) {
         try {
             Properties prop = new Properties();
-            String propFileName = "configuration/config.properties";
+            String propFileName = "slogo/configuration/config.properties";
 
             inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
 
@@ -24,7 +24,11 @@ public class Property {
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
-            inputStream.close();
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
