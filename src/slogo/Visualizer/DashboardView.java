@@ -2,6 +2,7 @@ package slogo.Visualizer;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -44,6 +45,10 @@ public class DashboardView extends Pane {
     getChildren().add(dashboardPane);
     setHeight(dashboardPane.getMinHeight());
   }
+  public void addGroup(Group toAdd){
+    dashboardPane.getChildren().addAll(toAdd);
+  }
+
   public VBox getDashboardPane() {
     return dashboardPane;
   }
@@ -58,7 +63,9 @@ public class DashboardView extends Pane {
       }
     }
   }
-  public String getScript() { return script.getText();}
-  public void setScript(String input) {script.setText(input);}
-  public HistoryView getPastScript() { return pastScripts;}
-}
+public String getScript() { return script.getText();}
+public void setScript(String input) {script.setText(input);}
+public HistoryView getPastScript() { return pastScripts;}
+public void setPastScript(HistoryView input) {pastScripts = input;}
+
+        }

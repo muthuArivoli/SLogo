@@ -191,11 +191,15 @@ public class Workspace {
             }
         });
 
-        loadEnvironmentButton.setOnAction(e -> loadEnvironment(loadTextField.getText()));
+        loadEnvironmentButton.setOnAction(e -> {
+            loadEnvironment(loadTextField.getText());
+            loadTextField.clear();
+        });
 
         saveButton.setOnAction(e -> {
-            XMLFileBuilder builder = new XMLFileBuilder(fAPI.turtles(), fAPI.getStringBackgroundColor(), saveTextField.getText());
+            XMLFileBuilder builder = new XMLFileBuilder(fAPI, vis, saveTextField.getText());
             builder.createDocument();
+            saveTextField.clear();
         });
 
         //CHOOSE COMMAND FILE NOT WORKING RN
@@ -216,7 +220,12 @@ public class Workspace {
     }
     private void loadEnvironment(String input){
         ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
-        fAPI=vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
+        fAPI = vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
         fAPI.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
+        fAPI.setSelectedPenColor(newlyParsedFile.getPenColorFromAnInputtedFile());
+        fAPI.setCurrentScriptUsingXML(newlyParsedFile.getCurrentScriptFromAnInputtedFile());
+        //fAPI.setPastScriptsUsingXML(newlyParsedFile.get);
+
+
     }
 }
