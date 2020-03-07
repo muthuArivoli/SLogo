@@ -11,14 +11,18 @@ import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Turtle implements CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
-    private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
-    private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
+    public static final int NUM_TURTLE_IMAGES = 5;
+    private static final Image TURTLE_IMAGE_1 = new Image("turtle.png");
+    private static final Image TURTLE_IMAGE_2 = new Image("greyed-turtle.png");
     private Tooltip turtleTip;
+    private Map TURTLE_IMAGE_MAP;
     private int turtleID;
     private int width;
     private int height;
@@ -46,10 +50,13 @@ public class Turtle implements CommandInterface {
         this.showing=true;
         this.active=true;
         this.turtleTip = new Tooltip();
-        this.turtleImage = resizeImage(ACTIVE_TURTLE_IMAGE);
+        this.turtleImage = resizeImage(TURTLE_IMAGE_1);
         turtleImage.setOnMouseClicked(e -> flipActive());
         Tooltip.install(turtleImage, turtleTip);
-
+        this.TURTLE_IMAGE_MAP = new HashMap(NUM_TURTLE_IMAGES);
+        for(int i=0; i<NUM_TURTLE_IMAGES; i++){
+            //TURTLE_IMAGE_MAP.put()
+        }
         this.myLines = new Group();
         this.width=width;
         this.height=height;
@@ -84,9 +91,9 @@ public class Turtle implements CommandInterface {
     public void flipActive() {
         this.active = !active;
         if (active) {
-            turtleImage.setImage(ACTIVE_TURTLE_IMAGE);
+            turtleImage.setImage(TURTLE_IMAGE_1);
         } else {
-            turtleImage.setImage(INACTIVE_TURTLE_IMAGE);
+            turtleImage.setImage(TURTLE_IMAGE_2);
         }
     }
 
@@ -191,6 +198,11 @@ public class Turtle implements CommandInterface {
         showing=false;
         turtleImage.setDisable(true);
         System.out.println("Hide Turtle");
+        return 0;
+    }
+    public int setImage(Integer index){
+
+        System.out.println("Turtle image changed to index: " + index);
         return 0;
     }
     public int home(){
