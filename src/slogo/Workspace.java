@@ -26,6 +26,16 @@ public class Workspace {
     private static final int HELPLINES = 14;
     private static final int BUTTONMOVEDISTANCE = 25;
     private static final int BUTTONROTATEDISTANCE = 30;
+    private static final int PALETTE_SCENE_WIDTH = 250;
+    private static final int PALETTE_SCENE_HEIGHT = 500;
+    private static final String PEN_UP = "Pen Up";
+    private static final String PEN_DOWN = "Pen Down";
+    private static final int MARGINS = 50;
+    private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
+    private static final int SECOND_SCENE_SIZE = 250;
+    private static final int SLIDER_WIDTH = 135;
+    private static final int SPACING = 25;
+    private static final int MAX_SLIDER_VALUE = 10;
     private Visualizer vis;
     private FrontEndAPI fAPI;
     private Property prop = new Property();
@@ -96,12 +106,12 @@ public class Workspace {
             @Override
             public void handle(ActionEvent event) {
                 HBox secondaryLayout = new HBox();
-                Scene secondScene = new Scene(secondaryLayout, 250, 250);
+                Scene secondScene = new Scene(secondaryLayout, SECOND_SCENE_SIZE, SECOND_SCENE_SIZE);
 
-                VBox temp = new VBox(25);
-                temp.setPadding(new Insets(50,57,50,57));
-                Slider sizeSlider = new Slider(1, 10, fAPI.getPenSize());
-                sizeSlider.setMaxWidth(135);
+                VBox temp = new VBox(SPACING);
+                temp.setPadding(PADDING);
+                Slider sizeSlider = new Slider(1, MAX_SLIDER_VALUE, fAPI.getPenSize());
+                sizeSlider.setMaxWidth(SLIDER_WIDTH);
                 sizeSlider.setShowTickMarks(true);
                 sizeSlider.setShowTickLabels(true);
                 sizeSlider.setMajorTickUnit(1);
@@ -112,17 +122,16 @@ public class Workspace {
                         fAPI.setPenSize(newIntVal);
                     }
                 });
-                String text = (fAPI.getPenDown() == 1) ? "Pen Up" : "Pen Down";
+                String text = (fAPI.getPenDown() == 1) ? PEN_UP : PEN_DOWN;
                 Button toggle = new Button(text);
-                toggle.setMinWidth(130);
                 toggle.setOnAction(event2 -> {
                     if (fAPI.getPenDown() == 1) {
                         fAPI.penUp();
-                        toggle.setText("Pen Down");
+                        toggle.setText(PEN_DOWN);
                     }
                     else {
                         fAPI.penDown();
-                        toggle.setText("Pen Up");
+                        toggle.setText(PEN_UP);
                     }
 
                 });
@@ -159,7 +168,8 @@ public class Workspace {
             @Override
             public void handle(ActionEvent event) {
                 HBox secondaryLayout = new HBox();
-                Scene secondScene = new Scene(secondaryLayout, 250, 500);
+                Scene secondScene = new Scene(secondaryLayout, PALETTE_SCENE_WIDTH,
+                    PALETTE_SCENE_HEIGHT);
 
                 HBox temp = fAPI.getDisplayPalette();
                 secondaryLayout.getChildren().addAll(temp);

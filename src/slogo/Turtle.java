@@ -24,6 +24,8 @@ public class Turtle implements CommandInterface {
             new Image("turtle2.png"), new Image("turtle3.png"), new Image("turtle4.png")));
     private static final Image TURTLE_IMAGE_INACTIVE = new Image("greyed-turtle.png");
     private static final HashMap<Image, Integer> INACTIVE_TURTLE_MAP = new HashMap<>();
+    private static final int CIRCLE = 360;
+    private static final int FIT_WIDTH = 30;
 
     private Tooltip turtleTip;
     private int turtleID;
@@ -288,10 +290,10 @@ public class Turtle implements CommandInterface {
 
     private int correctDegrees(int degrees){
         while(degrees<0){
-            degrees+=360;
+            degrees+= CIRCLE;
         }
-        while(degrees>360){
-            degrees-=360;
+        while(degrees> CIRCLE){
+            degrees-= CIRCLE;
         }
 
         return degrees;
@@ -330,7 +332,7 @@ public class Turtle implements CommandInterface {
     private ImageView resizeImage(Image input) {
         ImageView result = new ImageView();
         result.setImage(input);
-        result.setFitWidth(30);
+        result.setFitWidth(FIT_WIDTH);
         result.setPreserveRatio(true);
         result.setSmooth(true);
         result.setCache(true);

@@ -84,6 +84,6 @@ public class MenuView {
         HBox.setHgrow(spacer2, Priority.ALWAYS);
 
         menuPane.getChildren().addAll(langSelection, paletteButton, penButton, spacer1, center, spacer2, right);
-        menuPane.setPadding(new Insets(10,10,10,10));
+        menuPane.setPadding(PADDING);
     }
 }

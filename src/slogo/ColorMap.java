@@ -12,6 +12,11 @@ import slogo.configuration.Property;
 import java.util.HashMap;
 
 public class ColorMap {
+
+    private static final int HEX_START_INDEX = 2;
+    private static final int HEX_END_INDEX = 8;
+    private static final int RECT_SIZE = 15;
+    private static final int COL_WIDTH = 100;
     private Property prop = new Property();
     private final String INDEX = prop.getPropValues("colmap1");
     private final String WEB_VALUE = prop.getPropValues("colmap2");
@@ -27,14 +32,11 @@ public class ColorMap {
 
     public ColorMap(){
         myCMap = new HashMap<>();
-        myCMap.put(1, Color.BLACK);
-        myCMap.put(2, Color.WHITE);
-        myCMap.put(3, Color.RED);
-        myCMap.put(4, Color.BLUE);
-        myCMap.put(5, Color.GREEN);
-        myCMap.put(6, Color.YELLOW);
-        myCMap.put(7, Color.ORANGE);
-        myCMap.put(8, Color.PURPLE);
+        Color[] cArray = new Color[]{Color.BLACK, Color.WHITE, Color.RED, Color.BLUE, Color.GREEN,
+            Color.YELLOW, Color.ORANGE, Color.PURPLE};
+        for (int i = 1; i <= cArray.length; i++) {
+            myCMap.put(i, cArray[i-1]);
+        }
         displayPallet=new HBox();
         setDisplayPallet();
     }
@@ -72,10 +74,11 @@ public class ColorMap {
         VBox colorCol2 = new VBox(COLOR_SPACING);
         for (int i:myCMap.keySet()) {
             Label num = new Label(Integer.toString(i));
-            TextField col = new TextField(getColor(i).toString().substring(2, 8));
+            TextField col = new TextField(getColor(i).toString().substring(HEX_START_INDEX,
+                HEX_END_INDEX));
             col.setEditable(false);
-            col.setMaxWidth(100);
-            Rectangle r = new Rectangle(15, 15, getColor(i));
+            col.setMaxWidth(COL_WIDTH);
+            Rectangle r = new Rectangle(RECT_SIZE, RECT_SIZE, getColor(i));
 
             indexCol2.getChildren().add(num);
             stringCol2.getChildren().add(col);

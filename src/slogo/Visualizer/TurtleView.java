@@ -6,6 +6,8 @@ import javafx.scene.paint.Color;
 
 public class TurtleView{
 
+    private static final int HEX_START_INDEX = 2;
+    private static final int HEX_END_INDEX = 8;
     private String myBackground;
     private Pane myPane;
     private String myBackgroundSyntax;
@@ -25,7 +27,7 @@ public class TurtleView{
 
     public void updateBackgroundColor(Color c) {
         System.out.println(c);
-        String hex = c.toString().substring(2,8);
+        String hex = c.toString().substring(HEX_START_INDEX, HEX_END_INDEX);
         myBackground = myBackgroundSyntax + hex;
         myPane.setStyle(myBackground);
     }

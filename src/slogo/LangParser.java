@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import slogo.XMLSaveLoadAndExceptions.ParserException;
 
 
-    /**
+/**
      * Simple parser based on regular expressions that matches input strings to kinds of program elements.
      *
      * @author Robert C. Duvall
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
     public class LangParser {
         // where to find resources specifically for this class
         private static final String RESOURCES_PACKAGE = "resources.languages.";
+        private final String ERROR = "SYMBOL CANNOT BE FOUND";
         // "types" and the regular expression patterns that recognize those types
         // note, it is a list because order matters (some patterns may be more generic)
         private List<Entry<String, Pattern>> mySymbols;
@@ -48,14 +50,13 @@ import java.util.regex.Pattern;
          * Returns language's type associated with the given text if one exists
          */
         public String getSymbol (String text) {
-            final String ERROR = "NO MATCH";
+
             for (Entry<String, Pattern> e : mySymbols) {
                 if (match(text, e.getValue())) {
                     return e.getKey();
                 }
             }
-            // FIXME: perhaps throw an exception instead
-            return ERROR;
+            throw new ParserException(ERROR);
         }
 
 

@@ -17,6 +17,9 @@ import slogo.Variables.CVariable;
 public class Visualizer {
     private final static Integer sceneLength = 800;
     private final static Integer sceneWidth = 1200;
+    private static final int MARGINS = 10;
+    private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
+    private static final String ERROR = "error";
 
     private BorderPane rootPane;
     private Scene myScene;
@@ -47,7 +50,7 @@ public class Visualizer {
         rootPane.setRight(myDashboard);
         rootPane.setCenter(turtlePane);
         rootPane.setBottom(myControls);
-        rootPane.setPadding(new Insets(10,10,10,10));
+        rootPane.setPadding(PADDING);
         rootPane.setTop(menuPane);
     }
 
@@ -86,7 +89,7 @@ public class Visualizer {
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("error");
+        alert.setTitle(ERROR);
         alert.setHeaderText(message1);
         alert.setContentText(message2);
         alert.showAndWait();

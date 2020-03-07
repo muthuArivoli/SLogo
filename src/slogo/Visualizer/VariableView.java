@@ -18,21 +18,23 @@ import slogo.Variables.CVariable;
 
 public class VariableView extends VBox {
   private static final String SAVE_CHANGES = "Save Changes";
+  private static final int MIN_COLUMN_WIDTH = 250;
+  private static final int PREF_TABLE_HEIGHT = 200;
   private TableView<CVariable> variableTable;
 
   public VariableView(Button saveVariablesButton) {
     super();
     variableTable = new TableView<>();
-    variableTable.setPrefHeight(200);
+    variableTable.setPrefHeight(PREF_TABLE_HEIGHT);
     variableTable.setEditable(true);
 
     TableColumn<CVariable, String> variableNameColumn = new TableColumn<>("Variable Name");
-    variableNameColumn.setMinWidth(300);
+    variableNameColumn.setMinWidth(MIN_COLUMN_WIDTH);
     variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     TableColumn<CVariable, String> variableValueColumn = new TableColumn<>("Value");
     variableValueColumn.setCellValueFactory(new PropertyValueFactory<>("dataTable"));
-    variableValueColumn.setMinWidth(200);
+    variableValueColumn.setMinWidth(MIN_COLUMN_WIDTH);
     variableValueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     variableValueColumn.setOnEditCommit(event -> {
       variableTable.getItems().get(event.getTablePosition().getRow()).setData(Integer.parseInt(event.getNewValue()));

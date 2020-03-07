@@ -15,6 +15,8 @@ public class DashboardView extends Pane {
   private static final double SPACING = 30;
   private static final double MARGINS = 10;
   private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
+  private static final int PREF_WIDTH = 100;
+  private static final int PREF_HEIGHT = 150;
 
   private HistoryView pastScripts;
   private ScriptView script;
@@ -36,7 +38,7 @@ public class DashboardView extends Pane {
 
     ScrollPane historyViewer = new ScrollPane();
     historyViewer.setContent(pastScripts);
-    historyViewer.setPrefSize(100, 150);
+    historyViewer.setPrefSize(PREF_WIDTH, PREF_HEIGHT);
     historyViewer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     historyViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
