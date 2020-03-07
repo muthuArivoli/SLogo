@@ -1,5 +1,6 @@
 package slogo;
 
+import com.sun.jdi.InvocationException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,12 +16,19 @@ import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
+import slogo.configuration.Property;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.security.PrivilegedExceptionAction;
+
+
 
 public class Workspace {
+    private static final int HELPLINES = 14;
     private Visualizer vis;
     private FrontEndAPI fAPI;
+    private Property prop = new Property();
 
 
     public Workspace(Stage primaryStage) {
@@ -63,7 +71,7 @@ public class Workspace {
                 vis.updateHistory(vis.getScript());
                 vis.addVariables(bAPI.getVariables().getVariables());
             }
-            catch(IncorrectCommandException ice){
+            catch(IncorrectCommandException | IllegalAccessException | InvocationTargetException | InstantiationException ice){
                 vis.alertCreator("Build Failed",ice.getMessage());
             }
         });
@@ -175,35 +183,35 @@ public class Workspace {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Help Dialogue");
                 alert.setHeaderText("Commands List");
-                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
-                        "BACK/BK                           [pixels]\n\n" +
-                        "LEFT/LT                             [degrees]\n\n" +
-                        "RIGHT/RT                          [degrees]\n\n" +
-                        "SETHEADING/SETH     [degrees]\n\n" +
-                        "TOWARDS                        [x y]\n\n" +
-                        "SETXY/GOTO                  [x y]\n\n" +
-                        "PENDOWN/PD\n\n" +
-                        "PENUP/PU\n\n" +
-                        "SHOWTURTLE/ST\n\n" +
-                        "HIDETURTLE/HT\n\n" +
-                        "HOME\n\n" +
-                        "CLEARSCREEN/CS\n\n");
+                String result = "";
+                for(int i=1; i<HELPLINES; i++){
+                    result += prop.getPropValues("helpLine" + i) + "\n\n";
+                    alert.setContentText(result);
+                }
                 alert.show();
             }
         });
 
-        loadEnvironmentButton.setOnAction(e -> loadEnvironment(loadTextField.getText()));
+        loadEnvironmentButton.setOnAction(e -> {
+            loadEnvironment(loadTextField.getText());
+            loadTextField.clear();
+        });
 
         saveButton.setOnAction(e -> {
-            XMLFileBuilder builder = new XMLFileBuilder(fAPI.turtles(), fAPI.getStringBackgroundColor(), saveTextField.getText());
+            XMLFileBuilder builder = new XMLFileBuilder(fAPI, vis, saveTextField.getText());
             builder.createDocument();
+            saveTextField.clear();
         });
 
         //CHOOSE COMMAND FILE NOT WORKING RN
         fileButton.setOnAction(event -> {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
-                bAPI.runFile(file, fAPI);
+                try {
+                    bAPI.runFile(file, fAPI);
+                } catch (Exception e) {
+                    vis.alertCreator("Run Failed", e.getMessage());
+                }
             }
         });
         saveVariableButton.setOnAction(event -> {
@@ -217,7 +225,12 @@ public class Workspace {
     }
     private void loadEnvironment(String input){
         ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
-        fAPI=vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
+        fAPI = vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
         fAPI.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
+        fAPI.setSelectedPenColor(newlyParsedFile.getPenColorFromAnInputtedFile());
+        fAPI.setCurrentScriptUsingXML(newlyParsedFile.getCurrentScriptFromAnInputtedFile());
+        //fAPI.setPastScriptsUsingXML(newlyParsedFile.get);
+
+
     }
 }

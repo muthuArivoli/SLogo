@@ -3,12 +3,12 @@ package slogo.Visualizer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import java.util.*;
 import slogo.Variables.CVariable;
 
 public class DashboardView extends Pane {
@@ -46,13 +46,18 @@ public class DashboardView extends Pane {
     getChildren().add(dashboardPane);
     setHeight(dashboardPane.getMinHeight());
   }
+  public void addGroup(Group toAdd){
+    dashboardPane.getChildren().addAll(toAdd);
+  }
+
   public VBox getDashboardPane() {
     return dashboardPane;
   }
   public TableView<CVariable> getVariableTable() {
     return variableList.getTable();
   }
-  public String getScript() { return script.getText();}
-  public void setScript(String input) {script.setText(input);}
-  public HistoryView getPastScript() { return pastScripts;}
+public String getScript() { return script.getText();}
+public void setScript(String input) {script.setText(input);}
+public HistoryView getPastScript() { return pastScripts;}
+public void setPastScript(HistoryView input) {pastScripts = input;}
 }

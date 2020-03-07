@@ -73,5 +73,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         List<Workspace> workspaces = new ArrayList<>();
         workspaces.add(new Workspace(primaryStage));
+        workspaces.add(new Workspace(primaryStage));
     }
 }

@@ -35,6 +35,7 @@ public class TurtleView{
         myPane.setStyle(myBackground);
     }
 
+
     public int getWidth(){
         return (int) myPane.getWidth();
     }

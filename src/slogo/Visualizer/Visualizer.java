@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import slogo.FrontEndAPI;
+import slogo.configuration.Property;
 
 import java.util.ArrayList;
 import slogo.Variables.CVariable;
@@ -22,7 +23,7 @@ public class Visualizer {
     private TurtleView myTurtleView;
     private DashboardView myDashboard;
     private GUIControllerView myControls;
-
+    private Property prop = new Property();
 
     public Visualizer(ColorPicker picker, Button runButton, Button saveButton, Button helpButton,
                       Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
@@ -60,7 +61,7 @@ public class Visualizer {
     public FrontEndAPI getFrontEndAPI(int amount){
         ArrayList<Integer> activeTurtles =new ArrayList<>();
         activeTurtles.add(1);
-        return new FrontEndAPI(myTurtleView, amount, activeTurtles);
+        return new FrontEndAPI(myTurtleView, myDashboard, amount, activeTurtles);
     }
 
     public void updateHistory(String script) {
@@ -79,15 +80,13 @@ public class Visualizer {
     public void addVariables(List<CVariable> variables) {
         myDashboard.getVariableTable().getItems().setAll(variables);
     }
-
     public static Integer getSceneLength(){return sceneLength;}
 
     public static Integer getSceneWidth(){return sceneWidth;}
 
-
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Dialog");
+        alert.setTitle(prop.getPropValues("error"));
         alert.setHeaderText(message1);
         alert.setContentText(message2);
         alert.showAndWait();
