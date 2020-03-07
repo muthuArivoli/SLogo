@@ -136,7 +136,9 @@ public class FrontEndAPI implements CommandInterface {
     public int forward(int pixels) {
         int ret=0;
         for(int i:currentTurtles){
-            ret= myTurtles.get(i).forward(pixels);
+            if(myTurtles.get(i).isActive()) {
+                ret = myTurtles.get(i).forward(pixels);
+            }
         }
         return ret;
     }
@@ -153,8 +155,10 @@ public class FrontEndAPI implements CommandInterface {
     @Override
     public int right(int degrees) {
         int ret=0;
-        for(int i:currentTurtles){
-            ret= myTurtles.get(i).right(degrees);
+        for(int i:currentTurtles) {
+            if (myTurtles.get(i).isActive()) {
+                ret = myTurtles.get(i).right(degrees);
+            }
         }
         return ret;
     }
@@ -162,8 +166,10 @@ public class FrontEndAPI implements CommandInterface {
     @Override
     public int left(int degrees) {
         int ret=0;
-        for(int i:currentTurtles){
-            ret= myTurtles.get(i).left(degrees);
+        for(int i:currentTurtles) {
+            if (myTurtles.get(i).isActive()) {
+                ret = myTurtles.get(i).left(degrees);
+            }
         }
         return ret;
     }
@@ -180,8 +186,10 @@ public class FrontEndAPI implements CommandInterface {
     @Override
     public int towards(int x, int y) {
         int ret=0;
-        for(int i:currentTurtles){
-            ret= myTurtles.get(i).towards(x, y);
+        for(int i:currentTurtles) {
+            if (myTurtles.get(i).isActive()) {
+                ret = myTurtles.get(i).towards(x, y);
+            }
         }
         return ret;
     }
@@ -189,8 +197,10 @@ public class FrontEndAPI implements CommandInterface {
     @Override
     public int setXY(int x, int y) {
         int ret=0;
-        for(int i:currentTurtles){
-            ret= myTurtles.get(i).setXY(x, y);
+        for(int i:currentTurtles) {
+            if (myTurtles.get(i).isActive()) {
+                ret = myTurtles.get(i).setXY(x, y);
+            }
         }
         return ret;
     }
@@ -256,7 +266,10 @@ public class FrontEndAPI implements CommandInterface {
 
     @Override
     public int setShape(int index) {
-        return 0;
+        for(int i:currentTurtles){
+            myTurtles.get(i).setImage(index);
+        }
+        return index;
     }
 
     @Override
@@ -289,14 +302,18 @@ public class FrontEndAPI implements CommandInterface {
 
     @Override
     public int getShape() {
-        return 0;
+        int ret = 0;
+        for(int i:currentTurtles){
+        ret = myTurtles.get(i).getShape();
+        }
+        return ret;
     }
 
     @Override
     public int clearScreen() {
         int ret=0;
         for(int i:currentTurtles){
-            ret= myTurtles.get(i).clearScreen();
+            ret = myTurtles.get(i).clearScreen();
         }
         return ret;
     }

@@ -59,7 +59,7 @@ public class Visualizer {
     public Scene getScene() {return myScene;}
 
     public FrontEndAPI getFrontEndAPI(int amount){
-        ArrayList<Integer> activeTurtles =new ArrayList<>();
+        ArrayList<Integer> activeTurtles = new ArrayList<>();
         activeTurtles.add(1);
         return new FrontEndAPI(myTurtleView, myDashboard, amount, activeTurtles);
     }

@@ -11,13 +11,20 @@ import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Turtle implements CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;
     public static final int WEST_FACING_DEGREES = 270;
     public static final int SCALE_DOWN = 1;
-    private static final Image ACTIVE_TURTLE_IMAGE = new Image("turtle.png");
-    private static final Image INACTIVE_TURTLE_IMAGE = new Image("greyed-turtle.png");
+    public static final int NUM_TURTLE_IMAGES = 4;
+    private static final ArrayList<Image> TURTLE_IMAGE_ARRAYLIST = new ArrayList<Image>(Arrays.asList(new Image("turtle.png"),
+            new Image("turtle2.png"), new Image("turtle3.png"), new Image("turtle4.png")));
+    private static final Image TURTLE_IMAGE_INACTIVE = new Image("greyed-turtle.png");
+    private static final HashMap<Image, Integer> INACTIVE_TURTLE_MAP = new HashMap<>();
+
     private Tooltip turtleTip;
     private int turtleID;
     private int width;
@@ -28,13 +35,11 @@ public class Turtle implements CommandInterface {
     private boolean active;
     private boolean penDown;
     private boolean showing;
+    private Image rawTurtleImage;
     private ImageView turtleImage;
     private Group myLines;
     private Color currentColor;
     private int penSize;
-
-    private int sceneWidth = Visualizer.getSceneWidth();
-    private int sceneLength = Visualizer.getSceneLength();
 
     public Turtle(int width, int height, Color startingColor, int turtleID){
         this.turtleID=turtleID;
@@ -46,7 +51,8 @@ public class Turtle implements CommandInterface {
         this.showing=true;
         this.active=true;
         this.turtleTip = new Tooltip();
-        this.turtleImage = resizeImage(ACTIVE_TURTLE_IMAGE);
+        this.rawTurtleImage = TURTLE_IMAGE_ARRAYLIST.get(0);
+        this.turtleImage = resizeImage(rawTurtleImage);
         turtleImage.setOnMouseClicked(e -> flipActive());
         Tooltip.install(turtleImage, turtleTip);
 
@@ -84,9 +90,9 @@ public class Turtle implements CommandInterface {
     public void flipActive() {
         this.active = !active;
         if (active) {
-            turtleImage.setImage(ACTIVE_TURTLE_IMAGE);
+            turtleImage.setImage((rawTurtleImage));
         } else {
-            turtleImage.setImage(INACTIVE_TURTLE_IMAGE);
+            turtleImage.setImage(TURTLE_IMAGE_INACTIVE);
         }
     }
 
@@ -223,15 +229,14 @@ public class Turtle implements CommandInterface {
 
     @Override
     public int setPenSize(int pixels) {
-        penSize =pixels;
+        penSize = pixels;
         return pixels;
     }
 
 
     @Override
     public int getShape() {
-        //ERROR
-        return 0;
+        return TURTLE_IMAGE_ARRAYLIST.indexOf(rawTurtleImage);
     }
 
     @Override
@@ -260,6 +265,12 @@ public class Turtle implements CommandInterface {
     @Override
     public int turtles() {
         //ERROR
+        return 0;
+    }
+    public int setImage(Integer index){
+        rawTurtleImage = TURTLE_IMAGE_ARRAYLIST.get(index);
+        turtleImage.setImage(rawTurtleImage);
+        System.out.println("Turtle image changed to index: " + index);
         return 0;
     }
 
