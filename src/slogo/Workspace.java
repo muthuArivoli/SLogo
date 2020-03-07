@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
+import slogo.configuration.Property;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -23,7 +24,7 @@ import java.security.PrivilegedExceptionAction;
 public class Workspace {
     private Visualizer vis;
     private FrontEndAPI fAPI;
-
+    private Property prop = new Property();
 
     public Workspace(Stage primaryStage) {
         Button runButton =new Button();
@@ -174,19 +175,19 @@ public class Workspace {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Help Dialogue");
                 alert.setHeaderText("Commands List");
-                alert.setContentText("FORWARD/FD                [pixels]\n\n" +
-                        "BACK/BK                           [pixels]\n\n" +
-                        "LEFT/LT                             [degrees]\n\n" +
-                        "RIGHT/RT                          [degrees]\n\n" +
-                        "SETHEADING/SETH     [degrees]\n\n" +
-                        "TOWARDS                        [x y]\n\n" +
-                        "SETXY/GOTO                  [x y]\n\n" +
-                        "PENDOWN/PD\n\n" +
-                        "PENUP/PU\n\n" +
-                        "SHOWTURTLE/ST\n\n" +
-                        "HIDETURTLE/HT\n\n" +
-                        "HOME\n\n" +
-                        "CLEARSCREEN/CS\n\n");
+                alert.setContentText(prop.getPropValues("helpLine1") + "\n\n" +
+                        prop.getPropValues("helpLine2") + "\n\n" +
+                        prop.getPropValues("helpLine3") + "\n\n" +
+                        prop.getPropValues("helpLine4") + "\n\n" +
+                        prop.getPropValues("helpLine5") + "\n\n" +
+                        prop.getPropValues("helpLine6") + "\n\n" +
+                        prop.getPropValues("helpLine7") + "\n\n" +
+                        prop.getPropValues("helpLine8") + "\n\n" +
+                        prop.getPropValues("helpLine9") + "\n\n" +
+                        prop.getPropValues("helpLine10") + "\n\n" +
+                        prop.getPropValues("helpLine11") + "\n\n" +
+                        prop.getPropValues("helpLine12") + "\n\n" +
+                        prop.getPropValues("helpLine13") + "\n\n");
                 alert.show();
             }
         });
