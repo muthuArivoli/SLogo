@@ -29,7 +29,7 @@ public class ColorMap {
 
     private HBox displayPallet;
 
-    public ColorMap(){
+    ColorMap(){
         myCMap = new HashMap<>();
         Color[] cArray = new Color[]{Color.BLACK, Color.WHITE, Color.RED, Color.BLUE, Color.GREEN,
             Color.YELLOW, Color.ORANGE, Color.PURPLE};
@@ -39,11 +39,11 @@ public class ColorMap {
         displayPallet=new HBox();
         setDisplayPallet();
     }
-    public Color getColor(int index){
+    Color getColor(int index){
         return myCMap.get(index);
     }
 
-    public void setPallet(int index, int r, int g, int b){
+    void setPallet(int index, int r, int g, int b){
         if(!myCMap.containsKey(index)){
             //ERROR
             System.out.println("outside of palette indexes");
@@ -89,7 +89,7 @@ public class ColorMap {
 
         displayPallet.getChildren().addAll(indexCol, colorCol, stringCol);
     }
-    public HBox getDisplayPallet(){
+    HBox getDisplayPallet(){
         return displayPallet;
     }
 }

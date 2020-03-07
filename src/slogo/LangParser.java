@@ -17,7 +17,7 @@ import slogo.XMLSaveLoadAndExceptions.ParserException;
      *
      * @author Robert C. Duvall
      */
-    public class LangParser {
+class LangParser {
         // where to find resources specifically for this class
         private static final String RESOURCES_PACKAGE = "resources.languages.";
         private final String ERROR = "SYMBOL CANNOT BE FOUND";
@@ -29,14 +29,14 @@ import slogo.XMLSaveLoadAndExceptions.ParserException;
         /**
          * Create an empty parser
          */
-        public LangParser () {
+        LangParser() {
             mySymbols = new ArrayList<>();
         }
 
         /**
          * Adds the given resource file to this language's recognized types
          */
-        public void addPatterns (String syntax) {
+        void addPatterns(String syntax) {
             ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntax);
             for (String key : Collections.list(resources.getKeys())) {
                 String regex = resources.getString(key);
@@ -49,7 +49,7 @@ import slogo.XMLSaveLoadAndExceptions.ParserException;
         /**
          * Returns language's type associated with the given text if one exists
          */
-        public String getSymbol (String text) {
+        String getSymbol(String text) {
 
             for (Entry<String, Pattern> e : mySymbols) {
                 if (match(text, e.getValue())) {

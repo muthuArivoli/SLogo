@@ -41,7 +41,7 @@ public class Parser {
         myLangParser.addPatterns("Syntax");
     }
 
-    public Executable parse(Scanner input) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    Executable parse(Scanner input) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         GroupEx runnableCode =new GroupEx();
         while (input.hasNextLine()) {
             Scanner line = new Scanner(input.nextLine());
@@ -61,7 +61,7 @@ public class Parser {
         return runnableCode;
     }
 
-    public void setLanguage(LangParser lp){
+    void setLanguage(LangParser lp){
         myLangParser=lp;
     }
 

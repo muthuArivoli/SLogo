@@ -69,18 +69,18 @@ public class ExecutablesGetter {
     private HashMap<String, Operation> OpMap;
     private HashMap<String,Class> classMap;
 
-    public ExecutablesGetter() {
+    ExecutablesGetter() {
         OpMap=new HashMap<>();
         classMap=new HashMap<>();
         setClassMap();
         setOpMap();
     }
 
-    public boolean containsKey(String s){
+    boolean containsKey(String s){
         return OpMap.containsKey(s)||classMap.containsKey(s);
     }
 
-    public Executable getExecutable (String s) throws InstantiationException,InvocationTargetException, IllegalAccessException{
+    Executable getExecutable(String s) throws InstantiationException,InvocationTargetException, IllegalAccessException{
         if(!containsKey(s)){
             System.out.println("given string is not a key");
         }

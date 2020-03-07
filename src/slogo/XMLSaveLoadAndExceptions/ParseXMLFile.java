@@ -28,8 +28,6 @@ public class ParseXMLFile {
     private Color penColor;
     private String currentScripts;
     private String pastScripts;
-    private File file;
-    private Document doc;
     private Element mainElement;
     private int numTurtles;
     private boolean parseFail;
@@ -46,10 +44,10 @@ public class ParseXMLFile {
      */
     private boolean readXMLFile() {
         try {
-            file = new File(filename);
+            File file = new File(filename);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            doc = db.parse(file);
+            Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
             NodeList nodeList = doc.getElementsByTagName("slogo");
             mainElement = (Element) nodeList.item(0);

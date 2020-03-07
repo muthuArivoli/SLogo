@@ -294,7 +294,7 @@ public class FrontEndAPI implements CommandInterface {
         return currentPenColor;
     }
 
-    public void setSelectedPenColor(Color c){
+    void setSelectedPenColor(Color c){
         currentPenColor=c;
         updatePenColor();
     }
@@ -317,15 +317,15 @@ public class FrontEndAPI implements CommandInterface {
         return ret;
     }
 
-    public void setBackgroundColorUsingXML(String newColor){
+    void setBackgroundColorUsingXML(String newColor){
         myTurtleView.setBackgroundColorUsingXML(newColor);
     }
 
-    public void setCurrentScriptUsingXML(String newCurrentScript){myDashboardView.setScript(newCurrentScript);};
+    void setCurrentScriptUsingXML(String newCurrentScript){myDashboardView.setScript(newCurrentScript);};
 
     public void setPastScriptsUsingXML(HistoryView newPastScripts) {myDashboardView.setPastScript(newPastScripts);}
 
-    public void addTurtle(int id){
+    private void addTurtle(int id){
         Turtle newT=new Turtle(width,height, currentPenColor,id);
         myTurtles.put(id, newT);
         myVisuals.getChildren().addAll(newT.getTurtleGroup());
@@ -335,11 +335,11 @@ public class FrontEndAPI implements CommandInterface {
         return myTurtleView.getBackgroundColor();
     }
 
-    public HBox getDisplayPalette(){
+    HBox getDisplayPalette(){
         return myPallet.getDisplayPallet();
     }
 
-    public int getPenSize(){
+    int getPenSize(){
         int ret=0;
         for(int i:currentTurtles){
             ret= myTurtles.get(i).getPenSize();
