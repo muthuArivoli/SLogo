@@ -68,7 +68,26 @@ public class Visualizer {
         myDashboard.getPastScript().addScript(script);
     }
 
+<<<<<<< HEAD
 
+=======
+    public Button getRunButton(){return myMenu.getRunButton();}
+    public ComboBox getLangSelection(){return myMenu.getLangSelection();}
+    public Button getPaletteButton(){return myMenu.getPaletteButton();}
+    public Button getFileButton(){return myMenu.getFileButton();}
+    public Button getPenButton(){return myMenu.getPenButton();}
+    public Button getHelpButton(){return myMenu.getHelpButton();}
+    public Button getMoveForwardButton(){return myControls.getMoveForwardButton();}
+    public Button getMoveBackwardButton(){return myControls.getMoveBackwardButton();}
+    public Button getTurnRightButton(){return myControls.getTurnRightButton();}
+    public Button getTurnLeftButton(){return myControls.getTurnLeftButton();}
+    public Button getSaveButton(){return myMenu.getSaveButton();}
+    public Button getLoadEnvironmentButtonButton(){return myMenu.getLoadEnvironmentButtonButton();}
+    public TextField getSaveTextField(){return myMenu.getSaveTextField();}
+    public TextField getLoadTextField(){return myMenu.getLoadTextField();}
+    public String getBackgroundColor() {return myTurtleView.getBackgroundColor();}
+    public void setBackgroundColorUsingXML(String newColor){myTurtleView.setBackgroundColorUsingXML(newColor); }
+>>>>>>> jdm
     public String getScript(){return myDashboard.getScript();}
 
     public void setScript(String input) {myDashboard.setScript(input);}
