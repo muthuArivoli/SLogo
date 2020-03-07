@@ -182,9 +182,8 @@ public class Parser {
     }
 
     private boolean createFunction(Scanner input, Scanner line) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        String name;
-        ArrayList<String> inputVarNames;
         VariableHolder funcVars=new VariableHolder();
+        String name;
         if(line.hasNext()){
             name = line.next().toLowerCase();
             if(eg.containsKey(name)){
@@ -196,6 +195,7 @@ public class Parser {
             System.out.println("no function name given");
             return false;
         }
+        ArrayList<String> inputVarNames;
         if(groupedInformationStarted(line)){
             inputVarNames=getFunctionVariableNames(line);
         }

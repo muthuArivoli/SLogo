@@ -1,21 +1,17 @@
 package slogo;
 
-import java.util.Collection;
-import slogo.Variables.CVariable;
 import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BackEndAPI {
     private Parser myParser;
-    private ArrayList<Executable> myPrograms;
+
     public BackEndAPI(){
-        myPrograms=new ArrayList<>();
         myParser=new Parser();
     }
     private Executable build(String s) throws IllegalAccessException, InstantiationException, InvocationTargetException {
