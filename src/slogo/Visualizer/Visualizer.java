@@ -47,6 +47,7 @@ public class Visualizer {
         BorderPane rootPane = new BorderPane();
         myScene = new Scene(rootPane, sceneWidth, sceneLength);
         rootPane.setRight(myDashboard);
+
         rootPane.setCenter(turtlePane);
         rootPane.setBottom(myControls);
         rootPane.setPadding(PADDING);

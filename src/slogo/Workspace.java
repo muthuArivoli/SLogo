@@ -32,6 +32,9 @@ public class Workspace {
     private static final int PALETTE_SCENE_HEIGHT = 500;
     private static final String PEN_UP = "Pen Up";
     private static final String PEN_DOWN = "Pen Down";
+    private static final String TITLE = "SLOGO: Team 19";
+
+
     private static final int MARGINS = 50;
     private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
     private static final int SECOND_SCENE_SIZE = 250;
@@ -71,7 +74,7 @@ public class Workspace {
                 langSelection,loadTextField, saveTextField,
                 moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton,
                 saveVariableButton);
-
+        primaryStage.setTitle(TITLE);
         primaryStage.setScene(vis.getScene());
         primaryStage.setResizable(false);
         primaryStage.show();
