@@ -1,6 +1,5 @@
 package slogo.XMLSaveLoadAndExceptions;
 
-<<<<<<< HEAD
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
@@ -8,10 +7,6 @@ import org.w3c.dom.Element;
 import slogo.FrontEndAPI;
 import slogo.Visualizer.Visualizer;
 
-=======
-import java.io.File;
-import java.util.List;
->>>>>>> jdm
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,14 +15,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-<<<<<<< HEAD
 import java.io.File;
-=======
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import slogo.Turtle;
-import slogo.Visualizer.Visualizer;
->>>>>>> jdm
 
 /**
  * This class serves to build an XMl document to contain the turtle environment passed
@@ -42,10 +30,6 @@ public class XMLFileBuilder {
     public static final String CURRENT_SCRIPTS_TAG = "currentScripts";
 
 
-<<<<<<< HEAD
-=======
-    private Turtle turtlesToSave;
->>>>>>> jdm
     private DocumentBuilderFactory documentFactory;
     private DocumentBuilder documentBuilder;
     private Document document;
@@ -58,20 +42,11 @@ public class XMLFileBuilder {
     private final static String XML_ENDING = ".xml";
     private final static String DEFAULT_FOLDER = "data/";
 
-<<<<<<< HEAD
     public XMLFileBuilder(FrontEndAPI fAPI, Visualizer vis, String filename) {
-         this.numTurtles = fAPI.turtles();
-         this.background = fAPI.getStringBackgroundColor();
-         this.penColor = fAPI.getPenPaintColor();
+        this.numTurtles = fAPI.turtles();
+        this.background = fAPI.getStringBackgroundColor();
+        this.penColor = fAPI.getPenPaintColor();
         this.currentScripts = vis.getScript();
-=======
-    public XMLFileBuilder(List<Turtle> turtles, Visualizer vis, String filename) {
-        this.turtlesToSave = turtles.get(turtles.lastIndexOf(turtles));
-        this.background = background;
-
-        //defaults to change later
-        //this.numTurtles = turtleNums;
->>>>>>> jdm
         this.filename = filename + XML_ENDING;
 
         try{
