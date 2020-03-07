@@ -2,13 +2,14 @@ package slogo.Visualizer;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
-import java.util.Map;
+import slogo.Variables.CVariable;
 
 public class DashboardView extends Pane {
   private static final double SPACING = 30;
@@ -19,19 +20,19 @@ public class DashboardView extends Pane {
   private ScriptView script;
   private VariableView variableList;
   private VBox dashboardPane;
-  public DashboardView() {
+  public DashboardView(Button saveVariablesButton) {
     dashboardPane = new VBox(SPACING);
     dashboardPane.prefHeightProperty().bind(this.heightProperty());
     dashboardPane.setPadding(PADDING);
 
     pastScripts = new HistoryView(this);
     script = new ScriptView();
-    variableList = new VariableView();
+    variableList = new VariableView(saveVariablesButton);
+
 
     dashboardPane.setMaxWidth(Double.MAX_VALUE);
     dashboardPane.setAlignment(Pos.CENTER_RIGHT);
     VBox.setVgrow(script, Priority.ALWAYS);
-    VBox.setVgrow(script, Priority.SOMETIMES);
 
     ScrollPane historyViewer = new ScrollPane();
     historyViewer.setContent(pastScripts);
@@ -41,7 +42,7 @@ public class DashboardView extends Pane {
 
     dashboardPane.getChildren()
         .addAll(historyViewer, script, variableList);
-
+    
     getChildren().add(dashboardPane);
     setHeight(dashboardPane.getMinHeight());
   }
@@ -52,20 +53,11 @@ public class DashboardView extends Pane {
   public VBox getDashboardPane() {
     return dashboardPane;
   }
-  public void addVariables(Map<String, String> variables) {
-    for (String varName: variables.keySet()) {
-      if (!variableList.getItems().contains(varName)) {
-        variableList.getItems().add(0, varName);
-        variableList.getItems().add(1, variables.get(varName));
-      } else {
-        int i = variableList.getColumns().indexOf(varName);
-
-      }
-    }
+  public TableView<CVariable> getVariableTable() {
+    return variableList.getTable();
   }
 public String getScript() { return script.getText();}
 public void setScript(String input) {script.setText(input);}
 public HistoryView getPastScript() { return pastScripts;}
 public void setPastScript(HistoryView input) {pastScripts = input;}
-
-        }
+}

@@ -1,5 +1,7 @@
 package slogo.Visualizer;
 
+import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -10,7 +12,7 @@ import slogo.FrontEndAPI;
 import slogo.configuration.Property;
 
 import java.util.ArrayList;
-import java.util.Properties;
+import slogo.Variables.CVariable;
 
 public class Visualizer {
     private static Integer sceneLength = 800;
@@ -26,13 +28,18 @@ public class Visualizer {
     public Visualizer(ColorPicker picker, Button runButton, Button saveButton, Button helpButton,
                       Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
                       ComboBox langSelection, TextField loadTextField, TextField saveTextField,
-                      Button moveForwardButton, Button moveBackwardButton, Button turnRightButton, Button turnLeftButton) {
+                      Button moveForwardButton, Button moveBackwardButton, Button turnRightButton, Button turnLeftButton,
+                      Button saveVariablesButton) {
 
         Pane turtlePane=new Pane();
         HBox menuPane=new HBox();
 
+        picker.setOnAction(event -> {
+            myTurtleView.updateBackgroundColor(picker.getValue());
+        });
+
         myTurtleView = new TurtleView(turtlePane);
-        myDashboard = new DashboardView();
+        myDashboard = new DashboardView(saveVariablesButton);
         new MenuView(menuPane,picker,runButton,saveButton,helpButton,paletteButton,penButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
         myControls = new GUIControllerView(moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton);
         rootPane = new BorderPane();
@@ -64,11 +71,18 @@ public class Visualizer {
 
     public String getScript(){return myDashboard.getScript();}
 
+    public void setScript(String input) {myDashboard.setScript(input);}
+
+    public ObservableList<CVariable> getVariableItems() {
+        return myDashboard.getVariableTable().getItems();
+    }
+
+    public void addVariables(List<CVariable> variables) {
+        myDashboard.getVariableTable().getItems().setAll(variables);
+    }
     public static Integer getSceneLength(){return sceneLength;}
 
-
     public static Integer getSceneWidth(){return sceneWidth;}
-
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

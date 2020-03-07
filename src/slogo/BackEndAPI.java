@@ -1,5 +1,8 @@
 package slogo;
 
+import java.util.Collection;
+import slogo.Variables.CVariable;
+import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 
 import java.io.File;
@@ -40,5 +43,8 @@ public class BackEndAPI {
         }
         Executable e = myParser.parse(sc);
         e.runCommands(fAPI);
+    }
+    public VariableHolder getVariables() {
+        return myParser.getVariableHolder();
     }
 }

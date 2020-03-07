@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import slogo.Variables.CVariable;
 import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
@@ -41,6 +42,7 @@ public class Workspace {
         Button loadEnvironmentButton = new Button();
         Button saveButton = new Button();
         Button fileButton = new Button();
+        Button saveVariableButton = new Button();
         Button penButton = new Button();
         ColorPicker cPicker = new ColorPicker();
         ComboBox langSelection = new ComboBox();
@@ -51,7 +53,8 @@ public class Workspace {
         vis = new Visualizer(cPicker,runButton,saveButton,helpButton,
                 paletteButton, penButton,fileButton,loadEnvironmentButton,
                 langSelection,loadTextField, saveTextField,
-                moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton);
+                moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton,
+                saveVariableButton);
 
         primaryStage.setScene(vis.getScene());
         primaryStage.setResizable(false);
@@ -66,6 +69,7 @@ public class Workspace {
             try {
                 bAPI.buildAndRun(vis.getScript(), fAPI);
                 vis.updateHistory(vis.getScript());
+                vis.addVariables(bAPI.getVariables().getVariables());
             }
             catch(IncorrectCommandException | IllegalAccessException | InvocationTargetException | InstantiationException ice){
                 vis.alertCreator("Build Failed",ice.getMessage());
@@ -209,6 +213,10 @@ public class Workspace {
                     vis.alertCreator("Run Failed", e.getMessage());
                 }
             }
+        });
+        saveVariableButton.setOnAction(event -> {
+            for (CVariable var: vis.getVariableItems())
+                bAPI.getVariables().setVariable(var.getName(), var);
         });
     }
 

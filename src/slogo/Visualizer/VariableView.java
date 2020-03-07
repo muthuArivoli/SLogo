@@ -1,26 +1,51 @@
 package slogo.Visualizer;
 
+import java.util.Map;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TextArea;
 
-public class VariableView extends TableView {
+import java.util.List;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import slogo.Variables.CVariable;
 
-  public VariableView() {
-    TableColumn<String, String> variableNameColumn = new TableColumn<>("Variable Name");
-    variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("variableName"));
+public class VariableView extends VBox {
+  private static final String SAVE_CHANGES = "Save Changes";
+  private TableView<CVariable> variableTable;
 
-    TableColumn<String, String> variableValueColumn = new TableColumn<>("Value");
-    variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("variableValue"));
-    this.getColumns().addAll(variableNameColumn, variableValueColumn);
-    this.setPrefHeight(200);
+  public VariableView(Button saveVariablesButton) {
+    super();
+    variableTable = new TableView<>();
+    variableTable.setPrefHeight(200);
+    variableTable.setEditable(true);
+
+    TableColumn<CVariable, String> variableNameColumn = new TableColumn<>("Variable Name");
+    variableNameColumn.setMinWidth(300);
+    variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+    TableColumn<CVariable, String> variableValueColumn = new TableColumn<>("Value");
+    variableValueColumn.setCellValueFactory(new PropertyValueFactory<>("dataTable"));
+    variableValueColumn.setMinWidth(200);
+    variableValueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    variableValueColumn.setOnEditCommit(event -> {
+      variableTable.getItems().get(event.getTablePosition().getRow()).setData(Integer.parseInt(event.getNewValue()));
+    });
+    variableNameColumn.setEditable(true);
+    variableTable.getColumns().addAll(variableNameColumn, variableValueColumn);
+
+    saveVariablesButton.setText(SAVE_CHANGES);
+
+    this.getChildren().addAll(variableTable, saveVariablesButton);
   } 
 
-//  private void displayVariables(Map<String, String> variableList) {
-//    StringBuilder varText = new StringBuilder();
-//    for (String s: variableList) {
-//      varText.append(this.getText()).append("\n");
-//    }
-//    this.setText(varText.toString());
-//  }
+  public TableView<CVariable> getTable() {
+    return variableTable;
+  }
 }

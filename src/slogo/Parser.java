@@ -1,5 +1,6 @@
 package slogo;
 
+import java.util.Collection;
 import slogo.Variables.CVariable;
 import slogo.Variables.VariableHolder;
 import slogo.commands.CommandEx;
@@ -249,6 +250,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Used for variable table view
+     * @return Collection of CVariable values
+     */
+    public VariableHolder getVariableHolder() {
+        return mainVariables;
+    }
     private boolean commentCheck(String word){
         return (word.charAt(0) == '#');
     }
