@@ -56,6 +56,11 @@ public class Visualizer {
 
     public Scene getScene() {return myScene;}
 
+    /**
+     * returns front end api for active turtles
+     * @param amount
+     * @return
+     */
     public FrontEndAPI getFrontEndAPI(int amount){
         ArrayList<Integer> activeTurtles = new ArrayList<>();
         activeTurtles.add(1);
@@ -68,7 +73,6 @@ public class Visualizer {
 
 
     public String getScript(){return myDashboard.getScript();}
-    public String getPastScript(){return myDashboard.getPastScriptViaXML();}
     public ObservableList<CVariable> getVariableItems() {
         return myDashboard.getVariableTable().getItems();
     }
@@ -77,7 +81,11 @@ public class Visualizer {
         myDashboard.getVariableTable().getItems().setAll(variables);
     }
 
-
+    /**
+     * Used to create alert popup boxes when exceptions are caught
+     * @param message1 header of popup box
+     * @param message2 shows error message
+     */
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(ERROR);

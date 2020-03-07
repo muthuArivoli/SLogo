@@ -56,28 +56,15 @@ public class DashboardView extends Pane {
         pastScripts = input;
     }
 
-    TableView<CVariable> getVariableTable() {
+    protected TableView<CVariable> getVariableTable() {
         return variableList.getTable();
     }
 
-    String getScript() {
+    protected String getScript() {
         return script.getText();
     }
 
     HistoryView getPastScript() {
         return pastScripts;
-    }
-
-    String getPastScriptViaXML() {
-        StringBuilder sb = new StringBuilder();
-        for (Node node : pastScripts.getChildren()) {
-            if (node instanceof Text) {
-                sb.append(((Text) node).getText());
-            }
-            else{
-                sb.append(node);
-            }
-        }
-        return sb.toString();
     }
 }

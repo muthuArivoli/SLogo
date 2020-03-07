@@ -41,7 +41,7 @@ public class VariableView extends VBox {
     this.getChildren().addAll(variableTable, saveVariablesButton);
   } 
 
-  public TableView<CVariable> getTable() {
+  protected TableView<CVariable> getTable() {
     return variableTable;
   }
 }

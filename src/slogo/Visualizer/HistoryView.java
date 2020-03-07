@@ -16,12 +16,10 @@ public class HistoryView extends TextFlow {
   private static final int MIN_HEIGHT = 200;
   private int counter;
   private DashboardView dashBoardView;
-  //private ArrayList<String> pastCommands;
   public HistoryView(DashboardView dbView) {
     super();
     this.setMinWidth(MIN_WIDTH);
     this.setMinHeight(MIN_HEIGHT);
-    //this.pastCommands = new ArrayList<>();
     this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     counter = 0;
     dashBoardView = dbView;
@@ -34,7 +32,6 @@ public class HistoryView extends TextFlow {
     Hyperlink script_link = new Hyperlink(input);
     Text text_2 = new Text("\n\n");
     this.getChildren().addAll(text_1, script_link, text_2);
-    //pastCommands.add(input);
     script_link.setOnAction(e -> dashBoardView.setScript(input));
   }
 }
