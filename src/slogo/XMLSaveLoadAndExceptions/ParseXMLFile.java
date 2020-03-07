@@ -15,9 +15,10 @@ import org.w3c.dom.NodeList;
 public class ParseXMLFile {
 
     public static final String DEFAULT_NUM_TURTLES_TAG = "1";
-    public static final String DEFAULT_BACKGROUND_COLOR_TAG = "background";
+    public static final String DEFAULT_BACKGROUND_COLOR_TAG = "";
     public static final String DEFAULT_CURRENT_SCRIPTS_TAG = "";
     public static final String DEFAULT_PAINT_COLOR_TAG = "";
+    public static final String DEFAULT_PAST_SCRIPTS_TAG = "";
 
 
     public static final String UNKNOWN_TAG_ERROR = "The tag %s was not found. Variable has been filled with default value: %s";
@@ -26,6 +27,7 @@ public class ParseXMLFile {
     private String backgroundColor;
     private Color penColor;
     private String currentScripts;
+    private String pastScripts;
     private File file;
     private Document doc;
     private Element mainElement;
@@ -56,6 +58,10 @@ public class ParseXMLFile {
             backgroundColor = getStringElementByTag("background", DEFAULT_BACKGROUND_COLOR_TAG);
             currentScripts = getStringElementByTag("currentScripts", DEFAULT_CURRENT_SCRIPTS_TAG);
             penColor = Color.web(getStringElementByTag("penColor", DEFAULT_PAINT_COLOR_TAG));
+            pastScripts = getStringElementByTag("pastScripts", DEFAULT_PAST_SCRIPTS_TAG);
+
+
+
             parseFail = false;
             return true;
         }
@@ -76,7 +82,7 @@ public class ParseXMLFile {
     public String getBackgroundColorFromAnInputtedFile() {return backgroundColor; }
     //need dash in front end API
     public String getCurrentScriptFromAnInputtedFile() {return currentScripts;}
-    //public String getPastScriptFromAnInputtedFile() {return pastScripts;}
+    public String getPastScriptFromAnInputtedFile() {return pastScripts;}
 
     public Color getPenColorFromAnInputtedFile() {return penColor;}
     public boolean getFailStatus(){return parseFail;}
@@ -98,12 +104,4 @@ public class ParseXMLFile {
         return Integer.parseInt(getStringElementByTag(tagName, defaultVal));
     }
 
-    /**
-     * Converts the string within tag tagName to a Double
-     * @param tagName
-     * @return
-     */
-    private double getDoubleElementByTag(String tagName, String defaultVal) {
-        return Double.parseDouble(getStringElementByTag(tagName, defaultVal));
-    }
 }
