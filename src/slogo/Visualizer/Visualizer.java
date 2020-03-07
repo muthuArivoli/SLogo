@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import slogo.Variables.CVariable;
 
 public class Visualizer {
-    private static Integer sceneLength = 800;
-    private static Integer sceneWidth = 1200;
+    private final static Integer sceneLength = 800;
+    private final static Integer sceneWidth = 1200;
 
     private BorderPane rootPane;
     private Scene myScene;

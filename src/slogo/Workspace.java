@@ -1,6 +1,5 @@
 package slogo;
 
-import com.sun.jdi.InvocationException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,12 +19,13 @@ import slogo.configuration.Property;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.security.PrivilegedExceptionAction;
 
 
 
 public class Workspace {
     private static final int HELPLINES = 14;
+    private static final int BUTTONMOVEDISTANCE = 25;
+    private static final int BUTTONROTATEDISTANCE = 30;
     private Visualizer vis;
     private FrontEndAPI fAPI;
     private Property prop = new Property();
@@ -77,19 +77,19 @@ public class Workspace {
         });
 
         moveForwardButton.setOnAction(event -> {
-            fAPI.forward(25);
+            fAPI.forward(BUTTONMOVEDISTANCE);
         });
 
         moveBackwardButton.setOnAction(event -> {
-            fAPI.back(25);
+            fAPI.back(BUTTONMOVEDISTANCE);
         });
 
         turnRightButton.setOnAction(event -> {
-            fAPI.right(30);
+            fAPI.right(BUTTONROTATEDISTANCE);
         });
 
         turnLeftButton.setOnAction(event -> {
-            fAPI.left(30);
+            fAPI.left(BUTTONROTATEDISTANCE);
         });
 
         penButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -149,7 +149,8 @@ public class Workspace {
         });
 
         langSelection.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
+            @Override
+            public void changed(ObservableValue ov, String t, String t1) {
                 bAPI.setLanguage(t1);
             }
         });
