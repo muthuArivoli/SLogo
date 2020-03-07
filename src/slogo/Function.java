@@ -10,7 +10,7 @@ public class Function extends Executable{
     private Executable e;
     private List<String> inputVariableNames;
     private List<Executable> myInputs;
-    public Function(VariableHolder funcVars, List<String> inputVariableNames, Executable e){
+    Function(VariableHolder funcVars, List<String> inputVariableNames, Executable e){
         this.funcVars=funcVars;
         this.inputVariableNames=inputVariableNames;
         this.e=e;

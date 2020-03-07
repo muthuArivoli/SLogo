@@ -24,8 +24,6 @@ import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.Property;
 
-
-
 public class Workspace {
     private static final int HELPLINES = 14;
     private static final int BUTTONMOVEDISTANCE = 25;
@@ -251,10 +249,16 @@ public class Workspace {
     }
     private void loadEnvironment(String input){
         ParseXMLFile newlyParsedFile = new ParseXMLFile(String.format("data/%s.xml", input));
-        fAPI = vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
-        fAPI.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
-        fAPI.setSelectedPenColor(newlyParsedFile.getPenColorFromAnInputtedFile());
-        fAPI.setCurrentScriptUsingXML(newlyParsedFile.getCurrentScriptFromAnInputtedFile());
+        if(newlyParsedFile.getFailStatus()){
+            vis.alertCreator("File failed to parse.", "Look at console for more information.");
+        }
+        else {
+
+            fAPI = vis.getFrontEndAPI(newlyParsedFile.getNumTurtlesFromAnInputtedFile());
+            fAPI.setBackgroundColorUsingXML(newlyParsedFile.getBackgroundColorFromAnInputtedFile());
+            fAPI.setSelectedPenColor(newlyParsedFile.getPenColorFromAnInputtedFile());
+            fAPI.setCurrentScriptUsingXML(newlyParsedFile.getCurrentScriptFromAnInputtedFile());
+        }
         //fAPI.setPastScriptsUsingXML(newlyParsedFile.get);
 
 

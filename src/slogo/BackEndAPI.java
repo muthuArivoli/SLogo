@@ -8,9 +8,10 @@ import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
 
 public class BackEndAPI {
+    private static final String FILE_NOT_FOUND_MESSAGE = "the file was not found";
     private Parser myParser;
 
-    public BackEndAPI(){
+    BackEndAPI(){
         myParser=new Parser();
     }
     private Executable build(String s) throws IllegalAccessException, InstantiationException, InvocationTargetException {
@@ -18,23 +19,23 @@ public class BackEndAPI {
         Executable e = myParser.parse(sc);
         return e;
     }
-    public void buildAndRun(String s, FrontEndAPI fAPI) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    void buildAndRun(String s, FrontEndAPI fAPI) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         Executable e = build(s);
         e.runCommands(fAPI);
     }
-    public void setLanguage(String language){
+    void setLanguage(String language){
         LangParser lp = new LangParser();
         lp.addPatterns(language);
         lp.addPatterns("Syntax");
         myParser.setLanguage(lp);
     }
-    public void runFile(File f, FrontEndAPI fAPI) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    void runFile(File f, FrontEndAPI fAPI) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         Scanner sc = null;
 
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            System.out.println("the file was not found");
+            System.out.println(FILE_NOT_FOUND_MESSAGE);
         }
         Executable e = myParser.parse(sc);
         e.runCommands(fAPI);

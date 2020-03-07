@@ -61,7 +61,7 @@ public class Turtle implements CommandInterface {
         this.currentColor= startingColor;
         updateTurtle();
     }
-    public boolean isActive() {
+    boolean isActive() {
         return active;
     }
     public int getXCor(){
@@ -83,10 +83,10 @@ public class Turtle implements CommandInterface {
     }
     @Override
     public int getPenColor() {return 0;}
-    public void setPenColor(Color color){this.currentColor=color;}
+    void setPenColor(Color color){this.currentColor=color;}
 
-    public int getPenSize() {return this.penSize;}
-    public void flipActive() {
+    int getPenSize() {return this.penSize;}
+    private void flipActive() {
         this.active = !active;
         if (active) {
             turtleImage.setImage((rawTurtleImage));
@@ -266,7 +266,7 @@ public class Turtle implements CommandInterface {
         //ERROR
         return 0;
     }
-    public int setImage(Integer index){
+    int setImage(Integer index){
         rawTurtleImage = TURTLE_IMAGE_ARRAYLIST.get(index);
         turtleImage.setImage(rawTurtleImage);
         System.out.println("Turtle image changed to index: " + index);
@@ -296,7 +296,7 @@ public class Turtle implements CommandInterface {
         return degrees;
     }
 
-    public Group getTurtleGroup(){
+    Group getTurtleGroup(){
         Group ret=new Group();
         ret.getChildren().addAll(turtleImage, myLines);
         return ret;

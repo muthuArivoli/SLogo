@@ -23,11 +23,9 @@ public class Visualizer {
     private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
     private static final String ERROR = "error";
 
-    private BorderPane rootPane;
     private Scene myScene;
     private TurtleView myTurtleView;
     private DashboardView myDashboard;
-    private GUIControllerView myControls;
 
     public Visualizer(ColorPicker picker, Button runButton, Button saveButton, Button helpButton,
                       Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
@@ -45,8 +43,8 @@ public class Visualizer {
         myTurtleView = new TurtleView(turtlePane);
         myDashboard = new DashboardView(saveVariablesButton);
         new MenuView(menuPane,picker,runButton,saveButton,helpButton,paletteButton,penButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
-        myControls = new GUIControllerView(moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton);
-        rootPane = new BorderPane();
+        GUIControllerView myControls = new GUIControllerView(moveForwardButton, moveBackwardButton, turnRightButton, turnLeftButton);
+        BorderPane rootPane = new BorderPane();
         myScene = new Scene(rootPane, sceneWidth, sceneLength);
         rootPane.setRight(myDashboard);
         rootPane.setCenter(turtlePane);
@@ -74,7 +72,6 @@ public class Visualizer {
 
 
     public String getScript(){return myDashboard.getScript();}
-
     public ObservableList<CVariable> getVariableItems() {
         return myDashboard.getVariableTable().getItems();
     }
@@ -84,9 +81,9 @@ public class Visualizer {
     }
 
     /**
-     * Used to create alert boxes when exceptions are caught
-     * @param message1 header
-     * @param message2
+     * Used to create alert popup boxes when exceptions are caught
+     * @param message1 header of popup box
+     * @param message2 shows error message
      */
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
