@@ -7,14 +7,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import slogo.configuration.Property;
 
 import java.util.Collection;
 import java.util.HashMap;
 
 public class ColorMap {
-    private static final String INDEX = "Index:";
-    private static final String WEB_VALUE = "Web Value:";
-    private static final String COLOR = "Color:";
+    private Property prop = new Property();
+    private final String INDEX = prop.getPropValues("colmap1");
+    private final String WEB_VALUE = prop.getPropValues("colmap2");
+    private final String COLOR = prop.getPropValues("colmap3");
     private static final int BASIC_SPACING = 10;
     private static final int COLOR_SPACING = 12;
     private static final Insets BASIC_PADDING = new Insets(BASIC_SPACING, BASIC_SPACING,

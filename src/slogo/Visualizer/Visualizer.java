@@ -7,8 +7,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import slogo.FrontEndAPI;
+import slogo.configuration.Property;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class Visualizer {
     private static Integer sceneLength = 800;
@@ -19,7 +21,7 @@ public class Visualizer {
     private TurtleView myTurtleView;
     private DashboardView myDashboard;
     private GUIControllerView myControls;
-
+    private Property prop = new Property();
 
     public Visualizer(ColorPicker picker, Button runButton, Button saveButton, Button helpButton,
                       Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
@@ -72,7 +74,7 @@ public class Visualizer {
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Dialog");
+        alert.setTitle(prop.getPropValues("error"));
         alert.setHeaderText(message1);
         alert.setContentText(message2);
         alert.showAndWait();
