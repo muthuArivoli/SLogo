@@ -1,5 +1,6 @@
 package slogo.Variables;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +33,6 @@ public class VariableHolder {
      * @return Collection of CVariable values
      */
     public List<CVariable> getVariables() {
-        return (List<CVariable>) myVariables.values();
+        return new ArrayList<>(myVariables.values());
     }
 }

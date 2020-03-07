@@ -77,7 +77,7 @@ public class Visualizer {
     }
 
     public void addVariables(List<CVariable> variables) {
-        getVariableItems().addAll((variables));
+        myDashboard.getVariableTable().getItems().setAll(variables);
     }
 
     public static Integer getSceneLength(){return sceneLength;}

@@ -24,13 +24,14 @@ public class VariableView extends VBox {
     super();
     variableTable = new TableView<>();
     variableTable.setPrefHeight(200);
+    variableTable.setEditable(true);
 
     TableColumn<CVariable, String> variableNameColumn = new TableColumn<>("Variable Name");
     variableNameColumn.setMinWidth(300);
     variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     TableColumn<CVariable, String> variableValueColumn = new TableColumn<>("Value");
-    variableValueColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+    variableValueColumn.setCellValueFactory(new PropertyValueFactory<>("dataTable"));
     variableValueColumn.setMinWidth(200);
     variableValueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     variableValueColumn.setOnEditCommit(event -> {

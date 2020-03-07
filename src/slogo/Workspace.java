@@ -56,7 +56,7 @@ public class Workspace {
         fAPI= vis.getFrontEndAPI(1);
 
         BackEndAPI bAPI=new BackEndAPI();
-        
+
         runButton.setOnAction(event -> {
             try {
                 bAPI.buildAndRun(vis.getScript(), fAPI);
