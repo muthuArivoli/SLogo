@@ -51,7 +51,7 @@ public class Visualizer {
         rootPane.setTop(menuPane);
     }
 
-//    public Property getProperty(ButtonProperty type) {
+    //    public Property getProperty(ButtonProperty type) {
 //        return switch (type) {
 //            case RUN -> myRunProperty;
 //        }

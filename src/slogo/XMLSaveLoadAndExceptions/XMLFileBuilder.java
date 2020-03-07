@@ -43,9 +43,9 @@ public class XMLFileBuilder {
     private final static String DEFAULT_FOLDER = "data/";
 
     public XMLFileBuilder(FrontEndAPI fAPI, Visualizer vis, String filename) {
-         this.numTurtles = fAPI.turtles();
-         this.background = fAPI.getStringBackgroundColor();
-         this.penColor = fAPI.getPenPaintColor();
+        this.numTurtles = fAPI.turtles();
+        this.background = fAPI.getStringBackgroundColor();
+        this.penColor = fAPI.getPenPaintColor();
         this.currentScripts = vis.getScript();
         this.filename = filename + XML_ENDING;
 

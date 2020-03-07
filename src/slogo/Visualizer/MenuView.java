@@ -43,15 +43,15 @@ public class MenuView {
 
         ObservableList<String> options =
                 FXCollections.observableArrayList(
-                    CHINESE,
-                    ENGLISH,
-                    FRENCH,
-                    GERMAN,
-                    ITALIAN,
-                    PORTUGUESE,
-                    RUSSIAN,
-                    SPANISH,
-                    URDU
+                        CHINESE,
+                        ENGLISH,
+                        FRENCH,
+                        GERMAN,
+                        ITALIAN,
+                        PORTUGUESE,
+                        RUSSIAN,
+                        SPANISH,
+                        URDU
                 );
         langSelection.setItems(options);
 
