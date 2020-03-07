@@ -33,6 +33,10 @@ public class Visualizer {
         Pane turtlePane=new Pane();
         HBox menuPane=new HBox();
 
+        picker.setOnAction(event -> {
+            myTurtleView.updateBackgroundColor(picker.getValue());
+        });
+
         myTurtleView = new TurtleView(turtlePane);
         myDashboard = new DashboardView(saveVariablesButton);
         new MenuView(menuPane,picker,runButton,saveButton,helpButton,paletteButton,penButton,fileButton,loadEnvironmentButton,langSelection,loadTextField,saveTextField);
