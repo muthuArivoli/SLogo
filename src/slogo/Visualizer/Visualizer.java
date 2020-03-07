@@ -54,7 +54,7 @@ public class Visualizer {
     public FrontEndAPI getFrontEndAPI(int amount){
         ArrayList<Integer> activeTurtles =new ArrayList<>();
         activeTurtles.add(1);
-        return new FrontEndAPI(myTurtleView, amount, activeTurtles);
+        return new FrontEndAPI(myTurtleView, myDashboard, amount, activeTurtles);
     }
 
     public void updateHistory(String script) {
@@ -64,10 +64,8 @@ public class Visualizer {
 
     public String getScript(){return myDashboard.getScript();}
 
-    public void setScript(String input) {myDashboard.setScript(input);}
-
-
     public static Integer getSceneLength(){return sceneLength;}
+
 
     public static Integer getSceneWidth(){return sceneWidth;}
 
