@@ -1,5 +1,6 @@
 package slogo;
 
+import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -8,8 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import slogo.configuration.Property;
-
-import java.util.HashMap;
 
 public class ColorMap {
 

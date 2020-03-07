@@ -1,11 +1,8 @@
 package slogo.commands;
 
-import javafx.scene.paint.Color;
-import slogo.Turtle;
-import slogo.configuration.CommandInterface;
-
 import java.util.ArrayList;
 import java.util.List;
+import slogo.configuration.CommandInterface;
 
 public class TellEx extends Executable {
     private ArrayList<Integer> turtles;

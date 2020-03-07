@@ -1,17 +1,19 @@
 package slogo.Visualizer;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import slogo.FrontEndAPI;
-import slogo.configuration.Property;
-
-import java.util.ArrayList;
 import slogo.Variables.CVariable;
 
 public class Visualizer {
@@ -26,7 +28,6 @@ public class Visualizer {
     private TurtleView myTurtleView;
     private DashboardView myDashboard;
     private GUIControllerView myControls;
-    private Property prop = new Property();
 
     public Visualizer(ColorPicker picker, Button runButton, Button saveButton, Button helpButton,
                       Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
@@ -54,11 +55,6 @@ public class Visualizer {
         rootPane.setTop(menuPane);
     }
 
-    //    public Property getProperty(ButtonProperty type) {
-//        return switch (type) {
-//            case RUN -> myRunProperty;
-//        }
-//    }
     public Scene getScene() {return myScene;}
 
     public FrontEndAPI getFrontEndAPI(int amount){
@@ -74,8 +70,6 @@ public class Visualizer {
 
     public String getScript(){return myDashboard.getScript();}
 
-    public void setScript(String input) {myDashboard.setScript(input);}
-
     public ObservableList<CVariable> getVariableItems() {
         return myDashboard.getVariableTable().getItems();
     }
@@ -83,9 +77,6 @@ public class Visualizer {
     public void addVariables(List<CVariable> variables) {
         myDashboard.getVariableTable().getItems().setAll(variables);
     }
-    public static Integer getSceneLength(){return sceneLength;}
-
-    public static Integer getSceneWidth(){return sceneWidth;}
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

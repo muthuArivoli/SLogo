@@ -1,8 +1,7 @@
 package slogo.commands;
 
-import slogo.configuration.CommandInterface;
-
 import java.util.List;
+import slogo.configuration.CommandInterface;
 
 public class TowardsEx extends Executable {
     private Executable d1;

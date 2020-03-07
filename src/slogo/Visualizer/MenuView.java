@@ -3,7 +3,11 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -13,7 +17,8 @@ public class MenuView {
 
 
     public static final int WIDTH_TEXTBOX = 150;
-    private static final Insets PADDING = new Insets(10, 10, 10, 10);
+    private static final int MARGINS = 10;
+    private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
 
     private Property prop = new Property();
     private final String FILE_ENTRY_PROMPT = prop.getPropValues("prompt1");

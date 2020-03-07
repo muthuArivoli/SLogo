@@ -1,19 +1,16 @@
 package slogo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import javafx.scene.Group;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import slogo.Visualizer.Visualizer;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Turtle implements CommandInterface {
     public static final int EAST_FACING_DEGREES = 90;

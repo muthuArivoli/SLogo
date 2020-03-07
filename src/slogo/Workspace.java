@@ -1,12 +1,19 @@
 package slogo;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -16,9 +23,6 @@ import slogo.Visualizer.Visualizer;
 import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.XMLSaveLoadAndExceptions.XMLFileBuilder;
 import slogo.configuration.Property;
-
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 
 
@@ -36,6 +40,10 @@ public class Workspace {
     private static final int SLIDER_WIDTH = 135;
     private static final int SPACING = 25;
     private static final int MAX_SLIDER_VALUE = 10;
+    private static final int X_OFFSET = 200;
+    private static final int Y_OFFSET = 100;
+    private static final String RUN_FAILED = "Run Failed";
+    private static final String NOT_INITIALIZED = "File could not be properly initialized";
     private Visualizer vis;
     private FrontEndAPI fAPI;
     private Property prop = new Property();
@@ -150,8 +158,8 @@ public class Workspace {
                 newWindow.setResizable(false);
 
                 // Set position of second window, related to primary window.
-                newWindow.setX(primaryStage.getX() + 200);
-                newWindow.setY(primaryStage.getY() + 100);
+                newWindow.setX(primaryStage.getX() + X_OFFSET);
+                newWindow.setY(primaryStage.getY() + Y_OFFSET);
 
                 newWindow.show();
             }
@@ -181,8 +189,8 @@ public class Workspace {
                 newWindow.setResizable(false);
 
                 // Set position of second window, related to primary window.
-                newWindow.setX(primaryStage.getX() + 200);
-                newWindow.setY(primaryStage.getY() + 100);
+                newWindow.setX(primaryStage.getX() + X_OFFSET);
+                newWindow.setY(primaryStage.getY() + Y_OFFSET);
 
                 newWindow.show();
             }
@@ -201,7 +209,7 @@ public class Workspace {
                         x = prop.getPropValues("helpLine" + i) + "\n\n";
                     }
                     catch (Exception e){
-                        vis.alertCreator("File could not be properly initialized",e.getMessage());
+                        vis.alertCreator(NOT_INITIALIZED,e.getMessage());
                     }
                     result += x; 
                     alert.setContentText(result);
@@ -228,7 +236,7 @@ public class Workspace {
                 try {
                     bAPI.runFile(file, fAPI);
                 } catch (Exception e) {
-                    vis.alertCreator("Run Failed", e.getMessage());
+                    vis.alertCreator(RUN_FAILED, e.getMessage());
                 }
             }
         });

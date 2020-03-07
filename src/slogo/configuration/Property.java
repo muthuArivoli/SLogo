@@ -1,6 +1,7 @@
 package slogo.configuration;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class Property {

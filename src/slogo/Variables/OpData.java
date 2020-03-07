@@ -1,11 +1,10 @@
 package slogo.Variables;
 
+import java.util.ArrayList;
+import java.util.List;
 import slogo.Operations.Operation;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OpData extends Executable {
 

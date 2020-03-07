@@ -1,9 +1,8 @@
 package slogo.commands;
 
+import java.util.List;
 import slogo.Variables.CVariable;
 import slogo.configuration.CommandInterface;
-
-import java.util.List;
 
 public class ForEx extends Executable {
 
