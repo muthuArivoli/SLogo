@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import slogo.Variables.CVariable;
 
 public class Visualizer {
-    private static Integer sceneLength = 800;
-    private static Integer sceneWidth = 1200;
+    private final static Integer sceneLength = 800;
+    private final static Integer sceneWidth = 1200;
 
     private BorderPane rootPane;
     private Scene myScene;
@@ -86,7 +86,7 @@ public class Visualizer {
 
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(prop.getPropValues("error"));
+        alert.setTitle("error");
         alert.setHeaderText(message1);
         alert.setContentText(message2);
         alert.showAndWait();

@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class TurtleView{
 
-    private static String myBackground;
+    private String myBackground;
     private Pane myPane;
     private String myBackgroundSyntax;
 

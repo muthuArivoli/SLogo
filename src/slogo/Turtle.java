@@ -33,9 +33,6 @@ public class Turtle implements CommandInterface {
     private Color currentColor;
     private int penSize;
 
-    private int sceneWidth = Visualizer.getSceneWidth();
-    private int sceneLength = Visualizer.getSceneLength();
-
     public Turtle(int width, int height, Color startingColor, int turtleID){
         this.turtleID=turtleID;
         this.xCor=0;

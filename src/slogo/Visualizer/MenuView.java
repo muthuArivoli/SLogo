@@ -3,20 +3,16 @@ package slogo.Visualizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import slogo.Turtle;
-import slogo.XMLSaveLoadAndExceptions.ParseXMLFile;
 import slogo.configuration.Property;
 
 public class MenuView {
 
 
     public static final int WIDTH_TEXTBOX = 150;
-    private static final int ENTRY_PADDING = 100;
     private static final Insets PADDING = new Insets(10, 10, 10, 10);
 
     private Property prop = new Property();
@@ -40,7 +36,6 @@ public class MenuView {
     private final String PALETTE = prop.getPropValues("button6");
     private final String SAVE = prop.getPropValues("button7");
     private final String LANGUAGES = prop.getPropValues("button8");
-    private final String STYLE_CSS = "button";
 
     public MenuView(HBox menuPane, ColorPicker picker, Button runButton, Button saveButton,
                     Button helpButton, Button paletteButton, Button penButton, Button fileButton, Button loadEnvironmentButton,
