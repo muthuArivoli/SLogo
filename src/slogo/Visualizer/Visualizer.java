@@ -78,6 +78,7 @@ public class Visualizer {
         myDashboard.getVariableTable().getItems().setAll(variables);
     }
 
+
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(ERROR);
