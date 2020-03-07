@@ -139,7 +139,7 @@ public class Workspace {
                 newWindow.setTitle("Pen Editor");
                 newWindow.setScene(secondScene);
                 newWindow.setResizable(false);
-                
+
                 // Set position of second window, related to primary window.
                 newWindow.setX(primaryStage.getX() + 200);
                 newWindow.setY(primaryStage.getY() + 100);

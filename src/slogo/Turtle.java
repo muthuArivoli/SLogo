@@ -299,10 +299,10 @@ public class Turtle implements CommandInterface {
 
     private void updateToolTip() {
         turtleTip.setText("ID: " + turtleID + "\n" +
-            "(X, Y): " + xCor +  ", " + yCor + "\n" +
-            "Heading = " + heading + "\n"  +
-            "Pen state: " + penDown + "\n" +
-            "Pen color: " + currentColor);
+                "(X, Y): " + xCor +  ", " + yCor + "\n" +
+                "Heading = " + heading + "\n"  +
+                "Pen state: " + penDown + "\n" +
+                "Pen color: " + currentColor);
     }
 
     // Image methods below --- :)
