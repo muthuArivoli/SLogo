@@ -186,7 +186,14 @@ public class Workspace {
                 alert.setHeaderText("Commands List");
                 String result = "";
                 for(int i=1; i<HELPLINES; i++){
-                    result += prop.getPropValues("helpLine" + i) + "\n\n";
+                    String x="";
+                    try {
+                        x = prop.getPropValues("helpLine" + i) + "\n\n";
+                    }
+                    catch (Exception e){
+                        vis.alertCreator("File could not be properly initialized",e.getMessage());
+                    }
+                    result += x; 
                     alert.setContentText(result);
                 }
                 alert.show();
