@@ -21,9 +21,9 @@ public class DashboardView extends Pane {
   private HistoryView pastScripts;
   private ScriptView script;
   private VariableView variableList;
-
+  private VBox dashboardPane;
   public DashboardView(Button saveVariablesButton) {
-    VBox dashboardPane = new VBox(SPACING);
+    dashboardPane = new VBox(SPACING);
     dashboardPane.prefHeightProperty().bind(this.heightProperty());
     dashboardPane.setPadding(PADDING);
 
@@ -51,8 +51,8 @@ public class DashboardView extends Pane {
   public TableView<CVariable> getVariableTable() {
     return variableList.getTable();
   }
-public String getScript() { return script.getText();}
+protected String getScript() { return script.getText();}
 public void setScript(String input) {script.setText(input);}
-public HistoryView getPastScript() { return pastScripts;}
+protected HistoryView getPastScript() { return pastScripts;}
 public void setPastScript(HistoryView input) {pastScripts = input;}
 }

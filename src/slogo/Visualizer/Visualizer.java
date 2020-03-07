@@ -57,6 +57,11 @@ public class Visualizer {
 
     public Scene getScene() {return myScene;}
 
+    /**
+     * returns front end api for active turtles
+     * @param amount
+     * @return
+     */
     public FrontEndAPI getFrontEndAPI(int amount){
         ArrayList<Integer> activeTurtles = new ArrayList<>();
         activeTurtles.add(1);
@@ -78,6 +83,11 @@ public class Visualizer {
         myDashboard.getVariableTable().getItems().setAll(variables);
     }
 
+    /**
+     * Used to create alert boxes when exceptions are caught
+     * @param message1 header
+     * @param message2
+     */
     public void alertCreator(String message1, String message2) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(ERROR);
