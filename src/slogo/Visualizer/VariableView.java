@@ -4,6 +4,7 @@ import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -16,15 +17,14 @@ import javafx.scene.layout.VBox;
 import slogo.Variables.CVariable;
 
 public class VariableView extends VBox {
-  private static final double MARGINS = 10;
-  private static final Insets PADDING = new Insets(MARGINS, MARGINS, MARGINS, MARGINS);
-  private static final String PLACEHOLDER = "This shows the list of variables";
   private static final String SAVE_CHANGES = "Save Changes";
   private TableView<CVariable> variableTable;
-  private Button saveVariable;
-  public VariableView() {
+
+  public VariableView(Button saveVariablesButton) {
     super();
     variableTable = new TableView<>();
+    variableTable.setPrefHeight(200);
+
     TableColumn<CVariable, String> variableNameColumn = new TableColumn<>("Variable Name");
     variableNameColumn.setMinWidth(300);
     variableNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -39,16 +39,12 @@ public class VariableView extends VBox {
     variableNameColumn.setEditable(true);
     variableTable.getColumns().addAll(variableNameColumn, variableValueColumn);
 
-    saveVariable = new Button(SAVE_CHANGES);
-    saveVariable.setPadding(PADDING);
-    this.getChildren().addAll(variableTable, saveVariable);
-    this.setPrefHeight(200);
+    saveVariablesButton.setText(SAVE_CHANGES);
+
+    this.getChildren().addAll(variableTable, saveVariablesButton);
   } 
 
-  public TableView<CVariable> getVariableTable() {
+  public TableView<CVariable> getTable() {
     return variableTable;
-  }
-  public Button getSaveVariableButton() {
-    return saveVariable;
   }
 }

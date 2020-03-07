@@ -1,6 +1,6 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ public class IfElseEx extends Executable {
         setParametersAmounts(3);
     }
     @Override
-    public int runCommands(Turtle t) {
+    public int runCommands(CommandInterface cInterface) {
         int ret=0;
-        if(d.runCommands(t)!=0){
-           ret=trueCommands.runCommands(t);
+        if(d.runCommands(cInterface)!=0){
+           ret=trueCommands.runCommands(cInterface);
         }
         else{
-            ret=falseCommands.runCommands(t);
+            ret=falseCommands.runCommands(cInterface);
         }
         return ret;
     }

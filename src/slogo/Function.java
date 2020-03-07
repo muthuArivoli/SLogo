@@ -2,6 +2,7 @@ package slogo;
 
 import slogo.Variables.VariableHolder;
 import slogo.commands.Executable;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -18,13 +19,13 @@ public class Function extends Executable{
     }
 
     @Override
-    public int runCommands(Turtle t){
+    public int runCommands(CommandInterface cInterface){
         int i=0;
         for(String variableName: inputVariableNames){
-            funcVars.getVariable(variableName).setData(myInputs.get(i).runCommands(t));
+            funcVars.getVariable(variableName).setData(myInputs.get(i).runCommands(cInterface));
             i++;
         }
-        return e.runCommands(t);
+        return e.runCommands(cInterface);
     }
 
     @Override

@@ -1,32 +1,47 @@
 package slogo;
 
 import javafx.scene.Group;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import slogo.Visualizer.TurtleView;
 import slogo.commands.Executable;
-import slogo.configuration.TurtleInterface;
+import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FrontEndAPI implements TurtleInterface {
+public class FrontEndAPI implements CommandInterface {
     private HashMap<Integer, Turtle> myTurtles;
     private ArrayList<Integer> currentTurtles;
     private Group myVisuals;
     private int width;
     private int height;
+    private ColorMap myPallet;
+    private Color currentPenColor;
+    private int currentPenColorIndex;
+    private TurtleView myTurtleView;
 
-    public FrontEndAPI(Group visuals, int width, int height, int numTurtles){
+
+    public FrontEndAPI(TurtleView tv, int numTurtles, ArrayList<Integer> activeTurtles){
+        this.myTurtleView=tv;
+        this.myPallet =new ColorMap();
         this.myTurtles = new HashMap<>();
-        this.myVisuals=visuals;
-        this.width=width;
-        this.height=height;
+        this.myVisuals=new Group();
+        this.myTurtleView.addGroup(myVisuals);
+        this.width=tv.getWidth();
+        this.height=tv.getHeight();
+        setPenColor(1);
+        this.currentTurtles = activeTurtles;
         for(int i =0 ; i< numTurtles;i++){
             addTurtle(i+1);
         }
     }
 
+    @Override
     public int turtles(){
         return myTurtles.size();
     }
 
+    @Override
     public int id(){
         int ret=0;
         for(int i:currentTurtles){
@@ -35,6 +50,7 @@ public class FrontEndAPI implements TurtleInterface {
         return ret;
     }
 
+    @Override
     public ArrayList<Integer> askWith(Executable e){
         ArrayList<Integer> old = currentTurtles;
         currentTurtles =new ArrayList<>();
@@ -46,12 +62,14 @@ public class FrontEndAPI implements TurtleInterface {
         return old;
     }
 
+    @Override
     public ArrayList<Integer> ask(ArrayList<Integer> turtles){
         ArrayList<Integer> old = currentTurtles;
         currentTurtles = turtles;
         return old;
     }
 
+    @Override
     public int tell(ArrayList<Integer> turtles){
         int ret=0;
         for(int i:turtles){
@@ -218,6 +236,58 @@ public class FrontEndAPI implements TurtleInterface {
     }
 
     @Override
+    public int setBackground(int index) {
+        myTurtleView.updateBackgroundColor(myPallet.getColor(index));
+        return index;
+    }
+
+    @Override
+    public int setPenColor(int index) {
+        currentPenColor = myPallet.getColor(index);
+        currentPenColorIndex = index;
+        updatePenColor();
+        return index;
+    }
+
+    @Override
+    public int setShape(int index) {
+        return 0;
+    }
+
+    @Override
+    public int setPallet(int index, int r, int g, int b) {
+        myPallet.setPallet(index, r, g, b);
+        return index;
+    }
+
+    @Override
+    public int setPenSize(int pixels) {
+        for(int i:currentTurtles){
+            myTurtles.get(i).setPenSize(pixels);
+        }
+        return pixels;
+    }
+
+    @Override
+    public int getPenColor() {
+        return currentPenColorIndex;
+    }
+
+    public Color getPenPaintColor(){
+        return currentPenColor;
+    }
+
+    public void setSelectedPenColor(Color c){
+        currentPenColor=c;
+        updatePenColor();
+    }
+
+    @Override
+    public int getShape() {
+        return 0;
+    }
+
+    @Override
     public int clearScreen() {
         int ret=0;
         for(int i:currentTurtles){
@@ -226,9 +296,35 @@ public class FrontEndAPI implements TurtleInterface {
         return ret;
     }
 
+    public void setBackgroundColorUsingXML(String newColor){
+        myTurtleView.setBackgroundColorUsingXML(newColor);
+    }
+
     public void addTurtle(int id){
-        Turtle newT=new Turtle(width,height,1);
+        Turtle newT=new Turtle(width,height, currentPenColor,id);
         myTurtles.put(id, newT);
         myVisuals.getChildren().addAll(newT.getTurtleGroup());
+    }
+
+    public String getStringBackgroundColor(){
+        return myTurtleView.getBackgroundColor();
+    }
+
+    public HBox getDisplayPalette(){
+        return myPallet.getDisplayPallet();
+    }
+
+    public int getPenSize(){
+        int ret=0;
+        for(int i:currentTurtles){
+            ret= myTurtles.get(i).getPenSize();
+        }
+        return ret;
+    }
+
+    private void updatePenColor(){
+        for(Turtle t: myTurtles.values()){
+            t.setPenColor(currentPenColor);
+        }
     }
 }

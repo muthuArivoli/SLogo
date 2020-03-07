@@ -1,14 +1,13 @@
 package slogo.Visualizer;
 
-import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 import java.util.*;
 import slogo.Variables.CVariable;
 
@@ -21,19 +20,19 @@ public class DashboardView extends Pane {
   private ScriptView script;
   private VariableView variableList;
   private VBox dashboardPane;
-  public DashboardView() {
+  public DashboardView(Button saveVariablesButton) {
     dashboardPane = new VBox(SPACING);
     dashboardPane.prefHeightProperty().bind(this.heightProperty());
     dashboardPane.setPadding(PADDING);
 
-    pastScripts = new HistoryView();
+    pastScripts = new HistoryView(this);
     script = new ScriptView();
-    variableList = new VariableView();
+    variableList = new VariableView(saveVariablesButton);
+
 
     dashboardPane.setMaxWidth(Double.MAX_VALUE);
     dashboardPane.setAlignment(Pos.CENTER_RIGHT);
     VBox.setVgrow(script, Priority.ALWAYS);
-    VBox.setVgrow(script, Priority.SOMETIMES);
 
     ScrollPane historyViewer = new ScrollPane();
     historyViewer.setContent(pastScripts);
@@ -50,10 +49,10 @@ public class DashboardView extends Pane {
   public VBox getDashboardPane() {
     return dashboardPane;
   }
-  public void addVariables(List<CVariable> variables) {
-    variableList.getVariableTable().getItems().addAll((variables));
+  public TableView<CVariable> getVariableTable() {
+    return variableList.getTable();
   }
   public String getScript() { return script.getText();}
   public void setScript(String input) {script.setText(input);}
-  protected HistoryView getPastScript() { return pastScripts;}
+  public HistoryView getPastScript() { return pastScripts;}
 }

@@ -4,41 +4,46 @@ import javafx.scene.Group;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class TurtleView extends Pane {
+public class TurtleView{
 
     private static String myBackground;
-    private Group myGroup;
     private Pane myPane;
     private String myBackgroundSyntax;
-    private String DEFAULT_BACKGROUND_COLOR = "#FFFFFF";
 
-    public TurtleView() {
+    public TurtleView(Pane p) {
         //will convert to group for liens etc
-        myGroup = new Group();
-        myPane = new Pane();
+        myPane = p;
         myBackgroundSyntax = "-fx-background-color: #";
-        myBackground = myBackgroundSyntax + DEFAULT_BACKGROUND_COLOR;
 
-        myPane.getChildren().addAll(myGroup);
         myPane.setBorder(new Border(new BorderStroke(Color.WHITE,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
-    public void addGroup(Group g){
-        myGroup.getChildren().addAll(g);
+
+    public void addGroup(Group toAdd){
+        myPane.getChildren().addAll(toAdd);
     }
 
     public void updateBackgroundColor(Color c) {
-        String hex = c.toString().substring(2,10);
+        System.out.println(c);
+        String hex = c.toString().substring(2,8);
         myBackground = myBackgroundSyntax + hex;
         myPane.setStyle(myBackground);
     }
+
     public void setBackgroundColorUsingXML(String newColor){
         myBackground = newColor;
         myPane.setStyle(myBackground);
     }
 
-    public Pane getPane() { return myPane;}
-    public static String getBackgroundColor() {return myBackground;}
+    public int getWidth(){
+        return (int) myPane.getWidth();
+    }
+
+    public int getHeight(){
+        return (int) myPane.getHeight();
+    }
+
+    public String getBackgroundColor() {return myBackground;}
 
 
 

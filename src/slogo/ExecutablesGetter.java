@@ -6,6 +6,7 @@ import slogo.Operations.Two.*;
 import slogo.Variables.OpData;
 import slogo.commands.*;
 import slogo.commands.Queries.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -81,6 +82,18 @@ public class ExecutablesGetter {
         classMap.put("IsShowing", ShowingQ.class);
         classMap.put("MakeUserInstruction", ToEx.class);
         classMap.put("ClearScreen", ClearScreenEx.class);
+        classMap.put("SetBackground", SetBackgroundEx.class);
+        classMap.put("SetPenColor", SetPenColorEx.class);
+        classMap.put("SetPenSize", SetPenSizeEx.class);
+        classMap.put("SetShape", SetShapeEx.class);
+        classMap.put("SetPalette", SetPaletteEx.class);
+        classMap.put("GetPenColor", GetPenColorEx.class);
+        classMap.put("GetShape", GetShapeEx.class);
+        classMap.put("ID", IDEx.class);
+        classMap.put("Turtles", TurtlesEx.class);
+        classMap.put("Tell", TellEx.class);
+        classMap.put("Ask", AskEx.class);
+        classMap.put("AskWith", AskWithEx.class);
     }
     private void setOpMap(){
         OpMap.put("Sum",new Sum());

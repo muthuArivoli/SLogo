@@ -1,6 +1,7 @@
 package slogo.Variables;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class VariableHolder {
     HashMap<String, CVariable> myVariables;
@@ -21,5 +22,16 @@ public class VariableHolder {
             myVariables.put(name, new CVariable(name));
         }
         return myVariables.get(name);
+    }
+
+    public void setVariable(String name, CVariable var){
+        myVariables.replace(name, var);
+    }
+    /**
+     * Used for variable table view
+     * @return Collection of CVariable values
+     */
+    public List<CVariable> getVariables() {
+        return (List<CVariable>) myVariables.values();
     }
 }

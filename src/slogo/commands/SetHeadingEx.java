@@ -1,6 +1,6 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ public class SetHeadingEx extends Executable {
         setParametersAmounts(1);
     }
     @Override
-    public int runCommands(Turtle t) {
-        return t.setHeading(d.runCommands(t));
+    public int runCommands(CommandInterface cInterface) {
+        return cInterface.setHeading(d.runCommands(cInterface));
     }
     @Override
     public void setMyParameters(List<Executable> parameters) {

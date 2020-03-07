@@ -1,10 +1,12 @@
 package slogo.commands;
 
-import slogo.Turtle;
+import slogo.Variables.CVariable;
+import slogo.configuration.CommandInterface;
 
 import java.util.List;
 
-public class DoTimesEx extends GExecutable {
+public class DoTimesEx extends Executable {
+    private CVariable myVariable;
     private Executable limit;
     private Executable e;
 
@@ -13,18 +15,24 @@ public class DoTimesEx extends GExecutable {
         setParametersAmounts(2);
     }
     @Override
-    public int runCommands(Turtle t) {
+    public int runCommands(CommandInterface cInterface) {
         int ret=0;
-        for(int i = 0; i<limit.runCommands(t); i++){
+        for(int i = 0; i<limit.runCommands(cInterface); i++){
             myVariable.setData(i);
-            ret=e.runCommands(t);
+            ret=e.runCommands(cInterface);
         }
         return ret;
     }
 
     @Override
     public void setMyParameters(List<Executable> parameters) {
-        limit=parameters.get(0);
+        List<Executable> groupMembers = getGroupFromExecutable(parameters.get(0)).getGroupMembers();
+        if(groupMembers.size()!=2){
+            System.out.println("Error: Expected 2 inputs in DoTimes and got: "+groupMembers.size());
+            //Throw exception;
+        }
+        myVariable = getVariableFromExecutable(groupMembers.get(0));
+        limit=groupMembers.get(1);
         e=parameters.get(1);
     }
 }

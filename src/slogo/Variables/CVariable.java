@@ -1,7 +1,7 @@
 package slogo.Variables;
 
-import slogo.Turtle;
 import slogo.commands.Executable;
+import slogo.configuration.CommandInterface;
 
 public class CVariable extends Executable {
     private String name;
@@ -24,9 +24,10 @@ public class CVariable extends Executable {
     public int getData(){
         return data;
     }
+    public String getName() { return name; }
 
     @Override
-    public int runCommands(Turtle t) {
+    public int runCommands(CommandInterface cInterface) {
         return data;
     }
 }
