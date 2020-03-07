@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import slogo.Visualizer.DashboardView;
 import slogo.Visualizer.HistoryView;
 import slogo.Visualizer.TurtleView;
-import slogo.Visualizer.Visualizer;
 import slogo.commands.Executable;
 import slogo.configuration.CommandInterface;
 import java.util.ArrayList;
@@ -256,7 +255,10 @@ public class FrontEndAPI implements CommandInterface {
 
     @Override
     public int setShape(int index) {
-        return 0;
+        for(int i:currentTurtles){
+            myTurtles.get(i).setImage(index);
+        }
+        return index;
     }
 
     @Override
